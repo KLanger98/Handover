@@ -1,7 +1,8 @@
-import { createTheme } from '@mantine/core';
+import { createTheme, Button } from '@mantine/core';
 
 export const theme = createTheme({
-    fontFamily: "niveau-grotesk, sans-serif",
+    fontFamily: "niveau-grotesk",
+    fontWeight: 300,
     colors: {
       blue: [
         "#f3f5f7",
@@ -79,5 +80,33 @@ export const theme = createTheme({
     primaryColor: 'red',
 
     defaultRadius: '7px',
+    radius: {
+        xs: '5px',
+        sm: '7px',
+        md: '10px',
+        lg: '13px',
+        xl: '15px'
+    },
+    headings: {
+        sizes: {
+            h4: {
+               
+                fontWeight: '300'
+            },
+        }
+    },
+    components: {
+        Button: Button.extend({
+        defaultProps: {
+            h: 45,
+            color: 'columbia-blue.0',
+            c: 'blue-grey.9',
+            px: '4',
+            py: '2',
+            fontSize: 17,
+            fontWeight: '400',
+        },
+        }),
+    },
     
   });

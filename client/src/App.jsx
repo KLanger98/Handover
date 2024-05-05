@@ -1,7 +1,9 @@
 // import { useState } from 'react'
-import { MantineProvider, createTheme, AppShell, Burger, Title } from '@mantine/core'
+import { Header, Navbar } from './containers';
+import { MantineProvider, AppShell, Burger } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks';
 import {theme} from './theme';
+import '@mantine/core/styles.css';
 // import { TopBar } from './components'
 
 
@@ -25,6 +27,7 @@ function App() {
   return (
    <MantineProvider theme={theme}>
     <AppShell
+      
       header={{ height: 60 }}
       navbar={{
         width: 300,
@@ -33,20 +36,23 @@ function App() {
       }}
       padding="md"
     >
-      <AppShell.Header >
+      <AppShell.Header p={5}bg='brown'>
+        
         <Burger
           opened={opened}
           onClick={toggle}
           hiddenFrom="sm"
           size="sm"
         />
-        <div style={{ height: 60}}>Logo</div>
+        <Header />
       </AppShell.Header>
 
-      <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
+      <AppShell.Navbar>
+        <Navbar />
+      </AppShell.Navbar>
 
       <AppShell.Main >
-      <Title color="red.9">MAIN </Title>
+     
       </AppShell.Main>
     </AppShell>
     </MantineProvider>
