@@ -1,3 +1,1 @@
-export { default as TopBar } from './TopBar/TopBar'
-
-
+export { default as HomeButton } from './HomeButton'
