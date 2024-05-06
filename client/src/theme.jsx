@@ -1,4 +1,5 @@
 import { createTheme, Button } from '@mantine/core';
+import button_styles from './mantine-modules/Button.module.scss'
 
 export const theme = createTheme({
     fontFamily: "niveau-grotesk",
@@ -89,6 +90,9 @@ export const theme = createTheme({
     },
     headings: {
         sizes: {
+            h3: {
+                fontWeight: 400
+            },
             h4: {
                
                 fontWeight: '300'
@@ -96,17 +100,18 @@ export const theme = createTheme({
         }
     },
     components: {
-        Button: Button.extend({
-        defaultProps: {
-            h: 45,
-            color: 'columbia-blue.0',
-            c: 'blue-grey.9',
-            px: '4',
-            py: '2',
-            fontSize: 17,
-            fontWeight: '400',
-        },
-        }),
+        // Button: Button.extend({
+        // defaultProps: {
+        //     h: 38,
+        //     color: 'columbia-blue.0',
+        //     c: 'blue.9',
+        //     px: '4',
+        //     py: '2',
+        //     fontSize: 17,
+        //     fontWeight: '400',
+        // },
+        // }),
+        Button: Button.extend({ classNames: button_styles.button})
     },
     
   });

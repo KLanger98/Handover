@@ -1,19 +1,27 @@
-import { useMantineTheme } from '@mantine/core'
+import {Button, Title} from '@mantine/core'
+import { HomeSquareIcon } from '../components'
+import { useState } from 'react'
+  
+const HomeButton = ({content=''}) => {
+    const [hover, setHover] = useState(false);
 
-const HomeButton = () => {
-    const theme = useMantineTheme();
-  return (
-    <div style={{ 
-        width:"35px",
-        height:"35px", 
-        borderRadius: theme.radius['sm'], 
-        backgroundColor: theme.colors["columbia-blue"][3],
-        alignContent: "center",
-        fontSize: '18px',
-        fontWeight: 500,
-        color: "white"
-    }}>D</div>
-  )
+    content = content.trim();
+    const firstLetter = content[0];
+    return (
+        <Button 
+            onMouseEnter={()=>setHover(true)}
+            onMouseLeave={()=>setHover(false)}
+            variant='dashboard'
+            leftSection={<HomeSquareIcon hover={hover} setHover={setHover} content={firstLetter} height="30px" width="30px"/>} 
+            rightSection={<span />}
+            justify='left'
+            >
+            <Title order={4} size={20}
+            >
+                {content}
+            </Title>
+            </Button>
+    )
 }
 
 export default HomeButton
