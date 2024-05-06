@@ -1,16 +1,30 @@
-import { Stack, Button, Title } from '@mantine/core'
+import { Stack, Button, Title, Divider } from '@mantine/core'
 import { HomeButton } from '../../components'
+
+
 const Navbar = () => {
+
+
   return (
-    <Stack p={5}>
+    <Stack p={5} gap={10} py={10}>
+       <HomeButton content='Dashboard'/>
+        <Divider></Divider>
+
         <Button 
-        leftSection={<HomeButton letter="D"/>} 
-        rightSection={<span />}
+        variant='normal'
         justify='left'
         >
-          <Title order={4}
-          >
-            Dashboard
+          <Title order={4}>
+            Handover
+          </Title>
+        </Button>
+
+        <Button 
+        variant='normal' 
+        justify='left'
+        >
+          <Title order={4}>
+            Process Library
           </Title>
         </Button>
     </Stack>
