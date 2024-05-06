@@ -1,5 +1,6 @@
 // import { useState } from 'react'
 import { Header, Navbar } from './containers';
+import { Dashboard } from './pages'
 import { MantineProvider, AppShell, Burger } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks';
 import {theme} from './theme';
@@ -52,6 +53,8 @@ function App() {
       </AppShell.Navbar>
 
       <AppShell.Main >
+
+        <Dashboard />
      
       </AppShell.Main>
     </AppShell>
