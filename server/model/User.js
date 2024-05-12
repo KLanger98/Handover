@@ -1,9 +1,13 @@
 const { Schema, model } = require('mongoose');
+const bcrypt = require('bcrypt')
 
-const ProcessSchema = new Schema(
+const userSchema = new Schema(
   {
     email: {
       type: String,
+      required: true,
+      unique: true,
+      match: [/.+@.+\..+/, 'Must use a valid email address'],
     },
     firstName: {
         type: Text,
@@ -12,11 +16,15 @@ const ProcessSchema = new Schema(
       type: Date,
       default: Date.now,
     },
+    password: {
+      type: String,
+      required: true,
+    },
     userProfession: [],
     
   }
 );
 
-const Process = model('process', ProcessSchema);
+const User = model('user', userSchema);
 
-module.exports = Process;
+module.exports = User;
