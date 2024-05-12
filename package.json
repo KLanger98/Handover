@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/KLanger98/Handover/issues"
   },
-  "homepage": "https://github.com/KLanger98/Handover#readme"
+  "homepage": "https://github.com/KLanger98/Handover#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
