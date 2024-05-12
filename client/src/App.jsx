@@ -1,7 +1,10 @@
 // import { useState } from 'react'
 import { MantineProvider, createTheme, AppShell, Burger, Title, Button} from '@mantine/core'
+import { Header, Navbar } from './containers';
+import { Dashboard } from './pages'
 import { useDisclosure } from '@mantine/hooks';
 import {theme} from './theme';
+import '@mantine/core/styles.css';
 // import { TopBar } from './components'
 
 import "@mantine/core/styles.css";
