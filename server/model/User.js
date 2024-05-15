@@ -7,23 +7,49 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      match: [/.+@.+\..+/, 'Must use a valid email address'],
+      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
     },
     firstName: {
-        type: Text,
+        type: String,
+        required: true
     },
     lastName: {
-      type: Date,
-      default: Date.now,
+      type: String,
+      required: true
     },
     password: {
       type: String,
       required: true,
+      minlength: 5
     },
-    userProfession: [],
+    userProfession: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'profession'
+            }
+        ],
+    company: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'company'
+      }
+    ]
     
   }
 );
+
+userSchema.pre('save', async function (next) {
+  if (this.isNew || this.isModified('password')) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
+  }
+
+  next();
+});
+
+userSchema.methods.isCorrectPassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
 
 const User = model('user', userSchema);
 
