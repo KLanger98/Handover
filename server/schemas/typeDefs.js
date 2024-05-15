@@ -15,7 +15,7 @@ const typeDefs = `
     }
 
     type Process {
-        _id
+        _id: ID!
         processTitle: String!
         processText: String!
         category: String
@@ -23,14 +23,14 @@ const typeDefs = `
     }
 
     type Task {
-        _id
+        _id: ID!
         taskTitle: String!
         taskText: String!
         referenceProcesses: [ID]
     }
 
     type Company {
-        _id
+        _id: ID!
         companyName: String!
         companyAddress: String!
         companyProcesses: [ID]
@@ -39,7 +39,7 @@ const typeDefs = `
     }
 
     type Profession {
-        _id
+        _id: ID!
         professionName: String!
         company: ID!
     }
@@ -47,23 +47,16 @@ const typeDefs = `
     type Query {
         user(user: ID!): User
         users: [User]
+        me: User
     }
 
     type Mutation{
         addUser(email: String!, password: String!, firstName: String!, lastName: String!): User
         login(email: String!, password: String!): Auth
         removeUser: User
+        
 
-        addProcess(): Process
-        updateProcess(): Process
-        removeProcess(): Process
-
-        addTask(): Task
-        removeTask(): Task
-
-        addProfession(): Profession
-
-        addCompany(): Company
+        
 
     }
 
@@ -71,3 +64,14 @@ const typeDefs = `
 
 `
 module.exports = typeDefs;
+
+// addProcess(): Process
+//         updateProcess(): Process
+//         removeProcess(): Process
+
+//         addTask(): Task
+//         removeTask(): Task
+
+//         addProfession(): Profession
+
+//         addCompany(): Company

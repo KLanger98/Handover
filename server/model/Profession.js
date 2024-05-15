@@ -9,8 +9,8 @@ const professionSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'company'
     }
-    professionDailyTasks: [],
-    referrals: [],
+    // professionDailyTasks: [],
+    // referrals: [],
 });
 
 const Profession = model('profession', professionSchema);
