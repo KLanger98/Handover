@@ -7,6 +7,8 @@ import {theme} from './theme.jsx';
 import '@mantine/core/styles.css';
 // import { TopBar } from './components'
 
+import { Outlet } from 'react-router-dom'
+
 import "@mantine/core/styles.css";
 
 import './App.css'
@@ -72,14 +74,8 @@ function App() {
         <Header />
       </AppShell.Header>
 
-      <AppShell.Navbar>
-        <Navbar />
-      </AppShell.Navbar>
-
       <AppShell.Main >
-
-        <Dashboard />
-     
+        <Outlet/>
       </AppShell.Main>
     </AppShell>
       </MantineProvider>

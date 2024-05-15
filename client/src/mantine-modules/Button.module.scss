@@ -25,4 +25,17 @@ button{
         } 
     }
 
+    &[data-variant='header'] {
+        height: 38px;
+        background-color: transparent; /* Assuming columbia-blue-0 is defined in your CSS variables */
+        color: "white";
+        /* Uncomment and modify the line below if you define hover color in CSS variables */
+        &:hover {
+            color: white;
+            background-color: #8d665b;
+        } 
+    }
+
+
+
 }
