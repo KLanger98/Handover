@@ -1,4 +1,4 @@
-
+import ropTypes from 'prop-types';
 
 const Container = ({ children }) => {
   return (
@@ -15,6 +15,11 @@ const Container = ({ children }) => {
 
     </div>
   )
+}
+
+Container.propTypes = {
+
+  children: ropTypes.node
 }
 
 export default Container

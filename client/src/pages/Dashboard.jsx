@@ -1,26 +1,26 @@
 import { useMantineTheme, Stack, Title, Text, Grid } from '@mantine/core'
 import { useEffect } from 'react'
-import { Task } from '../components'
+import { Activity } from '../components'
 const Dashboard = () => {
     const theme = useMantineTheme();
 
-    //Create a Task Object
+    //Create a Activity Object
     //     2 Types:
     //     - Clicking Opens Module with Details: Title, Desc, Processes
-    //     - Clicking Completes the task
-    // Both are tasks that can be completed but the former must have a click on the checkbox to be completed
+    //     - Clicking Completes the Activity
+    // Both are Activitys that can be completed but the former must have a click on the checkbox to be completed
     // {
     // title,
     // desc,
     // processes: []
     // user: User Object (name, profileImg)
     // }
-    // Create a Task Object that has the commonalities
+    // Create a Activity Object that has the commonalities
     // Extend it to create one with differences
     const referrals = [
         {
             title: "Bennedict has fallen",
-            desc: "Fortunately, for the kingdom, Bennedict has finally fallen.",
+            desc: "Fortunately, for the kingdom...",
         },
         {
             title: "Sir Ian is sore on le caboose",
@@ -55,11 +55,11 @@ const Dashboard = () => {
             
         */}
 
-        <Task title="Referrals" tasks={referrals} />
+        <Activity title="Referrals" items={referrals} />
 
-        <Task title="Daily Tasks" />
+        <Activity title="Daily Activities" />
         
-        <Task title="Processes" />
+        <Activity title="Processes" />
 
 
     </Stack>

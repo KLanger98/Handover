@@ -1,8 +1,9 @@
 import {Button, Title} from '@mantine/core'
 import { HomeSquareIcon } from '../components'
 import { useState } from 'react'
+import { PropTypes } from 'prop-types'
   
-const HomeButton = ({content=''}) => {
+const HomeButton = ({ content='' }) => {
     const [hover, setHover] = useState(false);
 
     content = content.trim();
@@ -23,5 +24,10 @@ const HomeButton = ({content=''}) => {
             </Button>
     )
 }
+
+HomeButton.propTypes = {
+    content: PropTypes.string
+};
+
 
 export default HomeButton
