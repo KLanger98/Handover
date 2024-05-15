@@ -1,4 +1,9 @@
  @import url("https://use.typekit.net/fcz1cql.css");
+define color variable
+:root {
+  --hover-grey: rgb(235, 68, 68);
+  --border-color: rgba(222.32, 226.13, 230.45);
+}
 /*
 :root {
   font-family: "niveau-grotesk", sans-serif;

@@ -1,0 +1,14 @@
+.activity-item {
+    // padding-top: 3px;
+    // padding-bottom: 12px;
+    height:35px;
+    border-bottom: 1px solid rgba(222.32, 226.13, 230.45);
+    align-content: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none; 
+}
+.activity-item.hover {
+    background-color: rgb(241, 242, 243);
+}
+
