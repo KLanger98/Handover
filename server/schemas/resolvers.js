@@ -19,21 +19,21 @@ const resolvers = {
 
         },
 
-        //Process related queries
-        findProcesses: async (parent, {}) => {
+        // //Process related queries
+        // findProcesses: async (parent, {}) => {
 
-        },
-        findProcess: async (parent, {}) => {
+        // },
+        // findProcess: async (parent, {}) => {
 
-        },
+        // },
 
-        //Task related queries
-        findTasks: async (parent, {}) => {
+        // //Task related queries
+        // findTasks: async (parent, {}) => {
 
-        },
-        findTask: async (parent, {}) => {
+        // },
+        // findTask: async (parent, {}) => {
 
-        },
+        // },
         //Profession related queries
 
         //Company related queries
@@ -55,31 +55,31 @@ const resolvers = {
             throw AuthenticationError;
         },
 
-        //Process mutation methods
-        addProcess: async (parent, {}) => {
+        // //Process mutation methods
+        // addProcess: async (parent, {}) => {
 
-        },
-        updateProcess: async (parent, {}) => {
+        // },
+        // updateProcess: async (parent, {}) => {
 
-        },
-        removeProcess: async (parent, {}) => {
+        // },
+        // removeProcess: async (parent, {}) => {
 
-        },
-        //Task mutation methods
-        addTask: async (parent, {}) => {
+        // },
+        // //Task mutation methods
+        // addTask: async (parent, {}) => {
 
-        },
-        removeTask: async (parent, {}) => {
+        // },
+        // removeTask: async (parent, {}) => {
             
-        },
-        //Profession Mutation methods
-        addProfession: async (parent, {}) => {
+        // },
+        // //Profession Mutation methods
+        // addProfession: async (parent, {}) => {
             
-        },
-        //Company Mutation methods
-        addCompany: async (parent, {}) => {
+        // },
+        // //Company Mutation methods
+        // addCompany: async (parent, {}) => {
             
-        },
+        // },
     }
 }
 
