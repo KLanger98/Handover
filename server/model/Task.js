@@ -1,12 +1,12 @@
 const { Schema, model } = require('mongoose');
 
-const processSchema = new Schema(
+const taskSchema = new Schema(
   {
-    processTitle: {
+    taskTitle: {
       type: String,
       required: true
     },
-    processText: {
+    taskText: {
         type: String,
         required: true
     },
@@ -14,19 +14,20 @@ const processSchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    category: {
-      type: String
-    },
     referenceProcesses: [
       {
         type: Schema.Types.ObjectId,
         ref: 'process'
       }
-    ]
+    ],
+    taskCompleted: {
+        type: Boolean, 
+        default: false
+    }
 
   }
 );
 
-const Process = model('process', processSchema);
+const Task = model('task', taskSchema);
 
-module.exports = Process;
+module.exports = Task;
