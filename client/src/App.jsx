@@ -1,9 +1,9 @@
 // import { useState } from 'react'
-import { MantineProvider, createTheme, AppShell, Burger, Title, Button} from '@mantine/core'
+import { MantineProvider, AppShell, Burger } from '@mantine/core'
 import { Header, Navbar } from './containers';
 import { Dashboard } from './pages'
 import { useDisclosure } from '@mantine/hooks';
-import {theme} from './theme';
+import {theme} from './theme.jsx';
 import '@mantine/core/styles.css';
 // import { TopBar } from './components'
 
@@ -32,7 +32,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  cache: InMemoryCache(),
+  cache: new InMemoryCache(),
   // link: authLink.concat(HttpLink)
 })
 
@@ -47,36 +47,41 @@ function App() {
   //     light: 'cyan',
   //   }),
   // },
-  const blueBtn = theme.colors.blue[0];
+
   return (
     <ApolloProvider client={client}>
       <MantineProvider theme={theme}>
-        <AppShell
-          header={{ height: 60 }}
-          navbar={{
-            width: 300,
-            breakpoint: "sm",
-            collapsed: { mobile: !opened },
-          }}
-          padding="md"
-        >
-          <AppShell.Header>
-            <Button color="columbiaBlue.5">Hello</Button>
-            <Burger
-              opened={opened}
-              onClick={toggle}
-              visibleFrom="sm"
-              size="lg"
-            />
-            <div style={{ height: 60 }}>Logo</div>
-          </AppShell.Header>
+      <AppShell
+      
+      header={{ height: 60 }}
+      navbar={{
+        width: 300,
+        breakpoint: 'sm',
+        collapsed: { mobile: !opened },
+      }}
+      padding="md"
+    >
+      <AppShell.Header p={5}bg='brown'>
+        
+        <Burger
+          opened={opened}
+          onClick={toggle}
+          hiddenFrom="sm"
+          size="sm"
+        />
+        <Header />
+      </AppShell.Header>
 
-          <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
+      <AppShell.Navbar>
+        <Navbar />
+      </AppShell.Navbar>
 
-          <AppShell.Main>
-            <Title color="blue.2">MAIN </Title>
-          </AppShell.Main>
-        </AppShell>
+      <AppShell.Main >
+
+        <Dashboard />
+     
+      </AppShell.Main>
+    </AppShell>
       </MantineProvider>
     </ApolloProvider>
   );
