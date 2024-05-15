@@ -1,0 +1,39 @@
+.tickbox{
+    display: flex;
+    padding:3px;
+    align-items: center;
+    justify-content: center;
+
+    .box{
+        width: 17px;
+        height: 17px;
+        border: 0.8px solid var(--mantine-color-brown-6);
+        border-radius:4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+            border: 1px solid var(--mantine-color-brown-3)
+        }
+
+        .tick {
+            position: relative;
+            width: 17px;
+            height: 17px;
+            top:-7px;
+            left:5px;
+     
+            .flag{
+            
+                transition: ease-in-out 0.1s;
+                &:hover{
+                 
+                    transition: ease-in-out 0.2s;
+                }
+             
+            }
+        }
+    }
+}

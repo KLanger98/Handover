@@ -92,7 +92,6 @@ export const theme = createTheme({
         sizes: {
             h2: {
                 fontWeight: 400,
-                c: 'columbia-blue.2'
             },
             h3: {
                 fontWeight: 400
