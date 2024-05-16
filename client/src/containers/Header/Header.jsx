@@ -1,9 +1,6 @@
 import { Button, Title, Space, Flex } from '@mantine/core';
 import {Link} from 'react-router-dom'
 
-let buttonStyle ={
-  color: "white"
-}
 
 const Header = () => {
   return (
@@ -14,12 +11,12 @@ const Header = () => {
             <Title order={4}>About</Title>
           </Button>
         </Link>
-        <Link>
+        <Link to="login">
           <Button variant="header" justify="left" >
             <Title order={4}>Login</Title>
           </Button>
         </Link>
-        <Link>
+        <Link to="signup">
           <Button variant="header" justify="left" >
             <Title order={4}>SignUp</Title>
           </Button>
