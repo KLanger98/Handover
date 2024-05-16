@@ -1,0 +1,14 @@
+.activity-container {
+
+    display: block;
+    width: 100%;
+    padding-bottom: 10px;
+    border: 1px solid;
+    border-color: rgba(0, 0, 0, .10);
+    border-radius: var(--mantine-radius-md);
+    user-select: none;
+
+    * {
+        user-select: none;
+    }
+}

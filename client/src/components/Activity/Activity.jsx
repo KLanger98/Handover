@@ -11,11 +11,11 @@ const Activity = ({ title='', items=[], type='task'}) => {
     <Container> 
       <Stack gap={0}>
         {/* Activity Title */}
-        <Title order={3} c='blue-grey.9' align='left' pt={0} pb={7}>
+        <Title order={3} c='blue-grey.9' align='left' pb={15} pt={15} pl={22}>
           {title} 
         </Title>
   
-        <Divider/>
+        <Divider className='divider'/>
 
         <Stack gap={0}>
           {

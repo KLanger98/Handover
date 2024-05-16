@@ -1,6 +1,9 @@
 import { useMantineTheme, Stack, Title, Text, Grid } from '@mantine/core'
 import { useEffect } from 'react'
 import { Activity } from '../components'
+
+import { images }  from '../../assets/';
+
 const Dashboard = () => {
     const theme = useMantineTheme();
 
@@ -12,28 +15,64 @@ const Dashboard = () => {
     // {
     // title,
     // desc,
-    // processes: []
+    // type: 'task' || 'referral' || 'process',
+    // items: []
     // user: User Object (name, profileImg)
     // }
     // Create a Activity Object that has the commonalities
     // Extend it to create one with differences
+
+
     const referrals = [
         {
             title: "Bennedict has fallen",
             desc: "Fortunately, for the kingdom...",
+            assignedUser: {
+                name: "Karlos Santana",
+                profileImg: images.karlos
+            }
         },
         {
             title: "Sir Ian is sore on le caboose",
             desc: "Got hurt bum, need a lil rub (on the bum).",
+            assignedUser: {
+                name: "Benson Baby",
+                profileImg: images.ben
+            }
         },
+        {
+            title: "Lady Jane is in distress",
+            desc: "She's been kidnapped by a dragon",
+            assignedUser: {
+                name: "Karlos Santana",
+                profileImg: images.karlos
+            }
+        }
     ]
+
+    const daily = [
+        {
+            title: "Complete Referrals",
+            desc: "Complete all referrals for the day"
+        },
+        {
+            title: "Falls Reviews",
+            desc: "Review all falls for the day"
+        },
+        {
+            title: " New Residents",
+            desc: "Dno what this is but here so I can show  that tasks take more desc space than referrals"
+        }
+    ]
+
+
     useEffect(()=> {
         
     }, [])
 
   return (
-    <Stack>
-        <Title order={2} c='columbia-blue.9'>
+    <Stack p={10}>
+        <Title order={2} c='columbia-blue.9' pl={3}>
             Dashboard
         </Title>
 
@@ -55,9 +94,9 @@ const Dashboard = () => {
             
         */}
 
-        <Activity title="Referrals" items={referrals} />
+        <Activity title="Referrals" items={referrals} type='referrals'/>
 
-        <Activity title="Daily Activities" />
+        <Activity title="Daily Activities" items={daily} type='tasks'/>
         
         <Activity title="Processes" />
 
