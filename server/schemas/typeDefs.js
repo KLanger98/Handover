@@ -5,8 +5,8 @@ const typeDefs = `
         password: String!
         firstName: String!
         lastName: String!
-        userProfession: ID
-        company: ID
+        userProfession: [ID]
+        company: [ID]
     }
 
     type Auth {
@@ -54,10 +54,6 @@ const typeDefs = `
         addUser(email: String!, password: String!, firstName: String!, lastName: String!): User
         login(email: String!, password: String!): Auth
         removeUser: User
-        
-
-        
-
     }
 
     
