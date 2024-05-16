@@ -16,6 +16,7 @@ const HomeButton = ({ content='' }) => {
             leftSection={<HomeSquareIcon hover={hover} setHover={setHover} content={firstLetter} height="30px" width="30px"/>} 
             rightSection={<span />}
             justify='left'
+            w='100%'
             >
             <Title order={4} size={20}
             >

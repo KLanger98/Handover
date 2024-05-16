@@ -1,11 +1,11 @@
-import { useMantineTheme, Stack, Title, Text, Grid } from '@mantine/core'
+import { Stack, Title, Text, Grid } from '@mantine/core'
 import { useEffect } from 'react'
 import { Activity } from '../components'
 
 import { images }  from '../../assets/';
 
 const Dashboard = () => {
-    const theme = useMantineTheme();
+    // const theme = useMantineTheme();
 
     //Create a Activity Object
     //     2 Types:

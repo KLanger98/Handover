@@ -8,6 +8,7 @@
     cursor: pointer;
     user-select: none; 
 
+    transition: ease-out 0.2s;
     * {
         align-content: center;
         align-items: center;
@@ -42,6 +43,7 @@
     }
 }
 .activity-item.hover {
+
     background-color: rgb(241, 242, 243);    
 }
 
