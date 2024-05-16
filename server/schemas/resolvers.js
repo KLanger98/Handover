@@ -1,5 +1,5 @@
 //Import required models here
-
+const { signToken } = require("../utils/auth");
 const { User } = require("../model");
 
 //Import auth functions 
