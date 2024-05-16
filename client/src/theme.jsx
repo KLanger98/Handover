@@ -91,7 +91,7 @@ export const theme = createTheme({
     headings: {
         sizes: {
             h2: {
-                fontWeight: 400,
+                fontWeight: 500,
             },
             h3: {
                 fontWeight: 400
@@ -103,17 +103,7 @@ export const theme = createTheme({
         }
     },
     components: {
-        // Button: Button.extend({
-        // defaultProps: {
-        //     h: 38,
-        //     color: 'columbia-blue.0',
-        //     c: 'blue.9',
-        //     px: '4',
-        //     py: '2',
-        //     fontSize: 17,
-        //     fontWeight: '400',
-        // },
-        // }),
+
         Button: Button.extend({ classNames: button_styles.button})
     },
     

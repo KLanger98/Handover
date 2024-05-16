@@ -74,7 +74,7 @@ function App() {
         <Header />
       </AppShell.Header>
 
-      <AppShell.Main >
+      <AppShell.Main>
         <Outlet/>
       </AppShell.Main>
     </AppShell>

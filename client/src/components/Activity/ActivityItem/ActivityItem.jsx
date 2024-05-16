@@ -6,9 +6,10 @@ import './ActivityItem.scss';
 import PropTypes from 'prop-types';
 
 
-const ActivityItem = ( { item={} } ) => {
+const ActivityItem = ( { item={}, type='task' } ) => {
   const [ mainHover, setMainHover ] = useState(false);
   const [ trashHover, setTrashHover ] = useState(false);
+  console.log("Type: ", type)
   return (
     <div
       onMouseEnter={() => setMainHover(true)} 
@@ -22,23 +23,38 @@ const ActivityItem = ( { item={} } ) => {
 
           {/* Item Title */}
           <Grid.Col span={3} p={2}>
-              <Text size='sm' c={ !mainHover ? 'var(--mantine-color-blue-9' : 'var(--mantine-color-red-2)'}>
+              <Text size='sm' c={ !mainHover ? 'var(--mantine-color-blue-9' : 'var(--mantine-color-brown-6)'}>
                   {item.title}
               </Text>
           </Grid.Col>
 
           {/* Item Description */}
-          <Grid.Col span={5} p={3}>
+          <Grid.Col span={ type == 'tasks' ? 7 : 5} p={3}>
           <Text size='sm' c='var(--mantine-color-brown-9'>
                   {item.desc}
               </Text>
           </Grid.Col>
           
           {/* User Details (if referral)*/}
-          <Grid.Col span={2} p={2}>
+          { type == 'referrals' && item.assignedUser &&
+            <Grid.Col span={2} p={2}>
 
-          </Grid.Col>
-          <Grid.Col span={1} p={2}>
+              
+                <div className='user-details'>
+                  <div className='img-container'>
+                    <img src={item.assignedUser.profileImg} alt={item.assignedUser.name} />
+                  </div>
+                  <Text className='user-name' size='sm' c='var(--mantine-color-blue-9)'>
+                    {item.assignedUser.name}
+                  </Text>
+                </div>
+              
+
+            </Grid.Col>
+          }
+
+
+          <Grid.Col span={1} p={2} style={{ display: 'flex'}}>
             {
               /* Space Filler */
               !mainHover && <div style={{ height:'25px' }} />
@@ -48,7 +64,6 @@ const ActivityItem = ( { item={} } ) => {
               size={17} 
               onMouseEnter={()=> setTrashHover(true)} 
               onMouseLeave={()=> setTrashHover(false)}
-
               color={trashHover ? 'red' : 'black'}
               />
             }
@@ -60,7 +75,8 @@ const ActivityItem = ( { item={} } ) => {
 }
 
 ActivityItem.propTypes = {
-  item: PropTypes.object
+  item: PropTypes.object,
+  type: PropTypes.string
 };
 
 export default ActivityItem

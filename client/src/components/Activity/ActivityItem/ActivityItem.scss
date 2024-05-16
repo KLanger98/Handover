@@ -1,14 +1,49 @@
 .activity-item {
     // padding-top: 3px;
     // padding-bottom: 12px;
-    height:35px;
-    border-bottom: 1px solid rgba(222.32, 226.13, 230.45);
+    height:40px;
+    border-bottom: none;
     align-content: center;
     vertical-align: middle;
     cursor: pointer;
     user-select: none; 
+
+    transition: ease-out 0.2s;
+    * {
+        align-content: center;
+        align-items: center;
+    }
+    .user-details {
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+
+        .img-container{
+
+            width:27px;
+            height:27px;
+            border-radius: 50%;
+            overflow: hidden;
+         
+            img {
+                width: 30px;
+                height: 30px;
+              
+                margin-right: 10px;
+            }
+        }
+        .user-name {
+                
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+    }
 }
 .activity-item.hover {
-    background-color: rgb(241, 242, 243);
+
+    background-color: rgb(241, 242, 243);    
 }
 

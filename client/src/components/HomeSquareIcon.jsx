@@ -1,4 +1,5 @@
 import { useMantineTheme } from '@mantine/core'
+import { PropTypes } from 'prop-types'
 
 const HomeSquareIcon = ({content , height='35px', width='35px', hover}) => {
 
@@ -6,7 +7,7 @@ const HomeSquareIcon = ({content , height='35px', width='35px', hover}) => {
 
     const styles = {
         default: { 
-            transition: 'ease-in-out .7s',
+            transition: 'ease-out .5s',
             width: width,
             height: height, 
             borderRadius: theme.radius['sm'], 
@@ -38,5 +39,13 @@ const HomeSquareIcon = ({content , height='35px', width='35px', hover}) => {
     >{content}</div>
   )
 }
+
+HomeSquareIcon.propTypes = {
+    content: PropTypes.string,
+    height: PropTypes.string,
+    width: PropTypes.string,
+    hover: PropTypes.bool
+}
+
 
 export default HomeSquareIcon
