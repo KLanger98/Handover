@@ -23,5 +23,8 @@
   "homepage": "https://github.com/KLanger98/Handover#readme",
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.2.5"
   }
 }

@@ -1,1 +1,7 @@
 export { default as Dashboard } from './Dashboard'
+export { default as AboutPage } from './AboutPage'
+export { default as ApplicationPage } from './ApplicationPage'
+export { default as ProcessLibrary } from './ProcessLibrary'
+export { default as LoginPage } from './LoginPage'
+export { default as SignUpPage } from './SignUpPage'
+export { default as ErrorPage } from './ErrorPage'
