@@ -14,8 +14,9 @@ const processSchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    category: {
-      type: String
+    processCategory: {
+      type: String,
+      required: true
     },
     referenceProcesses: [
       {

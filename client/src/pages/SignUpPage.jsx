@@ -21,11 +21,13 @@ const SignUpPage = () => {
       },
     });
 
+    
+
   return (
     <Container w="100%">
       <Card w="80%" bg="brown.1" radius="md" p={20}>
         <Stack w="100%" align="center">
-          <form onSubmit={form.onSubmit(console.log)}>
+          <form onSubmit={onSubmit(console.log)}>
             <Stack align="center">
               <Title>Create an Account</Title>
               <Stack>

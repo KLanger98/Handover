@@ -1,6 +1,6 @@
 //Import required models here
 const { signToken } = require("../utils/auth");
-const { User } = require("../model");
+const { User, Process } = require("../model");
 
 //Import auth functions 
 
@@ -68,10 +68,11 @@ const resolvers = {
             throw AuthenticationError;
         },
 
-        // //Process mutation methods
-        // addProcess: async (parent, {}) => {
-
-        // },
+        //Process mutation methods
+        addProcess: async (parent, {processTitle, processText, processCategory}) => {
+            console.log('hello');
+            return Process.create({processTitle, processText, processCategory})
+        },
         // updateProcess: async (parent, {}) => {
 
         // },
