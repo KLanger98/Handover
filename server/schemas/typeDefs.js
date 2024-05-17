@@ -47,6 +47,7 @@ const typeDefs = `
         user(user: ID!): User
         users: [User]
         me: User
+        findProcesses: [Process]
     }
 
     type Mutation{

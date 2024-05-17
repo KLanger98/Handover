@@ -19,3 +19,13 @@ export const QUERY_ME = gql`
     }
   
   `
+
+export const QUERY_COMPANY_PROCESSES = gql`
+    query Query {
+        findProcesses {
+            processTitle
+            processText
+            processCategory
+        }
+    }
+`

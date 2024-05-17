@@ -19,10 +19,12 @@ const resolvers = {
 
         },
 
-        // //Process related queries
-        // findProcesses: async (parent, {}) => {
-
-        // },
+        //Process related queries
+        findProcesses: async (parent, {}) => {
+            const processes = Process.find();
+            console.log(processes)
+            return processes
+        },
         // findProcess: async (parent, {}) => {
 
         // },
