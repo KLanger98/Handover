@@ -18,8 +18,7 @@ const typeDefs = `
         _id: ID!
         processTitle: String!
         processText: String!
-        category: String
-        referenceProcesses: [ID]
+        processCategory: String!
     }
 
     type Task {
@@ -54,6 +53,7 @@ const typeDefs = `
         addUser(email: String!, password: String!, firstName: String!, lastName: String!): User
         login(email: String!, password: String!): Auth
         removeUser: User
+        addProcess(processTitle: String!, processText: String!, processCategory: String!): Process
     }
 
     

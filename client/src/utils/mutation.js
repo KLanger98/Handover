@@ -13,9 +13,8 @@ mutation Login($email: String!, $password: String!) {
 `;
 
 export const CREATE_USER = gql`
-mutation Mutation($username: String!, $email: String!, $password: String!) {
+mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
-  
       user {
         email
         username
@@ -23,3 +22,11 @@ mutation Mutation($username: String!, $email: String!, $password: String!) {
     }
   }
 `;
+
+export const ADD_PROCESS = gql`
+mutation addProcess($processTitle: String!, $processText: String!, $processCategory: String!) {
+  addProcess(processTitle: $processTitle, processText: $processText, processCategory: $processCategory) {
+    processTitle
+  }
+}
+`

@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 
 import './index.css'
+import "@mantine/tiptap/styles.css";
+//For Resizeable image on tiptap rich text editor
+import "tiptap-extension-resizable-image/styles.css";
 
 //Import relevant pages for router
 import App from './App.jsx'
