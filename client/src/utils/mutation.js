@@ -27,6 +27,8 @@ export const ADD_PROCESS = gql`
 mutation addProcess($processTitle: String!, $processText: String!, $processCategory: String!) {
   addProcess(processTitle: $processTitle, processText: $processText, processCategory: $processCategory) {
     processTitle
+    processText
+    processCategory
   }
 }
 `
