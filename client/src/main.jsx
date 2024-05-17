@@ -9,15 +9,11 @@ import "tiptap-extension-resizable-image/styles.css";
 
 //Import relevant pages for router
 import App from './App.jsx'
-import ErrorPage from './pages/ErrorPage.jsx'
-import AboutPage from './pages/AboutPage.jsx'
-import Dashboard from './pages/Dashboard.jsx'
-import ApplicationPage from './pages/ApplicationPage.jsx'
-import SignUpPage from "./pages/SignUpPage.jsx"
-import LoginPage from './pages/LoginPage.jsx'
-
+import { Provider } from 'react-redux'
+import { store } from './state/state.js'
 //Import dashboard sub pages
-import ProcessLibrary from './pages/ProcessLibary.jsx'
+import { LoginPage, SignUpPage, ProcessLibrary, ApplicationPage, Dashboard, AboutPage, ErrorPage } from './pages/'
+
 
 const router = createBrowserRouter([
   {
@@ -60,5 +56,7 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router}/>
+  <Provider store={store}>
+    <RouterProvider router={router}/>
+  </Provider>
 )
