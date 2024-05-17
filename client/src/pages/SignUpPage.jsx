@@ -1,21 +1,17 @@
 import {Stack, Title, TextInput, Group, PasswordInput, Container, Card, Button} from '@mantine/core'
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../state/auth/authActions.js";
 import { Link } from "react-router-dom"
 import { IconAt } from "@tabler/icons-react";
-import { useForm as useFormMantine } from '@mantine/form'
-import { useForm as useFormReactHook } from 'react-hook-form'
+import { useForm } from '@mantine/form'
+import { useMutation } from '@apollo/client'
+import { CREATE_USER } from '../utils/mutation'
 
 const SignUpPage = () => {
 
-  const { loading, userInfo, error, success } = useSelector(state => state.auth);
-
-  const dispatch = useDispatch();
-  const { register, handleSubmit } = useFormReactHook();
+  const [createUser, { error }] = useMutation(CREATE_USER);
 
 
   /* Validation */
-  const form = useFormMantine({
+  const form = useForm({
     mode: "uncontrolled",
     initialValues: { firstName: "", lastName: "", email: "", password: "", confirmPassword: ""},
 
@@ -30,7 +26,7 @@ const SignUpPage = () => {
   });
 
 
-  const submitForm = () => { //{ firstName, lastName, email, password }
+  const submitForm = async () => {
     
     //calling Mantine Form validation function
     const {hasErrors, errors} = form.validate();
@@ -40,22 +36,25 @@ const SignUpPage = () => {
       return;
     }
 
-    const {firstName, lastName, email, password} = form.getValues();
-    console.log("First Name: " + firstName)
+    try {
+      const {firstName, lastName, email, password} = form.getValues();
+    
+      const { data } = await createUser({
+        variables: { firstName, lastName, email, password  }
+      });
 
-    dispatch(registerUser({ firstName, lastName, email, password }));
- 
+      console.log(data)
+    } catch (error) {
+      console.log(error);
+    }
+   
   }
 
   return (
     <Container w="100%">
       <Card w="80%" bg="brown.1" radius="md" p={20}>
         <Stack w="100%" align="center">
-<<<<<<< Updated upstream
-          <form onSubmit={onSubmit(console.log)}>
-=======
-          <form onSubmit={handleSubmit(submitForm)}>
->>>>>>> Stashed changes
+          <form onSubmit={form.onSubmit(submitForm)}>
             <Stack align="center">
               <Title>Create an Account</Title>
               <Stack>
