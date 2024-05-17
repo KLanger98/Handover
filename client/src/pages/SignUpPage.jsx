@@ -4,11 +4,15 @@ import { IconAt } from "@tabler/icons-react";
 import { useForm } from '@mantine/form'
 import { useMutation } from '@apollo/client'
 import { CREATE_USER } from '../utils/mutation'
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/AppContext";
+
 
 const SignUpPage = () => {
 
   const [createUser, { error }] = useMutation(CREATE_USER);
-
+  const navigate = useNavigate();
+  const { login, loggedIn } = useAuth();
 
   /* Validation */
   const form = useForm({
@@ -43,7 +47,9 @@ const SignUpPage = () => {
         variables: { firstName, lastName, email, password  }
       });
 
-      console.log(data)
+      navigate("/application")
+      login(data.login.token)
+      
     } catch (error) {
       console.log(error);
     }

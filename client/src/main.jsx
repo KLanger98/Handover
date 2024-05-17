@@ -7,7 +7,7 @@ import "tiptap-extension-resizable-image/styles.css";
 //Import relevant pages for router
 import App from './App.jsx'
 //Import dashboard sub pages
-import { LoginPage, SignUpPage, ProcessLibrary, ApplicationPage, Dashboard, AboutPage, ErrorPage } from './pages/'
+import { LoginPage, SignUpPage, ProcessLibrary, ApplicationPage, Dashboard, AboutPage, ErrorPage, ProtectedRoute } from './pages/'
 
 
 const router = createBrowserRouter([
@@ -30,7 +30,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'application',
-        element: <ApplicationPage/>,
+        element: (
+          <ProtectedRoute>
+            <ApplicationPage/>
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: "processes",

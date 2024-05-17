@@ -8,7 +8,7 @@ import "@mantine/core/styles.css";
 import './App.css'
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
+import { AuthProvider } from './utils/AppContext.jsx';
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
@@ -33,33 +33,36 @@ function App() {
   const [opened, { toggle }] = useDisclosure();
 
   return (
+
     <ApolloProvider client={client}>
       <MantineProvider theme={theme}>
-      <AppShell
-      
-      header={{ height: 60 }}
-      navbar={{
-        width: 300,
-        breakpoint: 'sm',
-        collapsed: { mobile: !opened },
-      }}
-      padding="md"
-    >
-      <AppShell.Header p={5}bg='brown'>
-        
-        <Burger
-          opened={opened}
-          onClick={toggle}
-          hiddenFrom="sm"
-          size="sm"
-        />
-        <Header />
-      </AppShell.Header>
+        <AuthProvider>
+            <AppShell
+            
+            header={{ height: 60 }}
+            navbar={{
+              width: 300,
+              breakpoint: 'sm',
+              collapsed: { mobile: !opened },
+            }}
+            padding="md"
+          >
+            <AppShell.Header p={5}bg='brown'>
+              
+              <Burger
+                opened={opened}
+                onClick={toggle}
+                hiddenFrom="sm"
+                size="sm"
+              />
+              <Header />
+            </AppShell.Header>
 
-      <AppShell.Main>
-        <Outlet/>
-      </AppShell.Main>
-    </AppShell>
+            <AppShell.Main>
+              <Outlet/>
+            </AppShell.Main>
+          </AppShell>
+        </AuthProvider>
       </MantineProvider>
     </ApolloProvider>
   );
