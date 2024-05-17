@@ -12,10 +12,13 @@ import { IconAt } from "@tabler/icons-react";
 import { useForm } from "@mantine/form";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutation";
+import { useAuth } from "../utils/AppContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [login] = useMutation(LOGIN_USER);
-
+  const [loginMutation] = useMutation(LOGIN_USER);
+  const { login, loggedIn } = useAuth();
+  const navigate = useNavigate();
  /* Validation */
  const form = useForm({
   mode: "uncontrolled",
@@ -25,10 +28,10 @@ const LoginPage = () => {
     password: (value) => value.length === 0? "Please enter a password." : null,
   },
 });
-
+console.log("Render " + loggedIn);
 
 const submitForm = async () => { 
-  
+  console.log("Before " + loggedIn);
   //calling Mantine Form validation function
   const {hasErrors, errors} = form.validate();
   console.log("Has Errors: " + hasErrors)
@@ -40,12 +43,13 @@ const submitForm = async () => {
   try {
     const { email, password } = form.getValues();
   
-    const { data } = await login({
+    const { data } = await loginMutation({
       variables: { email, password  }
     });
 
-    console.log(data)
-  } catch (error) {
+    login(data.login.token)
+    navigate("/application")
+  } catch (error) { /// NEED TO DEFINE AUTHETNICATIONERROR AT SOME POINT
     console.log(error);
   }
  
