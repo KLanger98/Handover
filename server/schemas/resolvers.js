@@ -19,10 +19,23 @@ const resolvers = {
 
         },
 
-        // //Process related queries
-        // findProcesses: async (parent, {}) => {
-
-        // },
+        //Process related queries
+        findProcessesGroupedByCategory: async (parent, {}) => {
+            console.log('hi')
+            try{
+                const result = await Process.aggregate([
+                {
+                    $group: {
+                    _id: '$processCategory',
+                    processes: { $push: '$$ROOT' }
+                    }
+                }
+            ]);
+            return result;
+            } catch (err) {
+                throw new Error(err);
+            } 
+        },
         // findProcess: async (parent, {}) => {
 
         // },

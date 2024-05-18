@@ -47,6 +47,28 @@ button{
         } 
     }
 
+    &[data-variant='delete'] {
+        height: 38px;
+        background-color: var(--mantine-color-red-2); /* Assuming columbia-blue-0 is defined in your CSS variables */
+        color: "white";
+        /* Uncomment and modify the line below if you define hover color in CSS variables */
+        &:hover {
+            color: var(--mantine-color-ghost-white-0);
+            background-color: var(--mantine-color-columbia-red-4);
+        } 
+    }
+
+    &[data-variant='edit'] {
+        height: 38px;
+        background-color: var(--mantine-color-green-2); /* Assuming columbia-blue-0 is defined in your CSS variables */
+        color: "white";
+        /* Uncomment and modify the line below if you define hover color in CSS variables */
+        &:hover {
+            color: var(--mantine-color-ghost-white-0);
+            background-color: var(--mantine-color-green-7);
+        } 
+    }
+
 
 
 }

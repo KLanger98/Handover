@@ -19,3 +19,17 @@ export const QUERY_ME = gql`
     }
   
   `
+
+  export const QUERY_PROCESSES_GROUPED = gql`
+    query Query {
+        findProcessesGroupedByCategory {
+            processes {
+                _id
+                processCategory
+                processText
+                processTitle
+            }
+            _id
+        }
+    }
+  `
