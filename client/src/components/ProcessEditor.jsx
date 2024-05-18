@@ -1,4 +1,4 @@
-import { RichTextEditor, Link } from "@mantine/tiptap";
+import { RichTextEditor, Link,  } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
 import Highlight from "@tiptap/extension-highlight";
 import StarterKit from "@tiptap/starter-kit";
@@ -7,6 +7,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
 import {ResizableImage} from 'tiptap-extension-resizable-image'
+import {Title} from '@mantine/core'
 
 // const content =
 //   '<h2 style="text-align: center;">Your Process Title Here</h2><p>Your process description here:</p>'

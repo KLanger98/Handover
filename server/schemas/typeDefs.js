@@ -9,6 +9,11 @@ const typeDefs = `
         company: [ID]
     }
 
+    type CategoryGroup {
+        _id: String
+        processes: [Process]
+    }
+
     type Auth {
         token: ID!
         user: User
@@ -47,6 +52,7 @@ const typeDefs = `
         user(user: ID!): User
         users: [User]
         me: User
+        findProcessesGroupedByCategory: [CategoryGroup]
     }
 
     type Mutation{

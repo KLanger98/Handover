@@ -4,6 +4,7 @@ import { useListState, randomId } from "@mantine/hooks";
 import {useForm } from '@mantine/form'
 import { ADD_PROCESS } from "../utils/mutation";
 import {useMutation} from "@apollo/client"
+import { QUERY_PROCESSES_GROUPED } from "../utils/queries";
 
 const initialcheckboxes = [
   { label: "Physiotherapy", checked: false, key: randomId() },
@@ -11,9 +12,9 @@ const initialcheckboxes = [
   { label: "Allied Health Assistant", checked: false, key: randomId() },
 ];
 
-const editorContent = "<h1>Helllooooo</h1>"
+let editorContent = "<h1>Helllooooo</h1>"
 
-const ProcessEditorModal = () => {
+const ProcessEditorModal = ({contentData}) => {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: { 
@@ -33,7 +34,19 @@ const ProcessEditorModal = () => {
     },
   });
 
-  const [addProcess, { error }] = useMutation(ADD_PROCESS);
+  if(contentData){
+    form.setFieldValue('processTitle', contentData.processTitle)
+    form.setFieldValue("processText", contentData.processText);
+    editorContent = contentData.processText
+    form.setFieldValue("processCategory", contentData.processCategory);
+    console.log(form.getValues())
+  }
+
+  const [addProcess, { error }] = useMutation(ADD_PROCESS,
+    {
+      refetch: QUERY_PROCESSES_GROUPED
+    }
+  );
 
   const handleSubmit = async (formValues) => {
 
