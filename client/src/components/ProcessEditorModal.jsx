@@ -146,7 +146,7 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
           />
           {items}
         </Input.Wrapper>
-        <Button type="submit" variant="form" fullWidth>
+        <Button type="submit" variant="form" fullWidth mt={40}>
           Submit Process
         </Button>
       </form>

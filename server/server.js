@@ -3,7 +3,6 @@ var { createHandler } = require("graphql-http/lib/use/express")
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
-//Import auth middleware once set up
 const { authMiddleware } = require('./utils/auth');
 
 const {typeDefs, resolvers} = require('./schemas');
@@ -32,12 +31,12 @@ const startApolloServer = async () => {
   }
 
 
+
   app.use('/graphql', expressMiddleware(server, {
     context: async({ req }) => authMiddleware(req)
   }));
   
 
-    
   db.once('open', () => {
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);

@@ -1,17 +1,22 @@
-import {Group, ActionIcon, Accordion, Title, Modal, Text} from "@mantine/core"
-import{ IconTrash, IconPencil } from "@tabler/icons-react"
+import {Group, ActionIcon, Accordion, Title, Modal, Text, Flex} from "@mantine/core"
+import{ IconTrash, IconPencil, IconFlag } from "@tabler/icons-react"
+import {useState} from 'react'
 import ProcessEditorModal from "../ProcessEditorModal"
 import { useDisclosure } from "@mantine/hooks";
 import  AccordionLabel  from "./AccordionLabel"
 import { DELETE_PROCESS, UPDATE_PROCESS } from "../../utils/mutation";
 import { QUERY_PROCESSES_GROUPED } from "../../utils/queries";
 import {useMutation} from "@apollo/client"
+import "./Accordion.scss"
+import FlagProcessForm from "../FlagProcessForm";
 
 
 
 function AccordionItem({ dataArray }) {
 //Handle Edit Modal Open/Close
   const [editOpened, { open, close }] = useDisclosure(false);
+  const [flagOpened, { open: openFlag, close: closeFlag}] = useDisclosure(false);
+  const [currentContentData, setCurrentContentData] = useState(null);
 
 //Handle Modal Delete
  const [deleteProcess, {error: deleteError}] = useMutation(DELETE_PROCESS, 
@@ -22,7 +27,6 @@ function AccordionItem({ dataArray }) {
 
  const handleProcessDelete = async (processId) => {
     try{
-        console.log('hi', processId)
         const {data} = deleteProcess({
             variables: {processId}
         })
@@ -46,26 +50,43 @@ function AccordionItem({ dataArray }) {
     console.error(error)
   }
  }
-  console.log(dataArray)
+ 
+ const handleOpenEditorModal = (contentData) => {
+  setCurrentContentData(contentData)
+  open()
+ }
 
   return dataArray.map((contentData) => (
-    <Group key={contentData._id}>
+    <Group key={contentData._id} m={4}>
       <ActionIcon.Group>
-        <ActionIcon variant="edit" size="md" onClick={open}>
+        <ActionIcon variant="edit" size="md" onClick={() => handleOpenEditorModal(contentData)}>
           <IconPencil stroke={1.0} />
         </ActionIcon>
-        <ActionIcon variant="delete" size="md" onClick={() => handleProcessDelete(contentData._id)}>
+        <ActionIcon
+          variant="delete"
+          size="md"
+          onClick={() => handleProcessDelete(contentData._id)}
+        >
           <IconTrash stroke={1.0} />
         </ActionIcon>
       </ActionIcon.Group>
 
       <Modal opened={editOpened} onClose={close} centered size="70%">
-        <Title>Edit Process</Title>
-        <ProcessEditorModal contentData={contentData} closeModal={close} handleProcess={handleUpdateProcess}/>
+        <Title order={3}>Edit Process</Title>
+        <ProcessEditorModal
+          contentData={currentContentData}
+          closeModal={close}
+          handleProcess={handleUpdateProcess}
+        />
       </Modal>
 
-      <Accordion.Item value={contentData.processTitle} w="90%">
-        <Accordion.Control>
+      <Accordion.Item
+        className="item"
+        variant="accordionDetail"
+        value={contentData.processTitle}
+        w="90%"
+      >
+        <Accordion.Control className="control">
           <AccordionLabel
             label={contentData.processTitle}
             formattedDate={contentData.formattedDate}
@@ -76,7 +97,22 @@ function AccordionItem({ dataArray }) {
           <div
             dangerouslySetInnerHTML={{ __html: contentData.processText }}
           ></div>
-          <Text size="sm"></Text>
+          <Flex justify="flex-end" align="center" direction="row" gap={8}>
+            <Text mt={0}>Something Missing?</Text>
+            <ActionIcon
+              style={{borderRadius: "100%"}}
+              size="xl"
+              aria-label="Flag process"
+              variant="light"
+              bg="red.1"
+              onClick={openFlag}
+            >
+              <IconFlag style={{ width: "70%", height: "70%" }} stroke={1.5} />
+            </ActionIcon>
+          </Flex>
+          <Modal opened={flagOpened} onClose={closeFlag} size="60%" title="Flag a Process for review" centered>
+            <FlagProcessForm/>
+          </Modal>
         </Accordion.Panel>
       </Accordion.Item>
     </Group>

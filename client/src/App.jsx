@@ -4,7 +4,6 @@ import { useDisclosure } from '@mantine/hooks';
 import {theme} from './theme.jsx';
 import '@mantine/core/styles.css';
 import { Outlet } from 'react-router-dom'
-import "@mantine/core/styles.css";
 import './App.css'
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink, ApolloLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
