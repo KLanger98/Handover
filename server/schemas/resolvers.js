@@ -82,7 +82,8 @@ const resolvers = {
         },
 
         //Process mutation methods
-        addProcess: async (parent, {processTitle, processText, processCategory}) => {
+        addProcess: async (parent, {processTitle, processText, processCategory}, context) => {
+            console.log("user", context.user)
             let lastUpdated = new Date();
             let formattedDate = lastUpdated.toDateString();
             return Process.create({processTitle, processText, processCategory, lastUpdated, formattedDate})

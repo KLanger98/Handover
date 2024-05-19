@@ -76,6 +76,17 @@ export const theme = createTheme({
       "#ca0100",
       "#b00000",
     ],
+    "light-brown": [
+      "#faf6f5",
+      "#f9f4f3",
+      "#f8f2f1",
+      "#f7f0ef",
+      "#f6eeed",
+      "#f5eceb",
+      "#f4eae8",
+      "#f3e8e6",
+      "#f2e6e4",
+    ],
     brown: [
       "#fff0f0",
       "#f1e3e1",
