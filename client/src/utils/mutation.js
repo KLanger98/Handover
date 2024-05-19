@@ -38,3 +38,24 @@ mutation addProcess($processTitle: String!, $processText: String!, $processCateg
   }
 }
 `
+
+export const DELETE_PROCESS = gql`
+  mutation Mutation($processId: ID!) {
+  deleteProcess(processId: $processId) {
+    _id
+    processCategory
+    processText
+    processTitle
+  }
+}
+`
+export const UPDATE_PROCESS = gql`
+  mutation Mutation($processId: ID!, $processTitle: String!, $processText: String!, $processCategory: String!) {
+    updateProcess(processId: $processId, processTitle: $processTitle, processText: $processText, processCategory: $processCategory) {
+      _id
+      processCategory
+      processText
+      processTitle
+    }
+  }
+`

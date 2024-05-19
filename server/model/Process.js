@@ -10,9 +10,12 @@ const processSchema = new Schema(
         type: String,
         required: true
     },
-    createdAt: {
+    lastUpdated: {
       type: Date,
       default: Date.now,
+    },
+    formattedDate: {
+      type: String,
     },
     processCategory: {
       type: String,
@@ -27,6 +30,7 @@ const processSchema = new Schema(
 
   }
 );
+
 
 const Process = model('process', processSchema);
 
