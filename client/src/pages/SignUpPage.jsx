@@ -47,8 +47,9 @@ const SignUpPage = () => {
         variables: { firstName, lastName, email, password  }
       });
 
-      navigate("/dashboard")
-      login(data.login.token)
+     
+      
+      navigate("/login?newUser=true")
       
     } catch (error) {
       console.log(error);

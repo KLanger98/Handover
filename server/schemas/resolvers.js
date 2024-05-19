@@ -1,8 +1,8 @@
 //Import required models here
-const { signToken } = require("../utils/auth");
+const { signToken, AuthenticationError } = require("../utils/auth");
 const { User, Process } = require("../model");
 
-//Import auth functions 
+
 
 const resolvers = {
     Query: {
@@ -21,6 +21,7 @@ const resolvers = {
 
         //Process related queries
         findProcessesGroupedByCategory: async (parent, {}) => {
+     
             try{
                 const result = await Process.aggregate([
                 {
@@ -59,7 +60,7 @@ const resolvers = {
 
         login: async (parent, {email, password}) => {
             const user = await User.findOne({ email });
-
+           
             if (!user) {
               throw AuthenticationError
             }
@@ -104,6 +105,46 @@ const resolvers = {
         // removeProcess: async (parent, {}) => {
 
         // },
+        // Referal Mutations
+        // type Referral {
+        //     _id: ID!
+        //     title: String!
+        //     desc: String!
+        //     status: String!
+        //     company: ID!
+        //     assignedBy: ID!
+        //     dateCreated: String
+        //     dateCompleted: String
+        //     priority: String
+        //     completionNotes: String
+        //     relatedProcesses: [ID]
+        // }
+        addReferral: async (parent, { title, desc, priority, relatedProcesses }, context) => {
+            if(!context.user){
+                throw AuthenticationError;
+            }
+
+            
+            try {
+                const newReferral = await Referral.create({
+                    title, 
+                    desc, 
+                    priority, 
+                    relatedProcesses, 
+                    assignedBy: context.user._id
+                    //will need to implement current Company too                    
+                });
+
+                return newReferral;
+            } catch (err) {
+                throw new Error(err);
+            }
+        }
+
+
+
+
+
         // //Task mutation methods
         // addTask: async (parent, {}) => {
 

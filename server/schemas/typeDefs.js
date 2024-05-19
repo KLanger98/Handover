@@ -26,6 +26,19 @@ const typeDefs = `
         processCategory: String!
         formattedDate: String
     }
+    type Referral {
+        _id: ID!
+        title: String!
+        desc: String!
+        status: String!
+        company: ID!
+        assignedBy: ID!
+        dateCreated: String
+        dateCompleted: String
+        priority: String
+        completionNotes: String
+        relatedProcesses: [ID]
+    }
 
     type Task {
         _id: ID!
@@ -63,6 +76,7 @@ const typeDefs = `
         addProcess(processTitle: String!, processText: String!, processCategory: String!): Process
         deleteProcess(processId: ID!): Process
         updateProcess(processId: ID!, processTitle: String!, processText: String!, processCategory: String!): Process
+        addReferral(title: String!, desc: String!, priority: String, relatedProcesses: [ID]): Referral
     }
 
     

@@ -13,12 +13,17 @@ import { useForm } from "@mantine/form";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutation";
 import { useAuth } from "../utils/AppContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const LoginPage = () => {
   const [loginMutation] = useMutation(LOGIN_USER);
   const { login } = useAuth();
   const navigate = useNavigate();
+  // This is a bad method of passing data, but it works for now
+  const [searchParams] = useSearchParams();
+
+  const newUser = searchParams.get("newUser") || false;
+  console.log(newUser);
  /* Validation */
  const form = useForm({
   mode: "uncontrolled",
@@ -62,6 +67,7 @@ const submitForm = async () => {
           <form onSubmit={form.onSubmit(submitForm)}>
             <Stack align="center">
               <Title>Log In</Title>
+              { newUser==='true' ? <Title order={3} c='green'>New user created! Please log in.</Title> : null}
               <Stack>
                 <TextInput
                   leftSectionPointerEvents="none"

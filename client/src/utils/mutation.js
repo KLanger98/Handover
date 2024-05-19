@@ -59,3 +59,27 @@ export const UPDATE_PROCESS = gql`
     }
   }
 `
+
+
+
+
+
+// REFERRALS
+
+export const ADD_REFERRAL = gql`
+mutation Mutation($title: String!, $desc: String!, $priority: String, $relatedProcesses: [ID]) {
+  addReferral(title: $title, desc: $desc, priority: $priority, relatedProcesses: $relatedProcesses) {
+    _id
+    title
+    desc
+    status
+    company
+    assignedBy
+    dateCreated
+    dateCompleted
+    priority
+    completionNotes
+    relatedProcesses
+  }
+}
+`

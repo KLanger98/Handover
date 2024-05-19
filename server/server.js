@@ -1,9 +1,10 @@
 const express = require('express');
+var { createHandler } = require("graphql-http/lib/use/express")
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
 //Import auth middleware once set up
-
+const { authMiddleware } = require('./utils/auth');
 
 const {typeDefs, resolvers} = require('./schemas');
 const db = require('./config/connection');
@@ -13,7 +14,8 @@ const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
   typeDefs,
   resolvers
-})
+});
+
 
 const startApolloServer = async () => {
   await server.start();
@@ -28,9 +30,14 @@ const startApolloServer = async () => {
       res.sendFile(path.join(__dirname, '../client/dist/index.html'));
     });
   }
-  //{context: authMiddleware}
-  //Employ once auth setup
-  app.use('/graphql', expressMiddleware(server));
+
+
+  app.use('/graphql', expressMiddleware(server, {
+    context: async({ req }) => authMiddleware(req)
+  }));
+  
+
+    
   db.once('open', () => {
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
