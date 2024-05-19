@@ -24,6 +24,7 @@ const typeDefs = `
         processTitle: String!
         processText: String!
         processCategory: String!
+        formattedDate: String
     }
 
     type Task {
@@ -60,6 +61,8 @@ const typeDefs = `
         login(email: String!, password: String!): Auth
         removeUser: User
         addProcess(processTitle: String!, processText: String!, processCategory: String!): Process
+        deleteProcess(processId: ID!): Process
+        updateProcess(processId: ID!, processTitle: String!, processText: String!, processCategory: String!): Process
     }
 
     

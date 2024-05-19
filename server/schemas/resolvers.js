@@ -21,7 +21,6 @@ const resolvers = {
 
         //Process related queries
         findProcessesGroupedByCategory: async (parent, {}) => {
-            console.log('hi')
             try{
                 const result = await Process.aggregate([
                 {
@@ -31,14 +30,15 @@ const resolvers = {
                     }
                 }
             ]);
+
+            
+
             return result;
             } catch (err) {
                 throw new Error(err);
             } 
         },
-        // findProcess: async (parent, {}) => {
 
-        // },
 
         // //Task related queries
         // findTasks: async (parent, {}) => {
@@ -83,12 +83,24 @@ const resolvers = {
 
         //Process mutation methods
         addProcess: async (parent, {processTitle, processText, processCategory}) => {
-            console.log('hello');
-            return Process.create({processTitle, processText, processCategory})
+            let lastUpdated = new Date();
+            let formattedDate = lastUpdated.toDateString();
+            return Process.create({processTitle, processText, processCategory, lastUpdated, formattedDate})
         },
-        // updateProcess: async (parent, {}) => {
-
-        // },
+        deleteProcess: async (parent, {processId}) => {
+            return Process.findOneAndDelete({ _id: processId });
+        },
+        updateProcess: async (parent, {processId, processTitle, processText, processCategory}) => {
+            let lastUpdated = new Date();
+            let formattedDate = lastUpdated.toDateString();
+            return Process.findOneAndUpdate(
+                {_id: processId},
+                {
+                    processTitle, processText, processCategory, lastUpdated, formattedDate
+                },
+                {new: true}
+            )
+        },
         // removeProcess: async (parent, {}) => {
 
         // },

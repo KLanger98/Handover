@@ -12,9 +12,9 @@ const initialcheckboxes = [
   { label: "Allied Health Assistant", checked: false, key: randomId() },
 ];
 
-let editorContent = "<h1>Helllooooo</h1>"
 
-const ProcessEditorModal = ({contentData}) => {
+
+const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: { 
@@ -33,7 +33,7 @@ const ProcessEditorModal = ({contentData}) => {
         value === "Select Category" ? "Must Select at least one option" : null,
     },
   });
-
+  let editorContent = " ";
   if(contentData){
     form.setFieldValue('processTitle', contentData.processTitle)
     form.setFieldValue("processText", contentData.processText);
@@ -42,34 +42,24 @@ const ProcessEditorModal = ({contentData}) => {
     console.log(form.getValues())
   }
 
-  const [addProcess, { error }] = useMutation(ADD_PROCESS,
-    {
-      refetch: QUERY_PROCESSES_GROUPED
-    }
-  );
+  
 
   const handleSubmit = async (formValues) => {
 
     try {
-      console.log([
-        formValues.processTitle,
-        formValues.processText,
-        formValues.processCategory,
-      ]);
       let variables = {
-          processTitle: formValues.processTitle, 
-          processText: formValues.processText, 
-          processCategory: formValues.processCategory}
+        processTitle: formValues.processTitle,
+        processText: formValues.processText,
+        processCategory: formValues.processCategory,
+      };
 
-      const { data, error } = await addProcess({
-        variables: variables
-      })
-
-      if(error){
-        console.log(error)
+      if(contentData){
+        variables.processId = contentData._id
       }
 
-      console.log(data)
+      handleProcess(variables);
+      //Close modal once processes has been added 
+      closeModal()
     } catch (err) {
       console.error(err);
     }
@@ -113,8 +103,6 @@ const ProcessEditorModal = ({contentData}) => {
           description="Choose a Category to order your processes"
         >
           <NativeSelect
-            label="Input label"
-            description="Input description"
             {...form.getInputProps("processCategory")}
             data={[
               "Select Category",

@@ -28,6 +28,7 @@ export const QUERY_ME = gql`
                 processCategory
                 processText
                 processTitle
+                formattedDate
             }
             _id
         }
