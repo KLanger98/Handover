@@ -24,6 +24,11 @@ const Navbar = () => {
           <Title order={4}>Process Library</Title>
         </Button>
       </Link>
+      <Link to="referrals">
+        <Button variant="normal" justify="left">
+          <Title order={4}>Referrals</Title>
+        </Button>
+      </Link>
     </Stack>
   );
 }

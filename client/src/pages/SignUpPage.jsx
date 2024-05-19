@@ -47,7 +47,7 @@ const SignUpPage = () => {
         variables: { firstName, lastName, email, password  }
       });
 
-      navigate("/application")
+      navigate("/dashboard")
       login(data.login.token)
       
     } catch (error) {

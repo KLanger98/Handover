@@ -6,7 +6,7 @@ import '@mantine/core/styles.css';
 import { Outlet } from 'react-router-dom'
 import "@mantine/core/styles.css";
 import './App.css'
-import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink, ApolloLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { AuthProvider } from './utils/AppContext.jsx';
 
@@ -22,9 +22,13 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+const httpLink = new HttpLink({
+  uri: '/graphql',
+});
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: authLink.concat(HttpLink)
+  link: ApolloLink.from([authLink, httpLink])
   })
 
 
