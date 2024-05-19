@@ -4,10 +4,15 @@ import { PropTypes } from 'prop-types';
 
 
 const ProtectedRoute = ({ children }) => {
-  const { loggedIn } = useAuth(); // Assuming your AuthContext provides isLoggedIn or similar
 
+  const { loggedIn, loading } = useAuth(); // Assuming your AuthContext provides isLoggedIn or similar
+
+  if(loading){
+    return null;
+  }
   if (!loggedIn) {
     // Redirect to the login page if not logged in
+
     return <Navigate to="/login" replace />;
   }
 

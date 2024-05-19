@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [loginMutation] = useMutation(LOGIN_USER);
-  const { login, loggedIn } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
  /* Validation */
  const form = useForm({
@@ -28,13 +28,12 @@ const LoginPage = () => {
     password: (value) => value.length === 0? "Please enter a password." : null,
   },
 });
-console.log("Render " + loggedIn);
+
 
 const submitForm = async () => { 
-  console.log("Before " + loggedIn);
   //calling Mantine Form validation function
   const {hasErrors, errors} = form.validate();
-  console.log("Has Errors: " + hasErrors)
+
   if(hasErrors) {
     console.log("Errors: " + errors)
     return;
@@ -48,7 +47,7 @@ const submitForm = async () => {
     });
 
     login(data.login.token)
-    navigate("/application")
+    navigate("/dashboard")
   } catch (error) { /// NEED TO DEFINE AUTHETNICATIONERROR AT SOME POINT
     console.log(error);
   }

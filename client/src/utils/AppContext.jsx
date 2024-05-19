@@ -5,16 +5,16 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [loggedIn, setIsLoggedIn] = useState(false);
-  const [userProfile, setUserProfile] = useState(null); // Additional state for user profile
+  const [userProfile, setUserProfile] = useState(null);
+  const [loading, setLoading] = useState(true); // Add a loading state
 
   useEffect(() => {
     const token = localStorage.getItem('id_token');
     setIsLoggedIn(!!token);
-    // Optionally, fetch and set user profile here if token exists
     if (token) {
-      // Placeholder for fetching user profile
-      setUserProfile({});
+      setUserProfile({}); // Placeholder for fetching user profile
     }
+    setLoading(false); // Set loading to false after checking token
   }, []);
 
   const login = (token, profile) => {
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ loggedIn, login, logout, userProfile }}>
+    <AuthContext.Provider value={{ loggedIn, login, logout, userProfile, loading }}>
       {children}
     </AuthContext.Provider>
   );

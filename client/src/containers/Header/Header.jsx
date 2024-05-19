@@ -39,7 +39,7 @@ const Header = () => {
         {/* Need to make it it's own Component */}
         {loggedIn && (
           <>
-            <Link to="application">
+            <Link to="dashboard">
             <Button variant="header" justify="left" >
               <Title order={4}>Application</Title>
             </Button>

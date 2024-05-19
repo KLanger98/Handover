@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Grid, Text } from '@mantine/core';
-import { TickBox } from '../../'
+import { TickBox } from '..'
 import { IconTrash } from '@tabler/icons-react';
 import './ActivityItem.scss';
 import PropTypes from 'prop-types';
@@ -9,12 +10,14 @@ import PropTypes from 'prop-types';
 const ActivityItem = ( { item={}, type='task' } ) => {
   const [ mainHover, setMainHover ] = useState(false);
   const [ trashHover, setTrashHover ] = useState(false);
-  console.log("Type: ", type)
+  const navigate = useNavigate();
+
   return (
     <div
       onMouseEnter={() => setMainHover(true)} 
       onMouseLeave={() => setMainHover(false)}
       className={'activity-item' + (mainHover ? ' hover' : '')}
+      onClick={() => navigate(`/${type}/${item.id}`)}
       >
       <Grid p={0} offset={0}>
           <Grid.Col span={1} py={2}>
