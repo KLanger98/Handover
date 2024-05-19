@@ -35,7 +35,6 @@ const ProcessLibrary = () => {
     }
 
     const renderAccordian = (dataArray) => {
-      console.log(dataArray)
       return dataArray.map((category) => (
         <Stack key={category._id}>
           <Title mt={10} order={3}>
