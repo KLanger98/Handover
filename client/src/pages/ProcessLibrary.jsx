@@ -24,9 +24,10 @@ const ProcessLibrary = () => {
       refetchQueries: [QUERY_PROCESSES_GROUPED],
     });
 
-    const handleAddProcess = async ({processTitle, processText, processCategory}) => {
+    const handleAddProcess = async ({processTitle, processText, processCategory, processSubCategory}) => {
+      console.log(processSubCategory)
       const { data, error } = await addProcess({
-        variables: {processTitle, processText, processCategory}
+        variables: {processTitle, processText, processCategory, processSubCategory}
       })
 
       if(error){
