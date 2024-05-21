@@ -1,6 +1,6 @@
 //Import required models here
 const { signToken, AuthenticationError } = require("../utils/auth");
-const { User, Process, Referral } = require("../model");
+const { User, Process, Referral, Flag} = require("../model");
 
 
 
@@ -39,6 +39,11 @@ const resolvers = {
                 throw new Error(err);
             } 
         },
+
+        //Flag related queries
+        findFlags: async (parent, {}) => {
+            return Flag.find()
+        }
 
 
         // //Task related queries
@@ -102,6 +107,21 @@ const resolvers = {
                 },
                 {new: true}
             )
+        },
+        //Flag mutations
+        addFlag: async (parent, {flagText, referenceProcess}, context) => {
+            if(context.user){
+                console.log(referenceProcess)
+                let currentDate = new Date();
+                let formattedDate = currentDate.toDateString();
+                return Flag.create({flagText, postedBy: context.user._id, referenceProcess, formattedDate})
+            } 
+            
+        },
+        removeFlag: async (parent, {flagId}, context) => {
+            if(context.user){
+                return Flag.findOneAndDelete({_id: flagId})
+            }
         },
         // removeProcess: async (parent, {}) => {
 

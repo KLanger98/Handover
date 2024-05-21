@@ -8,6 +8,7 @@ import AccordionItem from "../components/ProcessAccordion/AccordionItem"
 import { ADD_PROCESS } from "../utils/mutation"
 import { useMutation } from "@apollo/client"
 import "../components/ProcessAccordion/Accordion.scss"
+import FlagContainer from "../components/FlagContainer/FlagContainer"
 
 
 const ProcessLibrary = () => {
@@ -75,16 +76,14 @@ const ProcessLibrary = () => {
       >
         Add Process
       </Button>
-      <Group w="60%">
+
+      <Group w="40%" direction='row' wrap="nowrap">
         <TextInput placeholder="Search for a Process" size="md" w={800} />
-        <ActionIcon
-          size="input-md"
-          variant="default"
-          bg="columbia-blue.6"
-        >
-          <IconSearch color="white"/>
+        <ActionIcon size="input-md" variant="default" bg="columbia-blue.6">
+          <IconSearch color="white" />
         </ActionIcon>
       </Group>
+      <FlagContainer />
       {renderAccordian(processData)}
     </>
   );

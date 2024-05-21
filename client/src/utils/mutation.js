@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-
+//User related mutations
 export const LOGIN_USER = gql`
 mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -31,6 +31,8 @@ mutation Mutation($email: String!, $password: String!, $firstName: String!, $las
   }
 `;
 
+
+//Process related mutations
 export const ADD_PROCESS = gql`
 mutation addProcess($processTitle: String!, $processText: String!, $processCategory: String!, $processSubCategory: String!) {
   addProcess(processTitle: $processTitle, processText: $processText, processCategory: $processCategory, processSubCategory: $processSubCategory) {
@@ -59,7 +61,18 @@ export const UPDATE_PROCESS = gql`
     }
   }
 `
-
+//FLAGS
+export const ADD_FLAG = gql`
+  mutation Mutation($flagText: String!, $referenceProcess: ID) {
+  addFlag(flagText: $flagText, referenceProcess: $referenceProcess) {
+    _id
+    flagText
+    postedBy
+    referenceProcess
+    dateCreated
+  }
+}
+`
 
 
 
