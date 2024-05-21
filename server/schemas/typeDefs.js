@@ -24,6 +24,7 @@ const typeDefs = `
         processTitle: String!
         processText: String!
         processCategory: String!
+        processSubCategory: String!
         formattedDate: String
     }
     type Referral {
@@ -73,9 +74,9 @@ const typeDefs = `
         addUser(email: String!, password: String!, firstName: String!, lastName: String!): User
         login(email: String!, password: String!): Auth
         removeUser: User
-        addProcess(processTitle: String!, processText: String!, processCategory: String!): Process
+        addProcess(processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!): Process
         deleteProcess(processId: ID!): Process
-        updateProcess(processId: ID!, processTitle: String!, processText: String!, processCategory: String!): Process
+        updateProcess(processId: ID!, processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!): Process
         addReferral(title: String!, desc: String!, priority: String, relatedProcesses: [ID]): Referral
     }
 

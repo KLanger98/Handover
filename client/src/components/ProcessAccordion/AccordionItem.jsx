@@ -41,10 +41,10 @@ function AccordionItem({ dataArray }) {
     refetchQueries: [QUERY_PROCESSES_GROUPED]
   }
  )
- const handleUpdateProcess = async ({processId, processTitle, processText, processCategory}) => {
+ const handleUpdateProcess = async ({processId, processTitle, processText, processCategory, processSubCategory}) => {
   try{
     const { data } = updateProcess({
-      variables: {processId, processTitle, processText, processCategory}
+      variables: {processId, processTitle, processText, processCategory, processSubCategory}
     })
   } catch(error){
     console.error(error)
@@ -91,6 +91,7 @@ function AccordionItem({ dataArray }) {
             label={contentData.processTitle}
             formattedDate={contentData.formattedDate}
             description={contentData.processText}
+            icon={contentData.processSubCategory}
           />
         </Accordion.Control>
         <Accordion.Panel>
