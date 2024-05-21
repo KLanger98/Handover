@@ -56,10 +56,19 @@ function AccordionItem({ dataArray }) {
   open()
  }
 
+ const handleOpenFlagModal = (contentData) => {
+  setCurrentContentData(contentData)
+  openFlag()
+ }
+
   return dataArray.map((contentData) => (
     <Group key={contentData._id} m={4}>
       <ActionIcon.Group>
-        <ActionIcon variant="edit" size="md" onClick={() => handleOpenEditorModal(contentData)}>
+        <ActionIcon
+          variant="edit"
+          size="md"
+          onClick={() => handleOpenEditorModal(contentData)}
+        >
           <IconPencil stroke={1.0} />
         </ActionIcon>
         <ActionIcon
@@ -101,18 +110,27 @@ function AccordionItem({ dataArray }) {
           <Flex justify="flex-end" align="center" direction="row" gap={8}>
             <Text mt={0}>Something Missing?</Text>
             <ActionIcon
-              style={{borderRadius: "100%"}}
+              style={{ borderRadius: "100%" }}
               size="xl"
               aria-label="Flag process"
               variant="light"
               bg="red.1"
-              onClick={openFlag}
+              onClick={() => handleOpenFlagModal(contentData)}
             >
               <IconFlag style={{ width: "70%", height: "70%" }} stroke={1.5} />
             </ActionIcon>
           </Flex>
-          <Modal opened={flagOpened} onClose={closeFlag} size="60%" title="Flag a Process for review" centered>
-            <FlagProcessForm/>
+          <Modal
+            opened={flagOpened}
+            onClose={closeFlag}
+            size="60%"
+            title="Flag a Process for review"
+            centered
+          >
+            <FlagProcessForm
+              contentData={currentContentData}
+              closeModal={closeFlag}
+            />
           </Modal>
         </Accordion.Panel>
       </Accordion.Item>
