@@ -22,7 +22,7 @@ const referralSchema = new Schema(
         company: {
             type: Schema.Types.ObjectId,
             ref: 'company',
-            required: true
+            // required: true WILL ADD BACK
         },
         assignedBy: {
             type: Schema.Types.ObjectId,
@@ -62,3 +62,5 @@ const referralSchema = new Schema(
     });
 
 const Referral = model('referral', referralSchema);
+
+module.exports = Referral;
