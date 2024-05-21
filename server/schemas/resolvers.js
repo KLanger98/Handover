@@ -1,6 +1,6 @@
 //Import required models here
 const { signToken, AuthenticationError } = require("../utils/auth");
-const { User, Process } = require("../model");
+const { User, Process, Referral } = require("../model");
 
 
 
@@ -124,20 +124,22 @@ const resolvers = {
             if(!context.user){
                 throw AuthenticationError;
             }
-
-            
+            console.log(`Title: ${title}, Desc: ${desc}, Priority: ${priority}, Related Processes: ${relatedProcesses}`)
+            console.log("User", context.user)
             try {
                 const newReferral = await Referral.create({
                     title, 
                     desc, 
                     priority, 
                     relatedProcesses, 
+                    
                     assignedBy: context.user._id
                     //will need to implement current Company too                    
                 });
 
                 return newReferral;
             } catch (err) {
+                console.log(err)
                 throw new Error(err);
             }
         }
