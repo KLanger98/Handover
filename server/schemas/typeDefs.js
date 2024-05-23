@@ -25,7 +25,10 @@ const typeDefs = `
         processTitle: String!
         processText: String!
         processCategory: String!
+        processSubCategory: String!
         formattedDate: String
+        flags: [ID]
+        populatedFlags: [Flag]
     }
     type Referral {
         _id: ID!
@@ -39,6 +42,14 @@ const typeDefs = `
         priority: String
         completionNotes: String
         relatedProcesses: [ID]
+    }
+
+    type Flag {
+        _id: ID!
+        flagText: String!
+        referenceProcess: ID
+        postedBy: ID
+        dateCreated: String
     }
 
     type Task {
@@ -67,17 +78,26 @@ const typeDefs = `
         user(user: ID!): User
         users: [User]
         me: User
+
         findProcessesGroupedByCategory: [CategoryGroup]
         findReferrals: [Referral]
+        
+        findFlags: [Flag]
+
     }
 
     type Mutation{
         addUser(email: String!, password: String!, firstName: String!, lastName: String!): User
         login(email: String!, password: String!): Auth
         removeUser: User
-        addProcess(processTitle: String!, processText: String!, processCategory: String!): Process
+
+        addProcess(processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!): Process
         deleteProcess(processId: ID!): Process
-        updateProcess(processId: ID!, processTitle: String!, processText: String!, processCategory: String!): Process
+        updateProcess(processId: ID!, processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!): Process
+
+        addFlag(flagText: String!, referenceProcess: ID): Flag
+        removeFlag(flagId: ID!): Flag
+
         addReferral(title: String!, desc: String!, priority: String, relatedProcesses: [ID]): Referral
     }
 

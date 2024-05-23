@@ -1,7 +1,8 @@
 import ProcessEditorModal from "../components/ProcessEditorModal"
-import {Modal, Button, Title, Accordion, Stack, Divider, TextInput, Group, ActionIcon} from "@mantine/core"
+import {Modal, Button, Title, Accordion, Stack, Divider, TextInput, Group, ActionIcon, Image, Text, Indicator} from "@mantine/core"
+import {Link} from 'react-router-dom'
 import {useDisclosure} from "@mantine/hooks"
-import {IconLibraryPlus, IconSearch} from '@tabler/icons-react'
+import {IconLibraryPlus, IconSearch, IconFlagCog} from '@tabler/icons-react'
 import { useQuery } from "@apollo/client"
 import { QUERY_PROCESSES_GROUPED} from "../utils/queries"
 import AccordionItem from "../components/ProcessAccordion/AccordionItem"
@@ -24,9 +25,10 @@ const ProcessLibrary = () => {
       refetchQueries: [QUERY_PROCESSES_GROUPED],
     });
 
-    const handleAddProcess = async ({processTitle, processText, processCategory}) => {
+    const handleAddProcess = async ({processTitle, processText, processCategory, processSubCategory}) => {
+
       const { data, error } = await addProcess({
-        variables: {processTitle, processText, processCategory}
+        variables: {processTitle, processText, processCategory, processSubCategory}
       })
 
       if(error){
@@ -54,7 +56,23 @@ const ProcessLibrary = () => {
 
   return (
     <>
-      <Title>Process Library</Title>
+      <Group justify="space-between">
+        <Group>
+          <Stack>
+            <Title order={2}>Process Library</Title>
+            <Text>
+              Here you can find all relevant processes for your position!
+            </Text>
+          </Stack>
+        </Group>
+        <Group w="40%" direction="row" wrap="nowrap" mr={40}>
+          <TextInput placeholder="Search for a Process" size="md" w={800} />
+          <ActionIcon size="input-md" variant="default" bg="columbia-blue.6">
+            <IconSearch color="white" />
+          </ActionIcon>
+        </Group>
+      </Group>
+
       <Modal opened={opened} onClose={close} centered size="70%">
         {/* Modal content */}
         <Title>Add Process</Title>
@@ -65,25 +83,27 @@ const ProcessLibrary = () => {
         />
       </Modal>
 
-      <Button
-        variant="form"
-        size="lg"
-        m={20}
-        leftSection={<IconLibraryPlus size={14} />}
-        onClick={open}
-      >
-        Add Process
-      </Button>
-      <Group w="60%">
-        <TextInput placeholder="Search for a Process" size="md" w={800} />
-        <ActionIcon
-          size="input-md"
-          variant="default"
-          bg="columbia-blue.6"
+      <Group>
+        <Button
+          variant="form"
+          size="lg"
+          m={10}
+          leftSection={<IconLibraryPlus size={25} />}
+          onClick={open}
         >
-          <IconSearch color="white"/>
-        </ActionIcon>
+          Add Process
+        </Button>
+          <Button
+            variant="delete"
+            size="lg"
+            m={10}
+            leftSection={<IconFlagCog size={25} />}
+            onClick={open}
+          >
+            View Flagged Processes
+          </Button>
       </Group>
+
       {renderAccordian(processData)}
     </>
   );

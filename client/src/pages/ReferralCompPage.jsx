@@ -45,7 +45,7 @@ const ReferralCompPage = () => {
                     <Title order={3}>{referral.title}</Title>
                   </div>
                   <div style={{ display: 'flex', justifyContent:'left', verticalAlign: 'middle' }}>
-                  <Title order={4}>Assigned by <span style={{ color: 'var(--mantine-color-columbia-blue-9'}}>{referral.assignedBy.fullName}</span></Title>
+                    <Title order={4}>Assigned by <span style={{ color: 'var(--mantine-color-columbia-blue-9'}}>{referral.assignedBy.fullName}</span></Title>
                   </div>
                   <div style={{ display: 'flex', justifyContent:'right' }}>
                   </div>

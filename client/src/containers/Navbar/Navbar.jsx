@@ -1,4 +1,4 @@
-import { Stack, Button, Title, Divider } from '@mantine/core'
+import { Stack, Button, Title, Divider, Group, Container, Text, Indicator } from '@mantine/core'
 import { HomeButton } from '../../components'
 
 //import react router link
@@ -19,11 +19,27 @@ const Navbar = () => {
           <Title order={4}>Handover</Title>
         </Button>
       </Link>
-      <Link to="processes">
-        <Button variant="normal" justify="left">
-          <Title order={4}>Process Library</Title>
-        </Button>
-      </Link>
+      <Group gap={0}>
+        <Link to="processes">
+            <Button variant="normal" justify="left">
+              <Title order={4}>Process Library</Title>
+            </Button>
+        </Link>
+        <Container
+          bg="red.3"
+          justify="center"
+          align="center"
+          p={5}
+          w={30}
+          h="auto"
+          style={{ borderRadius: "20px" }}
+        >
+          <Title order={6} style={{ color: "white" }}>
+            3
+          </Title>
+        </Container>
+      </Group>
+
       <Link to="referrals">
         <Button variant="normal" justify="left">
           <Title order={4}>Referrals</Title>

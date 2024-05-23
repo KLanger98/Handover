@@ -36,6 +36,17 @@ button{
         } 
     }
 
+    &[data-variant='headerLogin'] {
+        height: 38px;
+        background-color: var(--mantine-color-brown-9); /* Assuming columbia-blue-0 is defined in your CSS variables */
+        color: var(--mantine-color-ghost-white-0);
+        /* Uncomment and modify the line below if you define hover color in CSS variables */
+        &:hover {
+            color: var(--mantine-color-ghost-white-0);
+            background-color: var(--mantine-color-brown-4);
+        } 
+    }
+
     &[data-variant='form'] {
         height: 38px;
         background-color: var(--mantine-color-columbia-blue-5); /* Assuming columbia-blue-0 is defined in your CSS variables */

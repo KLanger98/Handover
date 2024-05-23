@@ -1,10 +1,11 @@
 import ProcessEditor from "./ProcessEditor";
-import {  Stack, TextInput, Input, Checkbox, Button, NativeSelect } from "@mantine/core";
+import {  Stack, TextInput, Input, Checkbox, Button, NativeSelect, Radio, Group } from "@mantine/core";
 import { useListState, randomId } from "@mantine/hooks";
 import {useForm } from '@mantine/form'
 import { ADD_PROCESS } from "../utils/mutation";
 import {useMutation} from "@apollo/client"
 import { QUERY_PROCESSES_GROUPED } from "../utils/queries";
+import {IconListDetails, IconMapSearch, IconPencil, IconArrowsRandom} from "@tabler/icons-react"
 
 const initialcheckboxes = [
   { label: "Physiotherapy", checked: false, key: randomId() },
@@ -17,10 +18,11 @@ const initialcheckboxes = [
 const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
   const form = useForm({
     mode: "uncontrolled",
-    initialValues: { 
-      processTitle: "", 
-      processText: "", 
-      processCategory: "" 
+    initialValues: {
+      processTitle: "",
+      processText: "",
+      processCategory: "",
+      processSubCategory: "",
     },
 
     // functions will be used to validate values at corresponding key
@@ -31,6 +33,8 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
         value.length < 2 ? "Content is required within process text" : null,
       processCategory: (value) =>
         value === "Select Category" ? "Must Select at least one option" : null,
+      processSubCategory: (value) =>
+        value === "Select a Sub Category" ? "Must Select at least one option" : null,
     },
   });
   let editorContent = " ";
@@ -39,20 +43,23 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
     form.setFieldValue("processText", contentData.processText);
     editorContent = contentData.processText
     form.setFieldValue("processCategory", contentData.processCategory);
+    form.setFieldValue("processSubCategory", contentData.processSubCategory);
     console.log(form.getValues())
   }
 
   
 
   const handleSubmit = async (formValues) => {
+    console.log(formValues)
 
     try {
       let variables = {
         processTitle: formValues.processTitle,
         processText: formValues.processText,
         processCategory: formValues.processCategory,
+        processSubCategory: formValues.processSubCategory
       };
-
+      //If this modal is being used to edit an existing process, hand in ID
       if(contentData){
         variables.processId = contentData._id
       }
@@ -95,12 +102,14 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
           description="Give your Process a title"
           placeholder="How to complete a falls review"
           key={form.key("processTitle")}
+          withAsterisk
           {...form.getInputProps("processTitle")}
         />
         <Input.Wrapper
           my={10}
           label="Choose a category"
           description="Choose a Category to order your processes"
+          withAsterisk
         >
           <NativeSelect
             {...form.getInputProps("processCategory")}
@@ -112,7 +121,51 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
             ]}
           />
         </Input.Wrapper>
+        <Radio.Group
+          key={form.key("processSubCategory")}
+          {...form.getInputProps("processSubCategory")}
+          name="favoriteFramework"
+          label="Select a sub-category for this process"
+          withAsterisk
+        >
+          <Group mt="xs">
+            <Group>
+              <Radio
+                value="IconPencil"
+                label="Note Writing"
+                color="columbia-blue.4"
+              />
+              <IconPencil />
+            </Group>
+            <Group>
+              <Radio
+                value="IconMapSearch"
+                label="Finding an item"
+                color="columbia-blue.4"
+              />
+              <IconMapSearch />
+            </Group>
+            <Group>
+              <Radio
+                value="IconListDetails"
+                label="List of tasks"
+                color="columbia-blue.4"
+              />
+              <IconListDetails />
+            </Group>
+            <Group>
+              <Radio
+                value="IconArrowsRandom"
+                label="Miscellaneous"
+                checked
+                color="columbia-blue.4"
+              />
+              <IconArrowsRandom/>
+            </Group>
+          </Group>
+        </Radio.Group>
         <Input.Wrapper
+          withAsterisk
           my={10}
           label="Describe your process"
           description="Provide a detailed description of your process."

@@ -1,4 +1,4 @@
-import {Group, ActionIcon, Accordion, Title, Modal, Text, Flex} from "@mantine/core"
+import {Group, ActionIcon, Accordion, Title, Modal, Text, Flex, Divider, Badge} from "@mantine/core"
 import{ IconTrash, IconPencil, IconFlag } from "@tabler/icons-react"
 import {useState} from 'react'
 import ProcessEditorModal from "../ProcessEditorModal"
@@ -25,6 +25,7 @@ function AccordionItem({ dataArray }) {
     }
  )
 
+ //Handle deleting process
  const handleProcessDelete = async (processId) => {
     try{
         const {data} = deleteProcess({
@@ -41,10 +42,10 @@ function AccordionItem({ dataArray }) {
     refetchQueries: [QUERY_PROCESSES_GROUPED]
   }
  )
- const handleUpdateProcess = async ({processId, processTitle, processText, processCategory}) => {
+ const handleUpdateProcess = async ({processId, processTitle, processText, processCategory, processSubCategory}) => {
   try{
     const { data } = updateProcess({
-      variables: {processId, processTitle, processText, processCategory}
+      variables: {processId, processTitle, processText, processCategory, processSubCategory}
     })
   } catch(error){
     console.error(error)
@@ -56,10 +57,20 @@ function AccordionItem({ dataArray }) {
   open()
  }
 
+ const handleOpenFlagModal = (contentData) => {
+  setCurrentContentData(contentData)
+  openFlag()
+ }
+ console.log(dataArray)
+
   return dataArray.map((contentData) => (
     <Group key={contentData._id} m={4}>
       <ActionIcon.Group>
-        <ActionIcon variant="edit" size="md" onClick={() => handleOpenEditorModal(contentData)}>
+        <ActionIcon
+          variant="edit"
+          size="md"
+          onClick={() => handleOpenEditorModal(contentData)}
+        >
           <IconPencil stroke={1.0} />
         </ActionIcon>
         <ActionIcon
@@ -87,31 +98,50 @@ function AccordionItem({ dataArray }) {
         w="90%"
       >
         <Accordion.Control className="control">
-          <AccordionLabel
-            label={contentData.processTitle}
-            formattedDate={contentData.formattedDate}
-            description={contentData.processText}
-          />
+          <Group justify="space-between">
+            <AccordionLabel
+              label={contentData.processTitle}
+              formattedDate={contentData.formattedDate}
+              description={contentData.processText}
+              icon={contentData.processSubCategory}
+            />
+            {contentData.populatedFlags &&
+              contentData.populatedFlags.length > 0 && (
+                <Badge color="red.4" mr={10}>
+                  Flagged
+                </Badge>
+              )}
+          </Group>
         </Accordion.Control>
         <Accordion.Panel>
+          <Divider color="blue-grey.3" size="sm" />
           <div
             dangerouslySetInnerHTML={{ __html: contentData.processText }}
           ></div>
           <Flex justify="flex-end" align="center" direction="row" gap={8}>
             <Text mt={0}>Something Missing?</Text>
             <ActionIcon
-              style={{borderRadius: "100%"}}
+              style={{ borderRadius: "100%" }}
               size="xl"
               aria-label="Flag process"
               variant="light"
               bg="red.1"
-              onClick={openFlag}
+              onClick={() => handleOpenFlagModal(contentData)}
             >
               <IconFlag style={{ width: "70%", height: "70%" }} stroke={1.5} />
             </ActionIcon>
           </Flex>
-          <Modal opened={flagOpened} onClose={closeFlag} size="60%" title="Flag a Process for review" centered>
-            <FlagProcessForm/>
+          <Modal
+            opened={flagOpened}
+            onClose={closeFlag}
+            size="60%"
+            title="Flag a Process for review"
+            centered
+          >
+            <FlagProcessForm
+              contentData={currentContentData}
+              closeModal={closeFlag}
+            />
           </Modal>
         </Accordion.Panel>
       </Accordion.Item>

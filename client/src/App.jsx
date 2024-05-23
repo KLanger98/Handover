@@ -50,7 +50,7 @@ function App() {
             }}
             padding="md"
           >
-            <AppShell.Header p={5}bg='brown'>
+            <AppShell.Header p={5} bg='brown'>
               
               <Burger
                 opened={opened}

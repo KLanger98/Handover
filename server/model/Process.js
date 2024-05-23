@@ -21,12 +21,20 @@ const processSchema = new Schema(
       type: String,
       required: true
     },
+    processSubCategory: {
+      type: String, 
+      required: true
+    },
     referenceProcesses: [
       {
         type: Schema.Types.ObjectId,
         ref: 'process'
       }
-    ]
+    ],
+    flags: [{
+      type: Schema.Types.ObjectId,
+      ref: 'flag'
+    }]
 
   }
 );
