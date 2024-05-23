@@ -21,33 +21,27 @@ export const QUERY_ME = gql`
 `
 
   export const QUERY_PROCESSES_GROUPED = gql`
-    query Query {
+     query Query {
         findProcessesGroupedByCategory {
+            _id
             processes {
+            flags
+            populatedFlags {
                 _id
-                processCategory
-                processText
-                processTitle
-                formattedDate
-                processSubCategory
-                flags
-                populatedFlags {
-                    _id
-                    dateCreated
-                    flagText
-                    postedBy
-                    referenceProcess
-                }
+                dateCreated
+                flagText
+                postedBy
+                referenceProcess
             }
             _id
+            formattedDate
             processCategory
+            processSubCategory
             processText
             processTitle
-            formattedDate
+            }
         }
-        _id
     }
-}
 `
 
 export const QUERY_REFERRALS = gql`

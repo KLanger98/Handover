@@ -20,6 +20,7 @@ const ProcessLibrary = () => {
     const {loading, data} = useQuery(QUERY_PROCESSES_GROUPED);
     const processData = data?.findProcessesGroupedByCategory || {}
 
+    console.log(data)
     //Handle add Process
     const [addProcess, { error }] = useMutation(ADD_PROCESS, {
       refetchQueries: [QUERY_PROCESSES_GROUPED],
