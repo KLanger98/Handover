@@ -37,7 +37,7 @@ const Header = () => {
               </Link>
               <Link to="login">
                 <Button variant="headerLogin" justify="left">
-                  <Title order={4}>Log In</Title>
+                  <Title order={4}>Login</Title>
                 </Button>
               </Link>
               <Link to="signup">
@@ -51,7 +51,7 @@ const Header = () => {
           {/* Need to make it it's own Component */}
           {loggedIn && (
             <>
-              <Link to="dashboard">
+              <Link to="app/dashboard">
                 <Button variant="header" justify="left">
                   <Title order={4}>Home</Title>
                 </Button>
