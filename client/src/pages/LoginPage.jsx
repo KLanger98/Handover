@@ -52,7 +52,7 @@ const submitForm = async () => {
     });
 
     login(data.login.token)
-    navigate("/dashboard")
+    navigate("/app")
   } catch (error) { /// NEED TO DEFINE AUTHETNICATIONERROR AT SOME POINT
     console.log(error);
   }

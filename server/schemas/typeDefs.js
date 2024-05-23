@@ -5,6 +5,7 @@ const typeDefs = `
         password: String!
         firstName: String!
         lastName: String!
+        fullName: String
         userProfession: [ID]
         company: [ID]
     }
@@ -34,8 +35,8 @@ const typeDefs = `
         title: String!
         desc: String!
         status: String!
-        company: ID!
-        assignedBy: ID!
+        company: ID
+        assignedBy: User!
         dateCreated: String
         dateCompleted: String
         priority: String
@@ -79,7 +80,8 @@ const typeDefs = `
         me: User
 
         findProcessesGroupedByCategory: [CategoryGroup]
-
+        findReferrals: [Referral]
+        
         findFlags: [Flag]
 
     }

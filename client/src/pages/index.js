@@ -7,4 +7,5 @@ export { default as SignUpPage } from './SignUpPage'
 export { default as ErrorPage } from './ErrorPage'
 export { default as ProtectedRoute } from './ProtectedRoute'
 export { default as ReferralsPage } from './ReferralsPage'
+export { default as ReferralCompPage } from './ReferralCompPage'
 export { default as UserProfile } from "./UserProfile"
