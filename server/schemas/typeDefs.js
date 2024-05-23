@@ -26,6 +26,8 @@ const typeDefs = `
         processCategory: String!
         processSubCategory: String!
         formattedDate: String
+        flags: [ID]
+        populatedFlags: [Flag]
     }
     type Referral {
         _id: ID!
@@ -47,7 +49,7 @@ const typeDefs = `
         referenceProcess: ID
         postedBy: ID
         dateCreated: String
-        }
+    }
 
     type Task {
         _id: ID!

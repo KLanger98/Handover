@@ -23,12 +23,12 @@ function AccordionLabel({ label, formattedDate, icon }) {
   
   return (
     <Group wrap="nowrap" justify="space-between">
-      <Group>
+      <Group align="center">
         <DynamicIcon IconComponent={icon}/>
-        <div>
-          <Text size="xl">{label}</Text>
+        <Group align="center">
+          <Text size="lg">{label}</Text>
           <Text size="sm" c="dimmed" fw={400}>Updated: {formattedDate}</Text>
-        </div>
+        </Group>
       </Group>
     </Group>
   );
