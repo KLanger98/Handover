@@ -1,54 +1,19 @@
 import { Stack, Title, Text, Grid } from '@mantine/core'
 import { useEffect } from 'react'
-import { Activity } from '../components'
+import { Activity, Referrals } from '../components'
+import { useMutation, useQuery } from "@apollo/client";
+import { QUERY_REFERRALS } from "../utils/queries";
 
 import { images }  from '../../assets/';
 
 const Dashboard = () => {
     // const theme = useMantineTheme();
 
-    //Create a Activity Object
-    //     2 Types:
-    //     - Clicking Opens Module with Details: Title, Desc, Processes
-    //     - Clicking Completes the Activity
-    // Both are Activitys that can be completed but the former must have a click on the checkbox to be completed
-    // {
-    // title,
-    // desc,
-    // type: 'task' || 'referral' || 'process',
-    // items: []
-    // user: User Object (name, profileImg)
-    // }
-    // Create a Activity Object that has the commonalities
-    // Extend it to create one with differences
-
-
-    const referrals = [
-        {
-            title: "Bennedict has fallen",
-            desc: "Fortunately, for the kingdom...",
-            assignedUser: {
-                name: "Karlos Santana",
-                profileImg: images.karlos
-            }
-        },
-        {
-            title: "Sir Ian is sore on le caboose",
-            desc: "Got hurt bum, need a lil rub (on the bum).",
-            assignedUser: {
-                name: "Benson Baby",
-                profileImg: images.ben
-            }
-        },
-        {
-            title: "Lady Jane is in distress",
-            desc: "She's been kidnapped by a dragon",
-            assignedUser: {
-                name: "Karlos Santana",
-                profileImg: images.karlos
-            }
-        }
-    ]
+    // const [addReferral, { error }] = useMutation(ADD_REFERRAL, {
+    //     refetchQueries: [{ query: QUERY_REFERRALS }]
+    // })
+    const { data, loading } = useQuery(QUERY_REFERRALS)
+    const referrals = data?.findReferrals || []
 
     const daily = [
         {
@@ -66,9 +31,7 @@ const Dashboard = () => {
     ]
 
 
-    useEffect(()=> {
-        
-    }, [])
+
 
   return (
     <Stack p={10}>
@@ -94,7 +57,7 @@ const Dashboard = () => {
             
         */}
 
-        <Activity title="Referrals" items={referrals} type='referrals'/>
+        <Referrals title="Referrals" items={referrals} type='referrals'/>
 
         <Activity title="Daily Activities" items={daily} type='tasks'/>
         

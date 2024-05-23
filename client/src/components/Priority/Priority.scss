@@ -1,0 +1,42 @@
+
+
+
+
+.priority{
+    display: flex;
+    padding:3px;
+    align-items: center;
+    justify-content: center;
+
+    .ballBox{
+        width: 17px;
+        height: 17px;
+        border: none;
+        border-radius:4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        .ball{
+            width:8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .high{
+            background-color: var(--mantine-color-red-6);
+        }
+
+        .medium{
+            background-color: var(--mantine-color-orange-6);
+        }
+
+        .low{
+            background-color: var(--mantine-color-columbia-blue-7);
+        }
+
+    }
+
+}

@@ -1,11 +1,13 @@
 import { Stack, Title, Divider } from '@mantine/core'
 import { Container } from '..' //I made my own container for styling purposes
-import { ActivityItem } from '..'
+import { ReferralItem } from '..'
 import './Referrals.scss'
 import PropTypes from 'prop-types';
 
+
 const Referrals = ({ title='', items=[], type='task'}) => {
-    
+
+
 
   return (
     <Container> 
@@ -19,12 +21,12 @@ const Referrals = ({ title='', items=[], type='task'}) => {
 
         <Stack gap={0}>
           {
-            items.map((item, index) =>  <ActivityItem key={index} type={type} item={item} />) 
+            items.map((item, index) =>  <ReferralItem key={index} type={type} item={item} />) 
           }  
         </Stack>
       </Stack>
     </Container>
-  )
+  ) 
 
 }
 

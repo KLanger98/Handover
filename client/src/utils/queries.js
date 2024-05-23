@@ -18,19 +18,40 @@ export const QUERY_ME = gql`
         }
     }
   
-  `
+`
 
-  export const QUERY_PROCESSES_GROUPED = gql`
-    query Query {
-        findProcessesGroupedByCategory {
-            processes {
-                _id
-                processCategory
-                processText
-                processTitle
-                formattedDate
-            }
+export const QUERY_PROCESSES_GROUPED = gql`
+query Query {
+    findProcessesGroupedByCategory {
+        processes {
             _id
+            processCategory
+            processText
+            processTitle
+            formattedDate
         }
+        _id
     }
-  `
+}
+`
+
+export const QUERY_REFERRALS = gql`
+query FindReferrals {
+    findReferrals {
+    _id
+    title
+    desc
+    status
+    company
+    assignedBy {
+        _id
+        fullName
+    }
+    dateCreated
+    dateCompleted
+    priority
+    completionNotes
+    relatedProcesses
+    }
+}
+`

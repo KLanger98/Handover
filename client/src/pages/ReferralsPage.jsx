@@ -1,31 +1,36 @@
-import { Stack, Button } from "@mantine/core";
+import { Stack } from "@mantine/core";
 import { Referrals } from "../components";
-import { useEffect } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ADD_REFERRAL } from '../utils/mutation'
+import { QUERY_REFERRALS } from "../utils/queries";
 
 const ReferralsPage = () => {
 
-    const [addReferral, { error }] = useMutation(ADD_REFERRAL)
+    const [addReferral, { error }] = useMutation(ADD_REFERRAL, {
+        refetchQueries: [{ query: QUERY_REFERRALS }]
+    })
+    const { data, loading } = useQuery(QUERY_REFERRALS)
+    const referrals = data?.findReferrals || []
+    
 
     const handleClick = async () => {
-        const { data, error } = await addReferral({
-            variables: { title: "Bennedict has fallen", desc: "Fortunately, for the kingdom...", priority: "high", relatedProcesses: [] 
-        }})
+        // const { data, error } = await addReferral({
+        //     variables: { title: "Paul took a stick and hit Kevin", desc: "Actually Kevin ded", priority: "medium", relatedProcesses: [] 
+        // }})
 
         if(error){
             console.log(error)
         }
 
-        console.log(data)
+        // console.log(data)
 
     }
 
-  useEffect(() => {});
+
   return (
     <>
       <Stack gap={10} p={10}>
-        <Button color="blue" size="lg" onClick={handleClick}> CLICK</Button>
+       <Referrals title="Referrals" items={referrals} />
       </Stack>
     </>
   );

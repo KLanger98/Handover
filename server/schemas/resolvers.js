@@ -40,7 +40,23 @@ const resolvers = {
             } 
         },
 
+        //Referral related queries
+        findReferrals: async (parent, {}, context) => {
+            if(!context.user) throw AuthenticationError;
 
+            try {
+                //q: how can i specify only specifici fields i want from assignedBy?
+                //a:
+            
+                const referrals = await Referral.find({}).populate('assignedBy', {password: 0});
+                
+      
+                return referrals;
+            }
+            catch (err) {
+                throw new Error(err);
+            }
+        }
         // //Task related queries
         // findTasks: async (parent, {}) => {
 
@@ -124,8 +140,8 @@ const resolvers = {
             if(!context.user){
                 throw AuthenticationError;
             }
-            console.log(`Title: ${title}, Desc: ${desc}, Priority: ${priority}, Related Processes: ${relatedProcesses}`)
-            console.log("User", context.user)
+            // console.log(`Title: ${title}, Desc: ${desc}, Priority: ${priority}, Related Processes: ${relatedProcesses}`)
+            // console.log("User", context.user)
             try {
                 const newReferral = await Referral.create({
                     title, 
