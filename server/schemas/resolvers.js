@@ -25,14 +25,20 @@ const resolvers = {
             try{
                 const result = await Process.aggregate([
                 {
+                    $lookup: {
+                    from: 'flags', // The name of the collection to join
+                    localField: 'flags', // The field from the Process documents
+                    foreignField: '_id', // The field from the Flag documents
+                    as: 'populatedFlags' // The name of the output array field
+                    }
+                },
+                {
                     $group: {
                     _id: '$processCategory',
                     processes: { $push: '$$ROOT' }
                     }
                 }
             ]);
-
-            
 
             return result;
             } catch (err) {
@@ -95,7 +101,15 @@ const resolvers = {
             return Process.create({processTitle, processText, processCategory, lastUpdated, formattedDate, processSubCategory})
         },
         deleteProcess: async (parent, {processId}) => {
-            return Process.findOneAndDelete({ _id: processId });
+            const result = await Process.findOneAndDelete({ _id: processId });
+            console.log(result)
+            console.log(result.flags.length)
+            //If there are flags referenced within this process, delete them
+                for(const flagId of result.flags){
+                    const flag = await Flag.findOneAndDelete({_id: flagId});
+                }
+
+            return result;
         },
         updateProcess: async (parent, {processId, processTitle, processText, processCategory}) => {
             let lastUpdated = new Date();
@@ -110,18 +124,35 @@ const resolvers = {
         },
         //Flag mutations
         addFlag: async (parent, {flagText, referenceProcess}, context) => {
-            if(context.user){
-                console.log(referenceProcess)
+                //Create a Flag with process reference
                 let currentDate = new Date();
                 let formattedDate = currentDate.toDateString();
-                return Flag.create({flagText, postedBy: context.user._id, referenceProcess, formattedDate})
-            } 
-            
+                let result = await Flag.create({flagText, postedBy: context.user._id , referenceProcess, formattedDate})
+
+                //Add flag ID to process 
+                if(referenceProcess){
+                    let process = await Process.findOneAndUpdate(
+                        {_id: referenceProcess},
+                        {$addToSet: {flags: result._id}},
+                        {new: true})
+                }
+                return result;
         },
         removeFlag: async (parent, {flagId}, context) => {
-            if(context.user){
-                return Flag.findOneAndDelete({_id: flagId})
-            }
+                let result = await Flag.findOneAndDelete({_id: flagId})
+
+                console.log(result)
+                console.log(result.referenceProcess)
+
+                //If this flag references a process, delete the reference from process
+                if(result.referenceProcess){
+                    let removeProcess = await Process.findOneAndUpdate(
+                        {_id: result.referenceProcess},
+                        {$pull: {flags: result._id}},
+                        {new: true})
+                }
+
+                return result;
         },
         // removeProcess: async (parent, {}) => {
 

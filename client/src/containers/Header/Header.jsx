@@ -56,9 +56,9 @@ const Header = () => {
                   <Title order={4}>Home</Title>
                 </Button>
               </Link>
-              {/* <Button variant="header" justify="left" onClick={handleSubmit}>
+              <Button variant="header" justify="left" onClick={handleSubmit}>
                 <Title order={4}>Logout</Title>
-              </Button> */}
+              </Button>
               <Link to="user">
                 <Avatar
                   variant="filled"

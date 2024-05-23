@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const Process = require('./Process')
 
 const flagSchema = new Schema(
   {
@@ -24,6 +25,7 @@ const flagSchema = new Schema(
 
   }
 );
+
 
 
 const Flag = model('flag', flagSchema);

@@ -30,6 +30,14 @@ export const QUERY_ME = gql`
                 processTitle
                 formattedDate
                 processSubCategory
+                flags
+                populatedFlags {
+                    _id
+                    dateCreated
+                    flagText
+                    postedBy
+                    referenceProcess
+                }
             }
             _id
         }

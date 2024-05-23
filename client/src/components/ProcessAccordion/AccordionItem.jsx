@@ -1,4 +1,4 @@
-import {Group, ActionIcon, Accordion, Title, Modal, Text, Flex} from "@mantine/core"
+import {Group, ActionIcon, Accordion, Title, Modal, Text, Flex, Divider, Badge} from "@mantine/core"
 import{ IconTrash, IconPencil, IconFlag } from "@tabler/icons-react"
 import {useState} from 'react'
 import ProcessEditorModal from "../ProcessEditorModal"
@@ -25,6 +25,7 @@ function AccordionItem({ dataArray }) {
     }
  )
 
+ //Handle deleting process
  const handleProcessDelete = async (processId) => {
     try{
         const {data} = deleteProcess({
@@ -60,6 +61,7 @@ function AccordionItem({ dataArray }) {
   setCurrentContentData(contentData)
   openFlag()
  }
+ console.log(dataArray)
 
   return dataArray.map((contentData) => (
     <Group key={contentData._id} m={4}>
@@ -96,14 +98,23 @@ function AccordionItem({ dataArray }) {
         w="90%"
       >
         <Accordion.Control className="control">
-          <AccordionLabel
-            label={contentData.processTitle}
-            formattedDate={contentData.formattedDate}
-            description={contentData.processText}
-            icon={contentData.processSubCategory}
-          />
+          <Group justify="space-between">
+            <AccordionLabel
+              label={contentData.processTitle}
+              formattedDate={contentData.formattedDate}
+              description={contentData.processText}
+              icon={contentData.processSubCategory}
+            />
+            {contentData.populatedFlags &&
+              contentData.populatedFlags.length > 0 && (
+                <Badge color="red.4" mr={10}>
+                  Flagged
+                </Badge>
+              )}
+          </Group>
         </Accordion.Control>
         <Accordion.Panel>
+          <Divider color="blue-grey.3" size="sm" />
           <div
             dangerouslySetInnerHTML={{ __html: contentData.processText }}
           ></div>
