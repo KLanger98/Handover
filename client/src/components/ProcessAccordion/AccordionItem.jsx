@@ -9,10 +9,11 @@ import { QUERY_PROCESSES_GROUPED } from "../../utils/queries";
 import {useMutation} from "@apollo/client"
 import "./Accordion.scss"
 import FlagProcessForm from "../FlagProcessForm";
+import FlagBanner from "../FlagBanner"
 
 
 
-function AccordionItem({ dataArray }) {
+function AccordionItem({ dataArray, searchTerm, filterFlags }) {
 //Handle Edit Modal Open/Close
   const [editOpened, { open, close }] = useDisclosure(false);
   const [flagOpened, { open: openFlag, close: closeFlag}] = useDisclosure(false);
@@ -52,6 +53,7 @@ function AccordionItem({ dataArray }) {
   }
  }
  
+ //Modal handlers
  const handleOpenEditorModal = (contentData) => {
   setCurrentContentData(contentData)
   open()
@@ -61,9 +63,29 @@ function AccordionItem({ dataArray }) {
   setCurrentContentData(contentData)
   openFlag()
  }
- console.log(dataArray)
 
-  return dataArray.map((contentData) => (
+ //Filter from dataArray processes that do not match the search terms based on title or content 
+ const filteredProcesses = dataArray.filter(
+   (process) => {
+      const matchesSearchTerms = process.processTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    process.processText.toLowerCase().includes(searchTerm.toLowerCase()) 
+    let matchesFilter = true;
+    if(filterFlags == true && process.populatedFlags.length < 1){
+      matchesFilter = false;
+    }
+    return matchesSearchTerms && matchesFilter
+  }
+ );
+
+ const renderFlags = (flagData) => {
+  return flagData.map((flag) => (
+    <>
+      <FlagBanner flagData={flag}/>
+    </>
+  ))
+ }
+
+  return filteredProcesses.map((contentData) => (
     <Group key={contentData._id} m={4}>
       <ActionIcon.Group>
         <ActionIcon
@@ -105,8 +127,7 @@ function AccordionItem({ dataArray }) {
               description={contentData.processText}
               icon={contentData.processSubCategory}
             />
-            {contentData.populatedFlags &&
-              contentData.populatedFlags.length > 0 && (
+            {contentData.populatedFlags.length > 0 && (
                 <Badge color="red.4" mr={10}>
                   Flagged
                 </Badge>
@@ -114,7 +135,9 @@ function AccordionItem({ dataArray }) {
           </Group>
         </Accordion.Control>
         <Accordion.Panel>
-          <Divider color="blue-grey.3" size="sm" />
+          {contentData.populatedFlags && (
+            renderFlags(contentData.populatedFlags)
+          )}
           <div
             dangerouslySetInnerHTML={{ __html: contentData.processText }}
           ></div>

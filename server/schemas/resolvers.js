@@ -159,9 +159,6 @@ const resolvers = {
         removeFlag: async (parent, {flagId}, context) => {
                 let result = await Flag.findOneAndDelete({_id: flagId})
 
-                console.log(result)
-                console.log(result.referenceProcess)
-
                 //If this flag references a process, delete the reference from process
                 if(result.referenceProcess){
                     let removeProcess = await Process.findOneAndUpdate(

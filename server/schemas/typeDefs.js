@@ -50,6 +50,7 @@ const typeDefs = `
         referenceProcess: ID
         postedBy: ID
         dateCreated: String
+        formattedDate: String
     }
 
     type Task {

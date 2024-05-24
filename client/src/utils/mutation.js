@@ -74,6 +74,14 @@ export const ADD_FLAG = gql`
 }
 `
 
+export const DELETE_FLAG = gql`
+  mutation Mutation($flagId: ID!) {
+    removeFlag(flagId: $flagId) {
+      _id
+    }
+  }
+`
+
 
 
 

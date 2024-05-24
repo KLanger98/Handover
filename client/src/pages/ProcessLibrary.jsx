@@ -3,11 +3,11 @@ import {Modal, Button, Title, Accordion, Stack, Divider, TextInput, Group, Actio
 import {Link} from 'react-router-dom'
 import {useDisclosure} from "@mantine/hooks"
 import {IconLibraryPlus, IconSearch, IconFlagCog} from '@tabler/icons-react'
-import { useQuery } from "@apollo/client"
+import { useQuery, useMutation } from "@apollo/client"
+import {useState} from "react"
 import { QUERY_PROCESSES_GROUPED} from "../utils/queries"
 import AccordionItem from "../components/ProcessAccordion/AccordionItem"
 import { ADD_PROCESS } from "../utils/mutation"
-import { useMutation } from "@apollo/client"
 import "../components/ProcessAccordion/Accordion.scss"
 
 
@@ -15,12 +15,27 @@ const ProcessLibrary = () => {
     //Modal open/close hook
     const [opened, { open, close }] = useDisclosure(false);
 
+    //useState to store search term 
+    const [searchTerm, setSearchTerm] = useState("");
+    const handleSearchChange = (event) =>{
+      setSearchTerm(event.target.value);
+    }
+
+    const [filterFlags, setFilterFlags] = useState(false);
+    const handleFlagFilterChange = () => {
+      if(filterFlags == true){
+        setFilterFlags(false)
+      } else{
+        setFilterFlags(true)
+      }
+      console.log(filterFlags)
+    }
 
     //Query processes group by category
     const {loading, data} = useQuery(QUERY_PROCESSES_GROUPED);
     const processData = data?.findProcessesGroupedByCategory || {}
 
-    console.log(data)
+    
     //Handle add Process
     const [addProcess, { error }] = useMutation(ADD_PROCESS, {
       refetchQueries: [QUERY_PROCESSES_GROUPED],
@@ -45,7 +60,7 @@ const ProcessLibrary = () => {
           </Title>
           <Divider size="lg" />
           <Accordion variant="separated" className="root">
-            <AccordionItem dataArray={category.processes} />
+            <AccordionItem filterFlags={filterFlags} searchTerm={searchTerm}  dataArray={category.processes} />
           </Accordion>
         </Stack>
       ));
@@ -67,7 +82,7 @@ const ProcessLibrary = () => {
           </Stack>
         </Group>
         <Group w="40%" direction="row" wrap="nowrap" mr={40}>
-          <TextInput placeholder="Search for a Process" size="md" w={800} />
+          <TextInput placeholder="Search for a Process" size="md" w={800} onChange={handleSearchChange}/>
           <ActionIcon size="input-md" variant="default" bg="columbia-blue.6">
             <IconSearch color="white" />
           </ActionIcon>
@@ -99,7 +114,7 @@ const ProcessLibrary = () => {
             size="lg"
             m={10}
             leftSection={<IconFlagCog size={25} />}
-            onClick={open}
+            onClick={handleFlagFilterChange}
           >
             View Flagged Processes
           </Button>
