@@ -2,10 +2,15 @@ import {Textarea, Text, Button, Stack, Title} from "@mantine/core"
 import { ADD_FLAG } from "../utils/mutation";
 import { useMutation } from "@apollo/client";
 import {useForm } from "@mantine/form"
+import { QUERY_FLAGS, QUERY_PROCESSES_GROUPED } from "../utils/queries";
 
 
 const FlagProcessForm = ({closeModal, contentData}) => {
-  const [addFlag, { data, error }] = useMutation(ADD_FLAG);
+  const [addFlag, { data, error }] = useMutation(ADD_FLAG, 
+    {
+      refetchQueries: [QUERY_FLAGS, QUERY_PROCESSES_GROUPED]
+    }
+  );
 
   //Handle form state
   const form = useForm({

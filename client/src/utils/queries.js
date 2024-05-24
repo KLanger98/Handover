@@ -28,10 +28,10 @@ export const QUERY_ME = gql`
             flags
             populatedFlags {
                 _id
-                dateCreated
                 flagText
                 postedBy
                 referenceProcess
+                formattedDate
             }
             _id
             formattedDate
@@ -69,7 +69,6 @@ query FindReferrals {
     query Query {
         findFlags {
             _id
-            dateCreated
             flagText
             postedBy
             referenceProcess
