@@ -16,7 +16,7 @@ const referralSchema = new Schema(
         },
         status: {
             type: String,
-            enum: ['incomplete', 'inprogress', 'complete'],
+            enum: ['incomplete', 'inprogress', 'completed'],
             default: 'incomplete'
         },
         company: {
@@ -54,12 +54,6 @@ const referralSchema = new Schema(
     );
 
 
-    referralSchema.pre('save', function(next) {
-        if(this.status === 'complete') {
-            this.dateCompleted = Date.now();
-        }
-        next();
-    });
 
 const Referral = model('referral', referralSchema);
 

@@ -11,7 +11,20 @@ const ReferralsPage = () => {
     })
     const { data, loading } = useQuery(QUERY_REFERRALS)
     const referrals = data?.findReferrals || []
-    
+    console.log(referrals)
+    let incomplete = [];
+    let inprogress = [];
+    let completed = [];
+
+    referrals.forEach(referral => {
+        if(referral.status === 'incomplete'){
+            incomplete.push(referral)
+        } else if(referral.status === 'inprogress'){
+            inprogress.push(referral)
+        } else if(referral.status === 'completed'){
+            completed.push(referral)
+        }
+    });
 
     const handleClick = async () => {
         // const { data, error } = await addReferral({
@@ -30,7 +43,7 @@ const ReferralsPage = () => {
   return (
     <>
       <Stack gap={10} p={10}>
-       <Referrals title="Referrals" items={referrals} />
+       <Referrals title="Referrals" incomplete={incomplete} inprogress={inprogress} completed={completed} />
       </Stack>
     </>
   );

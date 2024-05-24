@@ -1,0 +1,30 @@
+.user-details {
+    display:flex;
+    justify-content: right;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-right:10px;
+
+    .img-container{
+
+        width:25px;
+        height:25px;
+        border-radius: 50%;
+        overflow: hidden;
+     
+        img {
+            width: 28px;
+            height: 28px;
+          
+            margin-right: 10px;
+        }
+    }
+    .user-name {
+            
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+}

@@ -1,13 +1,15 @@
-import { useParams } from 'react-router-dom'
-import { Title, Stack, Divider, Text, TextInput, Button } from '@mantine/core'
-import { useQuery } from '@apollo/client'
+import { useParams, useNavigate } from 'react-router-dom'
+import { Title, Stack, Grid, Divider, Text, Textarea, Button, Space } from '@mantine/core'
+import { useQuery, useMutation } from '@apollo/client'
 import { QUERY_REFERRALS } from '../utils/queries'
+import { COMPLETE_REFERRAL, INPROGRESS_REFERRAL } from '../utils/mutation'
 import { useForm } from '@mantine/form'
-import { Priority } from '../components'
+import { Priority, UserStamp } from '../components'
 
 
 const ReferralCompPage = () => {
-  const { id } = useParams()
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const { data, loading } = useQuery(QUERY_REFERRALS);
   const referrals = data?.findReferrals || [];
@@ -15,63 +17,114 @@ const ReferralCompPage = () => {
 
   const form = useForm({
     mode: "uncontrolled",
-    initialValues: { completionNotes: "", },
+    initialValues: { completionNotes: referral.completionNotes ? referral.completionNotes : '', },
     // validate: {
     //   email: (value) => (/^\S+@\S+$/.test(value) ? null : "Enter a valid email"),
     //   password: (value) => value.length === 0? "Please enter a password." : null,
     // },
   });
 
-  const submitForm = () => {
 
+  const [completeReferral] = useMutation(COMPLETE_REFERRAL, {
+    refetchQueries: [QUERY_REFERRALS],
+  });
+  const [inprogressReferral] = useMutation(INPROGRESS_REFERRAL, {
+    refetchQueries: [QUERY_REFERRALS],
+  });
+
+  const submitForm = async () => {
+    const { comment } = form.getValues();
+    const submitButton = event.submitter.name;
+
+    if(submitButton === 'inprogress'){
+      try {
+        const inprogressRef = await inprogressReferral({
+          variables: {
+            referralId: referral._id,
+            completionNotes: comment,
+          },
+        });
+    
+        if(inprogressRef){
+          navigate('/app/referrals');
+        }
+    
+      } catch (err) {
+        console.error(err);
+      }
+    } else if(submitButton === 'complete'){
+      try {
+        const completedRef = await completeReferral({
+          variables: {
+            referralId: referral._id,
+            completionNotes: comment
+          },
+        });
+
+        if(completedRef){
+          navigate('/app/referrals');
+        }
+
+      } catch (err) {
+        console.error(err);
+      }
+    }
   }
 
 
   
   return (
-    <div>
-        <Stack p={10}>
-
-            
-            { !loading && (
-              <> 
+ 
+      <Stack p={10}>
+        { !loading && (
+          <> 
+            <Grid>
+              <Grid.Col span={2} pb={1} style={{ display:'flex', flexDirection: 'row', gap: '10px'}}>
                 <Title order={2} c='columbia-blue.9' pl={0}>
                 Referral 
                 </Title>
+                <Priority priority={referral.priority} />
+              </Grid.Col>
+              <Grid.Col span={6} />
+              <Grid.Col span={4} p={5} style={{ alignSelf: 'end'}}>
+                <UserStamp user={referral.assignedBy} />
+              </Grid.Col>
+              
+            </Grid>
 
-                <div style={{ display: 'flex', justifyContent:'space-between' }}>
-                  <div style={{ display: 'flex', justifyContent:'left' }}>
-                    <Priority priority={referral.priority} />     
-                    <Title order={3}>{referral.title}</Title>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent:'left', verticalAlign: 'middle' }}>
-                    <Title order={4}>Assigned by <span style={{ color: 'var(--mantine-color-columbia-blue-9'}}>{referral.assignedBy.fullName}</span></Title>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent:'right' }}>
-                  </div>
-                </div>
-                
-                <Divider />
+            <Divider color='brown'  style={{ border: '0.1px solid var(--mantine-color-brown-2)' }}/>
+            
+            <div style={{ display: 'flex', justifyContent:'left' }}>
+              <Title order={5} c='columbia-blue.9'>{referral.title}</Title>
+            </div>
+            <Text c='brown.9' size='16px' pt={10}>Details:</Text>
+            <Text c='brown.4' size='14px' pt={5}>{referral.desc}</Text>
+      
 
-                <Text>{referral.desc}</Text>
+            <Space h={20} />
+            <form onSubmit={form.onSubmit(submitForm)}>
+              <Stack>
+                <Title order={4}>Completion Notes</Title>
+                <Textarea
+                  placeholder="Anything worth mentioning about the completion of this?"
+                  minRows={2}
+                  maxRows={4}
+                  key={form.key("comment")}
+                  
+                  {...form.getInputProps('comment')}
+                />
 
-              <form onSubmit={form.onSubmit(submitForm)}>
-                <Stack>
-                  <Title order={4}>Completion Notes</Title>
-                  <TextInput
-                    placeholder="Add a comment"
-                    required
-                    // {...form.getProps('comment')}
-                  />
-                  <Button type="submit" bg="blue-grey">Complete</Button>
-                </Stack>
+                <Button type="submit" bg="green" name='complete'>Complete</Button>
+                <Button type="submit" bg="blue-grey" name='inprogress'>In-Progress</Button>
+               
+              </Stack>
 
-              </form>
-            </>
-          )}
-        </Stack>
+            </form>
+          </>
+        )}
+      </Stack>
 
-    </div>
+   
   )
 }
 

@@ -99,6 +99,8 @@ const typeDefs = `
         removeFlag(flagId: ID!): Flag
 
         addReferral(title: String!, desc: String!, priority: String, relatedProcesses: [ID]): Referral
+        completeReferral(referralId: ID!, completionNotes: String): Referral
+        inprogressReferral(referralId: ID!, completionNotes: String): Referral
     }
 
     

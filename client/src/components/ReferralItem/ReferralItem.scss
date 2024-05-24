@@ -13,34 +13,7 @@
         align-content: center;
         align-items: center;
     }
-    .user-details {
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 10px;
-
-        .img-container{
-
-            width:27px;
-            height:27px;
-            border-radius: 50%;
-            overflow: hidden;
-         
-            img {
-                width: 30px;
-                height: 30px;
-              
-                margin-right: 10px;
-            }
-        }
-        .user-name {
-                
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-
-    }
+    
 }
 .activity-item.hover {
 

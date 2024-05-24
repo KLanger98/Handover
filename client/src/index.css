@@ -4,6 +4,21 @@
   --hover-grey: rgb(235, 68, 68);
   --border-color: rgba(222.32, 226.13, 230.45);
 }
+
+.text-high {
+  color: var(--mantine-color-red-6);
+  text-transform: capitalize;
+}
+
+.text-medium {
+  color: var(--mantine-color-orange-6);
+  text-transform: capitalize;
+}
+
+.text-low {
+  color: var(--mantine-color-columbia-blue-7);
+  text-transform: capitalize
+}
 /*
 :root {
   font-family: "niveau-grotesk", sans-serif;

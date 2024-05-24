@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Grid, Text } from '@mantine/core';
-import { TickBox, Priority } from '..'
+import { TickBox, Priority, UserStamp } from '..'
 import { IconTrash } from '@tabler/icons-react';
 import './ReferralItem.scss';
 import PropTypes from 'prop-types';
+
 
 
 const ReferralItem = ( { item={}, type='task' } ) => {
@@ -23,7 +24,7 @@ const ReferralItem = ( { item={}, type='task' } ) => {
           <Grid.Col span={1} py={2}>
             <div style={{ display: 'flex', justifyContent:'center' }}>
              
-              <TickBox />
+             
               <Priority priority={item.priority} />
             </div>
           </Grid.Col>
@@ -46,17 +47,7 @@ const ReferralItem = ( { item={}, type='task' } ) => {
           
           {/* User Details (if referral)*/}
           <Grid.Col span={2} p={2}>
-            
-              <div className='user-details'>
-                <div className='img-container'>
-                  <img  alt={item.assignedBy.fullName} />
-                </div>
-                <Text className='user-name' size='sm' c='var(--mantine-color-blue-9)'>
-                  {item.assignedBy.fullName}
-                </Text>
-              </div>
-            
-
+              <UserStamp user={item.assignedBy} />
           </Grid.Col>
           
 
