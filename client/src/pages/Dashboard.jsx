@@ -14,7 +14,8 @@ const Dashboard = () => {
     // })
     const { data, loading } = useQuery(QUERY_REFERRALS)
     const referrals = data?.findReferrals || []
-
+    const incomplete = referrals.filter(referral => referral.status === 'incomplete')
+    const inprogress = referrals.filter(referral => referral.status === 'inprogress')
     const daily = [
         {
             title: "Complete Referrals",
@@ -57,11 +58,11 @@ const Dashboard = () => {
             
         */}
 
-        <Referrals title="Referrals" items={referrals} type='referrals'/>
+        <Referrals title="Referrals" incomplete={incomplete} inprogress={inprogress}/>
 
         <Activity title="Daily Activities" items={daily} type='tasks'/>
         
-        <Activity title="Processes" />
+        {/* <Activity title="Processes" /> */}
 
 
     </Stack>

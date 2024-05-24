@@ -1,9 +1,12 @@
-import ropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import './Container.scss'
 
-const Container = ({ children }) => {
+const Container = ({ children, p='' }) => {
+
+  const padding = p.includes('px') ? p : `${p}px`;
+
   return (
-    <div className='activity-container'>
+    <div className='activity-container' style={{ padding }}>
 
         {children}
 
@@ -13,7 +16,8 @@ const Container = ({ children }) => {
 
 Container.propTypes = {
 
-  children: ropTypes.node
+  children: PropTypes.node,
+  p: PropTypes.string,
 }
 
 export default Container

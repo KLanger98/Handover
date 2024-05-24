@@ -1,6 +1,7 @@
 //Import required models here
 const { signToken, AuthenticationError } = require("../utils/auth");
 const { User, Process, Referral, Flag} = require("../model");
+const { compare } = require("bcrypt");
 
 
 
@@ -208,8 +209,41 @@ const resolvers = {
                 console.log(err)
                 throw new Error(err);
             }
-        }
+        },
 
+        completeReferral: async (parent, { referralId, completionNotes }, context) => {
+
+            if(!context.user){
+                throw AuthenticationError;
+            }
+
+            try {
+
+                return await Referral.findOneAndUpdate( { _id: referralId }, 
+                    { status: 'complete', completionNotes, dateCompleted: new Date()}, 
+                    {new: true});
+
+            } catch(err) {
+                throw new Error(err);
+            }
+        },
+
+        inprogressReferral: async (parent, { referralId, completionNotes }, context) => {
+
+            if(!context.user){
+                throw AuthenticationError;
+            }
+
+            try {
+
+                return await Referral.findOneAndUpdate( { _id: referralId }, 
+                    { status: 'inprogress', completionNotes }, 
+                    {new: true});
+
+            } catch(err) {
+                throw new Error(err);
+            }
+        },
 
 
 

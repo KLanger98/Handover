@@ -64,14 +64,14 @@ export const UPDATE_PROCESS = gql`
 //FLAGS
 export const ADD_FLAG = gql`
   mutation Mutation($flagText: String!, $referenceProcess: ID) {
-  addFlag(flagText: $flagText, referenceProcess: $referenceProcess) {
-    _id
-    flagText
-    postedBy
-    referenceProcess
-    dateCreated
+    addFlag(flagText: $flagText, referenceProcess: $referenceProcess) {
+      _id
+      flagText
+      postedBy
+      referenceProcess
+      dateCreated
+    }
   }
-}
 `
 
 export const DELETE_FLAG = gql`
@@ -88,19 +88,53 @@ export const DELETE_FLAG = gql`
 // REFERRALS
 
 export const ADD_REFERRAL = gql`
-mutation Mutation($title: String!, $desc: String!, $priority: String, $relatedProcesses: [ID]) {
-  addReferral(title: $title, desc: $desc, priority: $priority, relatedProcesses: $relatedProcesses) {
-    _id
-    title
-    desc
-    status
-    company
-    assignedBy
-    dateCreated
-    dateCompleted
-    priority
-    completionNotes
-    relatedProcesses
+  mutation Mutation($title: String!, $desc: String!, $priority: String, $relatedProcesses: [ID]) {
+    addReferral(title: $title, desc: $desc, priority: $priority, relatedProcesses: $relatedProcesses) {
+      _id
+      title
+      desc
+      status
+      company
+      assignedBy
+      dateCreated
+      dateCompleted
+      priority
+      completionNotes
+      relatedProcesses
+    }
   }
-}
+`
+
+export const COMPLETE_REFERRAL = gql`
+  mutation Mutation($referralId: ID!, $completionNotes: String) {
+    completeReferral(referralId: $referralId, completionNotes: $completionNotes) {
+      _id
+      title
+      desc
+      status
+      company
+      dateCreated
+      dateCompleted
+      priority
+      completionNotes
+      relatedProcesses
+    }
+  }
+`
+
+export const INPROGRESS_REFERRAL = gql`
+  mutation Mutation($referralId: ID!, $completionNotes: String) {
+    inprogressReferral(referralId: $referralId, completionNotes: $completionNotes) {
+      _id
+      title
+      desc
+      status
+      company
+      dateCreated
+      dateCompleted
+      priority
+      completionNotes
+      relatedProcesses
+    }
+  }
 `
