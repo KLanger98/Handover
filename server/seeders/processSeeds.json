@@ -1,0 +1,55 @@
+[
+    {
+        "processTitle": "Wheelchairs",
+        "processText": "<h2>Wheelchairs</h2><p>Wheelchairs can be found in the shed behind the dining room </p><p><span class=\"node-imageComponent\"><span class=\"image-component\"><img src=\"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages-na.ssl-images-amazon.com%2Fimages%2FI%2F81Wl8OCQHhL._SL1500_.jpg&amp;f=1&amp;nofb=1&amp;ipt=00a1126a3f52884a77679da6901c8ddbe7c7f406218f160123cafe101c31b995&amp;ipo=images\" alt=\"ScooterBox Oak Mobility Scooter Storage Shelter - Small (Right Hand ...\" title=\"\" width=\"405\" height=\"227.87578125000002\" style=\"max-width: 405px\" data-keep-ratio=\"true\" class=\"\"></span></span></p>",
+        "processCategory": "Equipment",
+        "processSubCategory": "IconMapSearch"
+    },
+    {
+        "processTitle": "TubiGrip",
+        "processText": "<h2>Where to find TubiGrip</h2><p>The tubiGrip can be found in the cupboard within the Physio room itself </p><p><span class=\"node-imageComponent\"><span class=\"image-component\"><img src=\"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fhealthcareguys.com%2Fwp-content%2Fuploads%2F2017%2F06%2F1908456.jpg&amp;f=1&amp;nofb=1&amp;ipt=3fc30ed565fe9a4bb5b524cb7be53b961688d1d3a1e2423e8bf8b8812507634a&amp;ipo=images\" alt=\"Medical cabinets in hospital | The Healthcare Guys\" title=\"\" width=\"348\" height=\"231.95015625\" style=\"max-width: 348px\" data-keep-ratio=\"true\" class=\"\"></span></span></p>",
+        "processCategory": "Equipment",
+        "processSubCategory": "IconMapSearch"
+    },
+    {
+        "processTitle": "Where to find Shower Chairs",
+        "processText": "<h2>Shower Chair Location:</h2><p>Shower chairs can be found in the shed behind the dining room </p><p>Usually the shed is kept unlocked, if you need a key ask maintenance Jeff.</p>",
+        "processCategory": "Equipment",
+        "processSubCategory": "IconMapSearch"
+    },
+    {
+        "processTitle": "How to Complete a Falls Review",
+        "processText": "<h2>How to complete a Falls review:</h2><ul><li><p>Review resident for any injuries </p></li><li><p>Review past falls for trends or clusters</p></li><li><p>Assess if any changes need to be made to falls prevention strategies, mobility, planned care activities etc.</p></li><li><p>Write a progress note with findings/ assessment/ plan </p></li><li><p>Update the <strong>Mobility </strong>careplan </p><ul><li><p>If no changes, just write post-fall r/v </p></li></ul></li><li><p>Update <strong>Maintaining a safe environment</strong> careplan </p></li><li><p>Update DEMMI/ Mobility and function assessment </p></li><li><p>Handover to RN/CM/Nurses </p></li></ul>",
+        "processCategory": "Falls Reviews",
+        "processSubCategory": "IconListDetails"
+    },
+    {
+        "processTitle": "How to complete a DEMMI",
+        "processText": "<h2>Completing a DEMMI</h2><p>The DEMMI is an advanced instrument for accurately measuring the mobility of older people across clinical settings.</p><p><span class=\"node-imageComponent\"><span class=\"image-component\"><img src=\"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pdffiller.com%2Fpreview%2F252%2F239%2F252239826.png&amp;f=1&amp;nofb=1&amp;ipt=2bc0efe3ee60e852b5f3bdcad9fb06df7941143a89a1342880bcd2428075e736&amp;ipo=images\" alt=\"Demmi Modified - Fill Online, Printable, Fillable, Blank | pdfFiller\" title=\"\" width=\"370\" height=\"479.26174496644296\" style=\"max-width: 370px\" data-keep-ratio=\"true\" class=\"\"></span></span></p><p>You can fill out a form just like this found under the residents assessment tools tab - Fill out the fields and it will calculate the residents score!</p>",
+        "formattedDate": "Fri May 24 2024",
+        "processCategory": "Falls Reviews",
+        "processSubCategory": "IconPencil",
+    },
+    {
+        "processTitle": "How to Update the Mobility careplan",
+        "processText": "<h2>Updating the Mobility Care Plan </h2><ul><li><p>Find the mobility careplan from within the care plans tab of the resident you would like to update</p></li><li><p>If this is the first time you are writing the mobility care plan simply fill out the required fields, ensuring you specify the Residents, mobility and transfer status </p></li><li><p>Otherwise if you are just reviewing, make any changes necessary</p></li><li><p>Once completed, simply press save and write a short note in the provided box </p></li></ul>",
+        "formattedDate": "Fri May 24 2024",
+        "processCategory": "Falls Reviews",
+        "processSubCategory": "IconPencil",
+    },
+    {
+        "processTitle": "How to update general risk assessments",
+        "processText": "<p><strong>Updating general risk assessment form:</strong></p><ul><li><p>Check the residents page to see if they have any general risk assessment forms completed in the past </p></li><li><p>Review necessary forms with resident if indicated </p></li></ul>",
+        "formattedDate": "Fri May 24 2024",
+        "processCategory": "Six Month Reviews",
+        "processSubCategory": "IconPencil",
+    },
+    {
+        "processTitle": "How to Complete a Six Months Review",
+        "processText": "<p><strong>Completing a 6 month review:</strong></p><ul><li><p>Check to see when a residents review is due, ensure it is completed prior to this date</p></li><li><p>Read care notes, taking consideration for hospital visits, falls, adverse events, pain entries, mobility, medication over the last 6 months</p></li><li><p>Speak with the resident </p></li><li><p>Critically assess the residents capacity and how they are doing, comparing existing care plan </p></li><li><p>Check with clinical staff</p></li><li><p>Review early intervention program </p></li></ul><p><strong>Complete the following assessments:</strong></p><ul><li><p>Mobility and functiokn </p></li><li><p>Berg Balance Scale</p></li><li><p>DEMMI </p></li><li><p>Update general risk assessments related to AH or mobility </p></li></ul><p></p>",
+        "formattedDate": "Fri May 24 2024",
+        "processCategory": "Six Month Reviews",
+        "processSubCategory": "IconListDetails"
+    }
+
+]
