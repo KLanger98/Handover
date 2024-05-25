@@ -11,3 +11,4 @@ export { default as ReferralCompPage } from './ReferralCompPage'
 export { default as UserProfile } from "./UserProfile"
 export { default as SiteInformation } from "./SiteInformation"
 export { default as NewReferral } from "./NewReferral"
+export { default as IndividualProcess } from "./IndividualProcess"

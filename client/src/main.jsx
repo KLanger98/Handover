@@ -10,7 +10,7 @@ import App from './App.jsx'
 import { LoginPage, SignUpPage, ProcessLibrary, 
   ApplicationPage, Dashboard, AboutPage, ErrorPage, 
   ProtectedRoute, ReferralsPage, ReferralCompPage, UserProfile, SiteInformation,
-  NewReferral
+  NewReferral, IndividualProcess
 } from './pages/'
 
 
@@ -47,6 +47,10 @@ const router = createBrowserRouter([
           {
             path: "processes",
             element: <ProcessLibrary/>
+          },
+          {
+            path: "processes/:id",
+            element: <IndividualProcess/>
           },
           {
             path: "dashboard",

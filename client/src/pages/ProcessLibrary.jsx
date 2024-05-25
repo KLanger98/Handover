@@ -1,6 +1,5 @@
 import ProcessEditorModal from "../components/ProcessEditorModal"
 import {Modal, Button, Title, Accordion, Stack, Divider, TextInput, Group, ActionIcon, Image, Text, Indicator} from "@mantine/core"
-import {Link} from 'react-router-dom'
 import {useDisclosure} from "@mantine/hooks"
 import {IconLibraryPlus, IconSearch, IconFlagCog} from '@tabler/icons-react'
 import { useQuery, useMutation } from "@apollo/client"
@@ -28,13 +27,12 @@ const ProcessLibrary = () => {
       } else{
         setFilterFlags(true)
       }
-      console.log(filterFlags)
     }
 
     //Query processes group by category
     const {loading, data} = useQuery(QUERY_PROCESSES_GROUPED);
     const processData = data?.findProcessesGroupedByCategory || {}
-
+    console.log(processData)
     
     //Handle add Process
     const [addProcess, { error }] = useMutation(ADD_PROCESS, {
