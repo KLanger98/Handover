@@ -28,7 +28,7 @@ const typeDefs = `
         processCategory: String!
         processSubCategory: String!
         formattedDate: String
-        flags: [ID]
+        flags: [Flag]
         populatedFlags: [Flag]
     }
     type Referral {
@@ -82,10 +82,13 @@ const typeDefs = `
         me: User
 
         getProcesses: [Process]
+        getProcess(processId: String!): Process
         findProcessesGroupedByCategory: [CategoryGroup]
         findReferrals: [Referral]
         
         findFlags: [Flag]
+
+        getCompany: Company
 
     }
 

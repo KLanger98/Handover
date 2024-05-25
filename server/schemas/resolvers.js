@@ -1,6 +1,6 @@
 //Import required models here
 const { signToken, AuthenticationError } = require("../utils/auth");
-const { User, Process, Referral, Flag} = require("../model");
+const { User, Process, Referral, Flag, Company} = require("../model");
 const { compare } = require("bcrypt");
 
 
@@ -64,6 +64,19 @@ const resolvers = {
             }
         },
 
+        getProcess: async (parent, {processId}, context) => {
+            console.log("hi")
+            if(context.user){
+                try {
+                    return Process.findOne({_id: processId}).populate('flags');
+                } catch(error){
+                    throw new Error(error);
+                }
+            }
+
+            throw AuthenticationError
+        },
+
         findFlags: async (parent, {}) => {
             return Flag.find()
         },
@@ -72,9 +85,6 @@ const resolvers = {
         findReferrals: async (parent, {}, context) => {
             if(!context.user) throw AuthenticationError;
         //Flag related queries
-     
-
-
             try {
                 //q: how can i specify only specifici fields i want from assignedBy?
                 //a:
@@ -87,7 +97,7 @@ const resolvers = {
             catch (err) {
                 throw new Error(err);
             }
-        }
+        },
         // //Task related queries
         // findTasks: async (parent, {}) => {
 
@@ -98,6 +108,9 @@ const resolvers = {
         //Profession related queries
 
         //Company related queries
+        getCompany: async (parent, {companyId}, context) => {
+            return Company.findOne({_id: companyId})
+        }
     },
     Mutation: {
         //User mutation methods

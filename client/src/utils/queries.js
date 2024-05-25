@@ -20,20 +20,19 @@ export const QUERY_PROCESSES_GROUPED = gql`
         findProcessesGroupedByCategory {
             _id
             processes {
-            flags
-            populatedFlags {
+                populatedFlags {
+                    _id
+                    flagText
+                    postedBy
+                    referenceProcess
+                    formattedDate
+                }
                 _id
-                flagText
-                postedBy
-                referenceProcess
                 formattedDate
-            }
-            _id
-            formattedDate
-            processCategory
-            processSubCategory
-            processText
-            processTitle
+                processCategory
+                processSubCategory
+                processText
+                processTitle
             }
         }
     }
@@ -51,6 +50,25 @@ export const QUERY_PROCESSES = gql`
         }
     }
 `
+
+export const QUERY_SINGLE_PROCESS = gql`
+    query Query($processId: String!) {
+        getProcess(processId: $processId) {
+            _id
+            formattedDate
+            processCategory
+            flags{
+                _id
+                flagText
+                formattedDate
+            }
+            processSubCategory
+            processText
+            processTitle
+        }
+    }
+`
+
 export const QUERY_PROCESSES_SIMPLE = gql`
     query GetProcesses {
         getProcesses {
@@ -91,3 +109,17 @@ query FindReferrals {
         }
     }
   `
+
+  //Company Queries
+    export const QUERY_SINGLE_COMPANY = gql`
+        query Query {
+            getCompany {
+                _id
+                companyAddress
+                companyModerators
+                companyName
+                companyProcesses
+                companyUsers
+            }
+        }
+    `
