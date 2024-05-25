@@ -1,13 +1,15 @@
-import { MantineProvider, AppShell, Burger } from '@mantine/core'
+import { MantineProvider, AppShell, Burger, Group, Title } from '@mantine/core'
 import { Header } from './containers';
 import { useDisclosure } from '@mantine/hooks';
 import {theme} from './theme.jsx';
 import '@mantine/core/styles.css';
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import './App.css'
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink, ApolloLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { AuthProvider } from './utils/AppContext.jsx';
+import {useEffect, useState} from 'react';
+import { IconHeartHandshake } from '@tabler/icons-react';
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
@@ -34,34 +36,59 @@ const client = new ApolloClient({
 
 function App() {
   const [opened, { toggle }] = useDisclosure();
+  const [navbarWidth, setNavbarWidth] = useState(0);
+
+
+  //Check if we are within the application, use this to determine navbar state
+  useEffect(() => {
+    const currentUrl = window.location.pathname;
+    
+    if (currentUrl.slice(0,5) === "/app/"){
+      setNavbarWidth(300)
+    }
+  }, []);
+
+  
 
   return (
-
     <ApolloProvider client={client}>
       <MantineProvider theme={theme}>
         <AuthProvider>
-            <AppShell
-            
+          <AppShell
             header={{ height: 60 }}
             navbar={{
-              width: 300,
-              breakpoint: 'sm',
+              width: navbarWidth,
+              breakpoint: "sm",
               collapsed: { mobile: !opened },
             }}
             padding="md"
           >
-            <AppShell.Header p={5} bg='brown'>
-              
-              <Burger
-                opened={opened}
-                onClick={toggle}
-                hiddenFrom="sm"
-                size="sm"
-              />
-              <Header />
+            <AppShell.Header p={5} bg="brown">
+              <Group justify="space-between">
+                <Group ml={40}>
+                  <Burger
+                    opened={opened}
+                    onClick={toggle}
+                    hiddenFrom="sm"
+                    size="sm"
+                    color="white.0"
+                  />
+                  <Group align="center" justify="center" gap={0} mt={5}>
+                    <Title size={30} style={{ color: "white" }}>
+                      Hand
+                    </Title>
+                    <IconHeartHandshake color="white" size={30} />
+                    <Title size={30} style={{ color: "white" }}>
+                      ver
+                    </Title>
+                  </Group>
+                </Group>
+
+                <Header />
+              </Group>
             </AppShell.Header>
 
-            <AppShell.Main bg="light-brown.0" >
+            <AppShell.Main bg="light-brown.0">
               <Outlet />
             </AppShell.Main>
           </AppShell>

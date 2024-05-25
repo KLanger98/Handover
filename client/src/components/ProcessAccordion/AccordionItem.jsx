@@ -1,4 +1,4 @@
-import {Group, ActionIcon, Accordion, Title, Modal, Text, Flex, Divider, Badge} from "@mantine/core"
+import {Group, ActionIcon, Accordion, Title, Modal, Text, Flex, Divider, Badge, Stack, Button} from "@mantine/core"
 import{ IconTrash, IconPencil, IconFlag } from "@tabler/icons-react"
 import {useState} from 'react'
 import ProcessEditorModal from "../ProcessEditorModal"
@@ -80,30 +80,13 @@ function AccordionItem({ dataArray, searchTerm, filterFlags }) {
  const renderFlags = (flagData) => {
   return flagData.map((flag) => (
     <>
-      <FlagBanner flagData={flag}/>
+      <FlagBanner key={flag._id} flagData={flag} w="100%"/>
     </>
   ))
  }
 
   return filteredProcesses.map((contentData) => (
     <Group key={contentData._id} m={4}>
-      <ActionIcon.Group>
-        <ActionIcon
-          variant="edit"
-          size="md"
-          onClick={() => handleOpenEditorModal(contentData)}
-        >
-          <IconPencil stroke={1.0} />
-        </ActionIcon>
-        <ActionIcon
-          variant="delete"
-          size="md"
-          onClick={() => handleProcessDelete(contentData._id)}
-        >
-          <IconTrash stroke={1.0} />
-        </ActionIcon>
-      </ActionIcon.Group>
-
       <Modal opened={editOpened} onClose={close} centered size="70%">
         <Title order={3}>Edit Process</Title>
         <ProcessEditorModal
@@ -127,22 +110,40 @@ function AccordionItem({ dataArray, searchTerm, filterFlags }) {
               description={contentData.processText}
               icon={contentData.processSubCategory}
             />
+
             {contentData.populatedFlags.length > 0 && (
-                <Badge color="red.4" mr={10}>
-                  Flagged
-                </Badge>
-              )}
+              <Badge color="red.4" mr={10}>
+                Flagged
+              </Badge>
+            )}
           </Group>
         </Accordion.Control>
         <Accordion.Panel>
-          {contentData.populatedFlags && (
-            renderFlags(contentData.populatedFlags)
-          )}
+          <Group>
+            <Button
+              variant="edit"
+              size="md"
+              onClick={() => handleOpenEditorModal(contentData)}
+              rightSection={<IconPencil stroke={1.0} />}
+            >
+              Edit Process
+            </Button>
+            <Button
+              variant="delete"
+              size="md"
+              onClick={() => handleProcessDelete(contentData._id)}
+              rightSection={<IconTrash stroke={1.0} />}
+            >
+              Delete Process
+            </Button>
+          </Group>
+          {contentData.populatedFlags &&
+            renderFlags(contentData.populatedFlags)}
           <div
             dangerouslySetInnerHTML={{ __html: contentData.processText }}
           ></div>
           <Flex justify="flex-end" align="center" direction="row" gap={8}>
-            <Text mt={0}>Something Missing?</Text>
+            <Text mt={0} c="red.8">Something Missing?</Text>
             <ActionIcon
               style={{ borderRadius: "100%" }}
               size="xl"
