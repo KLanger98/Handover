@@ -24,15 +24,7 @@ const Header = () => {
   return (
     <>
       <Flex justify="space-between" align="center" pl={50}>
-        <Group align="center" justify="center" gap={0} mt={5}>
-          <Title size={30} style={{ color: "white" }}>
-            Hand
-          </Title>
-          <IconHeartHandshake color="white" size={30}/>
-          <Title size={30} style={{ color: "white" }}>
-            ver
-          </Title>
-        </Group>
+        
 
         <Group mr={50}>
           {!loggedIn && (

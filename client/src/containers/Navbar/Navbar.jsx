@@ -3,6 +3,7 @@ import { HomeButton } from '../../components'
 import {useQuery} from "@apollo/client"
 import { Link } from 'react-router-dom'
 import { QUERY_FLAGS } from '../../utils/queries'
+import { IconBooks, IconInfoCircle, IconClipboardList } from "@tabler/icons-react";
 
 const Navbar = () => {
   const {data, loading} = useQuery(QUERY_FLAGS)
@@ -23,7 +24,11 @@ const Navbar = () => {
       </Link>
       <Group gap={0}>
         <Link to="processes">
-          <Button variant="normal" justify="left">
+          <Button
+            variant="normal"
+            leftSection={<IconBooks size={25} />}
+            justify="left"
+          >
             <Title order={4}>Process Library</Title>
           </Button>
         </Link>
@@ -45,8 +50,13 @@ const Navbar = () => {
       </Group>
 
       <Link to="referrals">
-        <Button variant="normal" justify="left">
+        <Button variant="normal" leftSection={<IconClipboardList size={25}/>} justify="left">
           <Title order={4}>Referrals</Title>
+        </Button>
+      </Link>
+      <Link to="site">
+        <Button variant="normal" leftSection={<IconInfoCircle size={25}/>} justify="left">
+          <Title order={4}>Site Information</Title>
         </Button>
       </Link>
     </Stack>

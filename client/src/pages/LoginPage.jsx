@@ -17,9 +17,12 @@ import { LOGIN_USER } from "../utils/mutation";
 import { useAuth } from "../utils/AppContext";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {IconHeartHandshake} from "@tabler/icons-react"
+import { QUERY_ME } from "../utils/queries";
 
 const LoginPage = () => {
-  const [loginMutation] = useMutation(LOGIN_USER);
+  const [loginMutation] = useMutation(LOGIN_USER, {
+    refetchQueries: [QUERY_ME]
+  });
   const { login } = useAuth();
   const navigate = useNavigate();
   // This is a bad method of passing data, but it works for now
@@ -64,8 +67,8 @@ const submitForm = async () => {
 
 
   return (
-    <Container w="100%" mt={100}>
-      <Card w="80%" bg="white" shadow="md" radius="md" p={0}>
+    <Container mt={100}>
+      <Card w="100%" bg="white" shadow="md" radius="md" p={0}>
         <Grid w="100%">
           <Grid.Col
             span={6}
