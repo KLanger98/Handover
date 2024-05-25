@@ -9,3 +9,4 @@ export { default as ProtectedRoute } from './ProtectedRoute'
 export { default as ReferralsPage } from './ReferralsPage'
 export { default as ReferralCompPage } from './ReferralCompPage'
 export { default as UserProfile } from "./UserProfile"
+export { default as NewReferral } from "./NewReferral"

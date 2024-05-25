@@ -15,5 +15,9 @@
     svg {
         margin-top: 10px;
         cursor: pointer;
+        color: var(--mantine-color-green-5);
+    }
+    svg:hover {
+        color: var(--mantine-color-brown-6);
     }
 }
