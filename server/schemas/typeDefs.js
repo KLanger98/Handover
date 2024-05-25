@@ -81,6 +81,7 @@ const typeDefs = `
         users: [User]!
         me: User
 
+        getProcesses: [Process]
         findProcessesGroupedByCategory: [CategoryGroup]
         findReferrals: [Referral]
         

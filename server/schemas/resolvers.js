@@ -50,6 +50,20 @@ const resolvers = {
             } 
         },
 
+        getProcesses: async (parent, {}, context) => {
+            if(!context.user){
+                throw AuthenticationError;
+            }
+
+            try {
+                //TASK: ADD COMPANY SPECIFIC FILTER
+                const processes = await Process.find();
+                return processes;
+            } catch(error){
+                throw new Error(error);
+            }
+        },
+
         findFlags: async (parent, {}) => {
             return Flag.find()
         },

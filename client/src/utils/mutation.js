@@ -104,11 +104,8 @@ export const ADD_REFERRAL = gql`
       desc
       status
       company
-      assignedBy
       dateCreated
-      dateCompleted
       priority
-      completionNotes
       relatedProcesses
     }
   }
