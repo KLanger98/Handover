@@ -58,8 +58,8 @@ const ProcessLibrary = () => {
           <Title mt={10} order={3}>
             {category._id}
           </Title>
-          <Divider size="lg" />
-          <Accordion variant="separated" className="root">
+          <Divider size="lg" color="light-brown.8"/>
+          <Accordion variant="separated" className="root" >
             <AccordionItem filterFlags={filterFlags} searchTerm={searchTerm}  dataArray={category.processes} />
           </Accordion>
         </Stack>

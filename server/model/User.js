@@ -22,6 +22,9 @@ const userSchema = new Schema(
       required: true,
       minlength: 5
     },
+    imageUrl: {
+      type: String,
+    },
     userProfession: [
             {
                 type: Schema.Types.ObjectId,

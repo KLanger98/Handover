@@ -31,6 +31,15 @@ mutation Mutation($email: String!, $password: String!, $firstName: String!, $las
   }
 `;
 
+export const UPDATE_USER = gql`
+  mutation Mutation($imageUrl: String) {
+    updateUser(imageUrl: $imageUrl) {
+      _id
+      imageUrl
+    }
+  }
+`
+
 
 //Process related mutations
 export const ADD_PROCESS = gql`

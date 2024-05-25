@@ -16,7 +16,7 @@ const ApplicationPage = () => {
   
   return (
     <>
-      <AppShell.Navbar>
+      <AppShell.Navbar >
         <Navbar />
       </AppShell.Navbar>
       <Outlet/>

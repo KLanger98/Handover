@@ -3,10 +3,17 @@ import {Link} from 'react-router-dom'
 import { useAuth } from '../../utils/AppContext';
 import { useNavigate } from 'react-router-dom';
 import { IconHeartHandshake } from '@tabler/icons-react';
+import { QUERY_ME } from '../../utils/queries';
+import { useQuery } from '@apollo/client';
 
 const Header = () => {
   const navigate = useNavigate();
   const { loggedIn, logout } = useAuth();
+
+  //Query current user to display imageUrl
+  const {loading, data} = useQuery(QUERY_ME);
+  const userData = data?.me || {}
+  const userImage = userData.imageUrl;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,9 +72,9 @@ const Header = () => {
                   radius="xl"
                   size="md"
                   color="indigo"
-                  src=""
+                  src={userImage}
+                  alt="Your Avatar"
                 >
-                  BT
                 </Avatar>
               </Link>
             </>

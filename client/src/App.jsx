@@ -61,8 +61,8 @@ function App() {
               <Header />
             </AppShell.Header>
 
-            <AppShell.Main>
-              <Outlet/>
+            <AppShell.Main bg="light-brown.0" >
+              <Outlet />
             </AppShell.Main>
           </AppShell>
         </AuthProvider>
