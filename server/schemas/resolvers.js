@@ -15,8 +15,11 @@ const resolvers = {
             return User.findOne({ _id: userId });
         },
 
-        me: async (parent, {}) => {
-
+        me: async (parent, args, context) => {
+            if(context.user) {
+                return User.findOne({_id: context.user._id})
+            }
+            throw AuthenticationError;
         },
 
         //Process related queries
@@ -107,6 +110,16 @@ const resolvers = {
         removeUser: async (parent, args, context) => {
             if (context.user) {
                 return User.findOneAndDelete({ _id: context.user._id });
+            }
+            throw AuthenticationError;
+        },
+        updateUser: async (parent, {imageUrl}, context) => {
+            if (context.user) {
+                return User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    {imageUrl: imageUrl},
+                    {new: true}
+                );
             }
             throw AuthenticationError;
         },

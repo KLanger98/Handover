@@ -8,6 +8,7 @@ const typeDefs = `
         fullName: String
         userProfession: [ID]
         company: [ID]
+        imageUrl: String
     }
 
     type CategoryGroup {
@@ -77,7 +78,7 @@ const typeDefs = `
 
     type Query {
         user(user: ID!): User
-        users: [User]
+        users: [User]!
         me: User
 
         findProcessesGroupedByCategory: [CategoryGroup]
@@ -91,6 +92,7 @@ const typeDefs = `
         addUser(email: String!, password: String!, firstName: String!, lastName: String!): User
         login(email: String!, password: String!): Auth
         removeUser: User
+        updateUser(imageUrl: String): User
 
         addProcess(processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!): Process
         deleteProcess(processId: ID!): Process

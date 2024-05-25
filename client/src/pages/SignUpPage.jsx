@@ -1,6 +1,6 @@
-import {Stack, Title, TextInput, Group, PasswordInput, Container, Card, Button} from '@mantine/core'
+import {Stack, Title, TextInput, Group, PasswordInput, Container, Card, Button, Grid} from '@mantine/core'
 import { Link } from "react-router-dom"
-import { IconAt } from "@tabler/icons-react";
+import { IconAt, IconHeartHandshake } from "@tabler/icons-react";
 import { useForm } from '@mantine/form'
 import { useMutation } from '@apollo/client'
 import { CREATE_USER } from '../utils/mutation'
@@ -58,60 +58,89 @@ const SignUpPage = () => {
   }
 
   return (
-    <Container w="100%">
-      <Card w="80%" bg="brown.1" radius="md" p={20}>
-        <Stack w="100%" align="center">
-          <form onSubmit={form.onSubmit(submitForm)}>
-            <Stack align="center">
-              <Title>Create an Account</Title>
-              <Stack>
-                <Group>
-                  <TextInput
-                    label="First Name"
-                    placeholder="Seymour"
-                    key={form.key("firstName")}
-                    {...form.getInputProps("firstName")}
-                    // {...register("firstName")}
-                  />
-                  <TextInput
-                    label="Last Name"
-                    placeholder="Butts"
-                    key={form.key("lastName")}
-                    // {...register("lastName")}
-                    {...form.getInputProps("lastName")}
-                  />
-                </Group>
-                <TextInput
-                  leftSectionPointerEvents="none"
-                  leftSection={<IconAt size={14} />}
-                  key={form.key("email")}
-                  {...form.getInputProps("email")}
-                  // {...register("email")}
-                  label="Your email"
-                  placeholder="seymour@gmail.com"
-                />
-                <PasswordInput
-                  label="Password"
-                  description="Password must be..."
-                  placeholder="********"
-                  key={form.key("password")}
-                  // {...register("password")}
-                  {...form.getInputProps("password")}
-                />
-                <PasswordInput
-                  label="Confirm Password"
-                  placeholder="********"
-                  key={form.key("confirmPassword")}
-                  {...form.getInputProps("confirmPassword")}
-                />
-              </Stack>
-              <Link to="/login">Already have an Acount? Log In</Link>
-              <Button type="submit" variant="form" m={20}>
-                Sign Up
-              </Button>
+    <Container w="100%" mt={100}>
+      <Card w="100%" bg="white" shadow="md" radius="md" p={0}>
+        <Grid>
+          <Grid.Col
+            span={6}
+            bg="brown.4"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Stack mb="20%">
+              <Title order={6} style={{ color: "white" }}>
+                Less Dawdle.
+              </Title>
+              <Title order={6} style={{ color: "white" }}>
+                More Doing.
+              </Title>
+              <Group align="center" justify="center" gap={0} mb={60}>
+                <Title size={30} style={{ color: "white" }}>
+                  Hand
+                </Title>
+                <IconHeartHandshake color="white" size={30} />
+                <Title size={30} style={{ color: "white" }}>
+                  ver
+                </Title>
+              </Group>
             </Stack>
-          </form>
-        </Stack>
+          </Grid.Col>
+          <Grid.Col span={6} p={20}>
+            <form onSubmit={form.onSubmit(submitForm)}>
+              <Stack align="center">
+                <Title order={3}>Create an Account</Title>
+                <Stack>
+                  <Group>
+                    <TextInput
+                      label="First Name"
+                      placeholder="Seymour"
+                      key={form.key("firstName")}
+                      {...form.getInputProps("firstName")}
+                      // {...register("firstName")}
+                    />
+                    <TextInput
+                      label="Last Name"
+                      placeholder="Butts"
+                      key={form.key("lastName")}
+                      // {...register("lastName")}
+                      {...form.getInputProps("lastName")}
+                    />
+                  </Group>
+                  <TextInput
+                    leftSectionPointerEvents="none"
+                    leftSection={<IconAt size={14} />}
+                    key={form.key("email")}
+                    {...form.getInputProps("email")}
+                    // {...register("email")}
+                    label="Your email"
+                    placeholder="seymour@gmail.com"
+                  />
+                  <PasswordInput
+                    label="Password"
+                    description="Password must be..."
+                    placeholder="********"
+                    key={form.key("password")}
+                    // {...register("password")}
+                    {...form.getInputProps("password")}
+                  />
+                  <PasswordInput
+                    label="Confirm Password"
+                    placeholder="********"
+                    key={form.key("confirmPassword")}
+                    {...form.getInputProps("confirmPassword")}
+                  />
+                </Stack>
+                <Link to="/login">Already have an Acount? Log In</Link>
+                <Button type="submit" variant="form" m={20}>
+                  Sign Up
+                </Button>
+              </Stack>
+            </form>
+          </Grid.Col>
+        </Grid>
       </Card>
     </Container>
   );

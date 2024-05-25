@@ -99,6 +99,17 @@ export const theme = createTheme({
       "#7c554f",
       "#6f4742",
     ],
+    white: [
+      "#FFFFFF", // Pure White
+      "#FFFAFA", // Snow
+      "#FFFFF0", // Ivory
+      "#FFFAF0", // Floral White
+      "#F8F8FF", // Ghost White
+      "#F5F5F5", // White Smoke
+      "#FFF5EE", // Seashell
+      "#FAFAFA", // Alabaster
+      "#FAEBD7", // Antique White
+    ],
   },
   primaryColor: "red",
 

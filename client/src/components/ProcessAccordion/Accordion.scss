@@ -4,18 +4,19 @@
 }
 
 .item {
-  background-color: var(--mantine-color-light-brown-4);
+  background-color: var(--mantine-color-white-0);
   border: 1px solid transparent;
   position: relative;
+  box-shadow: var(--mantine-shadow-md);
   z-index: 0;
   transition: transform 150ms ease;
 
   &[data-active] {
     transform: scale(1.01);
     z-index: 1;
-    background-color: var(--mantine-color-light-brown-0);
+    background-color: var(--mantine-color-white-0);
     border-color: var(--mantine-color-gray-2);
-    box-shadow: var(--mantine-shadow-md);
+    box-shadow: var(--mantine-shadow-lg);
     border-radius: var(--mantine-radius-md);
   }
 

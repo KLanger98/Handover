@@ -38,6 +38,7 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
     },
   });
   let editorContent = " ";
+  //If data already exists, set field state
   if(contentData){
     form.setFieldValue('processTitle', contentData.processTitle)
     form.setFieldValue("processText", contentData.processText);
@@ -50,8 +51,6 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
   
 
   const handleSubmit = async (formValues) => {
-    console.log(formValues)
-
     try {
       let variables = {
         processTitle: formValues.processTitle,
