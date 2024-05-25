@@ -12,7 +12,6 @@ const referralSchema = new Schema(
         },
         desc: {
             type: String,
-            required: true
         },
         status: {
             type: String,

@@ -9,7 +9,8 @@ import App from './App.jsx'
 //Import dashboard sub pages
 import { LoginPage, SignUpPage, ProcessLibrary, 
   ApplicationPage, Dashboard, AboutPage, ErrorPage, 
-  ProtectedRoute, ReferralsPage, ReferralCompPage, UserProfile
+  ProtectedRoute, ReferralsPage, ReferralCompPage, UserProfile,
+  NewReferral
 } from './pages/'
 
 
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
           {
             path: "referrals/:id",
             element: <ReferralCompPage />
+          },
+          {
+            path: "referrals/new",
+            element: <NewReferral/>
           }
 
         ]

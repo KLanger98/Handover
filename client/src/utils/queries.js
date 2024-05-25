@@ -20,8 +20,8 @@ export const QUERY_ME = gql`
   
 `
 
-  export const QUERY_PROCESSES_GROUPED = gql`
-     query Query {
+export const QUERY_PROCESSES_GROUPED = gql`
+    query Query {
         findProcessesGroupedByCategory {
             _id
             processes {
@@ -40,6 +40,27 @@ export const QUERY_ME = gql`
             processText
             processTitle
             }
+        }
+    }
+`
+
+export const QUERY_PROCESSES = gql`
+    query GetProcesses {
+        getProcesses {
+        _id
+        processTitle
+        processText
+        processCategory
+        processSubCategory
+        formattedDate
+        }
+    }
+`
+export const QUERY_PROCESSES_SIMPLE = gql`
+    query GetProcesses {
+        getProcesses {
+        _id
+        processTitle
         }
     }
 `

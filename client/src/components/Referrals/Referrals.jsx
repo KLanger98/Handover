@@ -3,17 +3,19 @@ import { Container } from '..'
 import { ReferralItem } from '..'
 import { IconCirclePlus } from '@tabler/icons-react'
 import './Referrals.scss'
+import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 
 
 const Referrals = ({ title='', incomplete=[], inprogress=[], completed=[]}) => {
+  const navigate = useNavigate();
 
+  // console.log("Incomplete", incomplete.length)
 
-  console.log("Incomplete", incomplete.length)
+  // console.log("In-Progress", inprogress.length)
 
-  console.log("In-Progress", inprogress.length)
-
-  console.log("Completed", completed.length)
+  // console.log("Completed", completed.length)
+  
 
   return (
     <Container> 
@@ -27,7 +29,7 @@ const Referrals = ({ title='', incomplete=[], inprogress=[], completed=[]}) => {
           </Grid.Col>
           <Grid.Col span={4} p={0}>
             <div className="addReferral">
-              <IconCirclePlus size={30}  />
+              <IconCirclePlus size={30} onClick={() => navigate('/app/referrals/new')}/>
             </div>
           </Grid.Col>
         </Grid>
@@ -69,7 +71,10 @@ const Referrals = ({ title='', incomplete=[], inprogress=[], completed=[]}) => {
 //Type Validation
 Referrals.propTypes = {
   title: PropTypes.string,
-  items: PropTypes.array
+  items: PropTypes.array,
+  incomplete: PropTypes.array,
+  inprogress: PropTypes.array,
+  completed: PropTypes.array
 };
 
 export default Referrals
