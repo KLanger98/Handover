@@ -113,6 +113,22 @@ export const ADD_REFERRAL = gql`
   }
 `
 
+export const DELETE_REFERRAL = gql`
+  mutation Mutation($referralId: ID!) {
+    deleteReferral(referralId: $referralId) {
+      _id
+      title
+      desc
+      status
+      company
+      dateCreated
+      dateCompleted
+      priority
+      completionNotes
+    }
+  }
+`
+
 export const COMPLETE_REFERRAL = gql`
   mutation Mutation($referralId: ID!, $completionNotes: String) {
     completeReferral(referralId: $referralId, completionNotes: $completionNotes) {
