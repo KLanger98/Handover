@@ -43,6 +43,7 @@ function AccordionItem({ dataArray, searchTerm, filterFlags }) {
           <ProcessContent
             contentData={contentData}
             flagData={contentData.populatedFlags}
+            referenceProcessData={contentData.populatedReferenceProcesses}
             pageRedirect={true}
           />
         </Accordion.Panel>
