@@ -255,16 +255,23 @@ const resolvers = {
         addReferral: async (parent, { title, desc, priority, relatedProcesses }, context) => {
             if(!context.user){
                 throw AuthenticationError;
+
+
             }
-            // console.log(`Title: ${title}, Desc: ${desc}, Priority: ${priority}, Related Processes: ${relatedProcesses}`)
+            console.log(`Title: ${title}, Desc: ${desc}, Priority: ${priority}, Related Processes: ${relatedProcesses}`)
+            console.log(relatedProcesses)
             // console.log("User", context.user)
             try {
+                const processes = await Process.find({
+                    _id: { $in: relatedProcesses }
+                  });
+
+                
                 const newReferral = await Referral.create({
                     title, 
                     desc, 
                     priority, 
-                    relatedProcesses, 
-                    
+                    relatedProcesses: processes, 
                     assignedBy: context.user._id
                     //will need to implement current Company too                    
                 });

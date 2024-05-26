@@ -28,20 +28,20 @@ const NewReferral = () => {
 
     const submitForm = async (data) => {
         
+        const incomingProcesses = data.processes || [];
         // This insanity is because the Input field 'TagsInput' isn't reutnring the value but instead the label
         // so i have to filter to get the selected process and then map to get the id
-        const processIDs = data.processes.length > 0 ? processes.filter(process => data.processes.includes(process.processTitle))
+        const processIDs = processes.filter(process => incomingProcesses.includes(process.processTitle))
             .map(process => process._id)
-            : 
-            null;
-
+        
+  
         try {
             const newReferral = await addReferral({
                 variables: {
                     title: data.title,
                     desc: data.desc,
                     priority: data.priority,
-                    relatedProcesses: processIDs
+                    relatedProcesses: processIDs || null
                 }
             });
 

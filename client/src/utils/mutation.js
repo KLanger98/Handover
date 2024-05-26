@@ -106,7 +106,9 @@ export const ADD_REFERRAL = gql`
       company
       dateCreated
       priority
-      relatedProcesses
+      relatedProcesses {
+        _id
+      }
     }
   }
 `
