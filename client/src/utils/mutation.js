@@ -43,8 +43,8 @@ export const UPDATE_USER = gql`
 
 //Process related mutations
 export const ADD_PROCESS = gql`
-mutation addProcess($processTitle: String!, $processText: String!, $processCategory: String!, $processSubCategory: String!) {
-  addProcess(processTitle: $processTitle, processText: $processText, processCategory: $processCategory, processSubCategory: $processSubCategory) {
+mutation addProcess($processTitle: String!, $processText: String!, $processCategory: String!, $processSubCategory: String!, $referenceProcesses: [ID]) {
+  addProcess(processTitle: $processTitle, processText: $processText, processCategory: $processCategory, processSubCategory: $processSubCategory, referenceProcesses: $referenceProcesses) {
     processTitle
   }
 }

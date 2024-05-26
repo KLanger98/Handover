@@ -30,6 +30,8 @@ const typeDefs = `
         formattedDate: String
         flags: [Flag]
         populatedFlags: [Flag]
+        referenceProcesses: [ID]
+        populatedReferenceProcesses: [Process]
     }
     type Referral {
         _id: ID!
@@ -98,7 +100,7 @@ const typeDefs = `
         removeUser: User
         updateUser(imageUrl: String): User
 
-        addProcess(processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!): Process
+        addProcess(processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!, referenceProcesses: [ID]): Process
         deleteProcess(processId: ID!): Process
         updateProcess(processId: ID!, processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!): Process
 

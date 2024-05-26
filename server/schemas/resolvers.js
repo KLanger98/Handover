@@ -37,6 +37,15 @@ const resolvers = {
                     }
                 },
                 {
+                    $lookup: {
+                        from: 'processes',
+                        localField: 'referenceProcesses',
+                        foreignField: '_id',
+                        as: 'populatedReferenceProcesses'
+
+                    }
+                },
+                {
                     $group: {
                     _id: '$processCategory',
                     processes: { $push: '$$ROOT' }
@@ -65,7 +74,6 @@ const resolvers = {
         },
 
         getProcess: async (parent, {processId}, context) => {
-            console.log("hi")
             if(context.user){
                 try {
                     return Process.findOne({_id: processId}).populate('flags');
@@ -153,11 +161,11 @@ const resolvers = {
         },
 
         //Process mutation methods
-        addProcess: async (parent, {processTitle, processText, processCategory, processSubCategory}, context) => {
-            console.log("user", context.user)
+        addProcess: async (parent, {processTitle, processText, processCategory, processSubCategory, referenceProcesses}, context) => {
+            console.log(referenceProcesses)
             let lastUpdated = new Date();
             let formattedDate = lastUpdated.toDateString();
-            return Process.create({processTitle, processText, processCategory, lastUpdated, formattedDate, processSubCategory})
+            return Process.create({processTitle, processText, processCategory, lastUpdated, formattedDate, processSubCategory, referenceProcesses})
         },
         deleteProcess: async (parent, {processId}) => {
             const result = await Process.findOneAndDelete({ _id: processId });

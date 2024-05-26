@@ -32,6 +32,7 @@ const ProcessLibrary = () => {
     //Query processes group by category
     const {loading, data} = useQuery(QUERY_PROCESSES_GROUPED);
     const processData = data?.findProcessesGroupedByCategory || {}
+
     console.log(processData)
     
     //Handle add Process
@@ -39,10 +40,10 @@ const ProcessLibrary = () => {
       refetchQueries: [QUERY_PROCESSES_GROUPED],
     });
 
-    const handleAddProcess = async ({processTitle, processText, processCategory, processSubCategory}) => {
-
+    const handleAddProcess = async ({processTitle, processText, processCategory, processSubCategory, referenceProcesses}) => {
+      console.log(processTitle, referenceProcesses)
       const { data, error } = await addProcess({
-        variables: {processTitle, processText, processCategory, processSubCategory}
+        variables: {processTitle, processText, processCategory, processSubCategory, referenceProcesses}
       })
 
       if(error){
