@@ -125,7 +125,9 @@ export const COMPLETE_REFERRAL = gql`
       dateCompleted
       priority
       completionNotes
-      relatedProcesses
+      relatedProcesses {
+        _id
+      }
     }
   }
 `
@@ -142,7 +144,9 @@ export const INPROGRESS_REFERRAL = gql`
       dateCompleted
       priority
       completionNotes
-      relatedProcesses
+      relatedProcesses {
+        _id
+      }
     }
   }
 `

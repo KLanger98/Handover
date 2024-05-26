@@ -1,14 +1,11 @@
 import { Stack } from "@mantine/core";
 import { Referrals } from "../components";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_REFERRAL } from '../utils/mutation'
+
 import { QUERY_REFERRALS } from "../utils/queries";
 
 const ReferralsPage = () => {
 
-    const [addReferral, { error }] = useMutation(ADD_REFERRAL, {
-        refetchQueries: [{ query: QUERY_REFERRALS }]
-    })
     const { data, loading } = useQuery(QUERY_REFERRALS)
     const referrals = data?.findReferrals || []
     console.log(referrals)
@@ -25,20 +22,8 @@ const ReferralsPage = () => {
             completed.push(referral)
         }
     });
-
-    const handleClick = async () => {
-        // const { data, error } = await addReferral({
-        //     variables: { title: "Paul took a stick and hit Kevin", desc: "Actually Kevin ded", priority: "medium", relatedProcesses: [] 
-        // }})
-
-        if(error){
-            console.log(error)
-        }
-
-        // console.log(data)
-
-    }
-
+    console.log("comp")
+    console.log(completed)
 
   return (
     <>

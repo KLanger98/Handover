@@ -292,7 +292,7 @@ const resolvers = {
             try {
 
                 return await Referral.findOneAndUpdate( { _id: referralId }, 
-                    { status: 'complete', completionNotes, dateCompleted: new Date()}, 
+                    { status: 'completed', completionNotes, dateCompleted: new Date()}, 
                     {new: true});
 
             } catch(err) {
