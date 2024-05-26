@@ -8,7 +8,9 @@ import {
   Modal,
   Title,
   Stack,
-  Box
+  Box,
+  Grid,
+  Pill
 } from "@mantine/core";
 import ProcessEditorModal from "../components/ProcessEditorModal";
 import FlagProcessForm from "./FlagProcessForm";
@@ -20,7 +22,7 @@ import { DELETE_PROCESS, UPDATE_PROCESS } from "../utils/mutation";
 import { QUERY_PROCESSES_GROUPED } from "../utils/queries";
 import FlagBanner from "./FlagBanner";
 
-const ProcessContent = ({ contentData, flagData, pageRedirect }) => {
+const ProcessContent = ({ contentData, flagData, pageRedirect, referenceProcessData }) => {
   const navigate = useNavigate();
   //Handle Edit Modal Open/Close
   const [editOpened, { open, close }] = useDisclosure(false);
@@ -48,7 +50,7 @@ const ProcessContent = ({ contentData, flagData, pageRedirect }) => {
   const [updateProcess, { error: updateError }] = useMutation(UPDATE_PROCESS, {
     refetchQueries: [QUERY_PROCESSES_GROUPED],
   });
-  const handleUpdateProcess = async ({processId, processTitle, processText, processCategory, processSubCategory,}) => {
+  const handleUpdateProcess = async ({processId, processTitle, processText, processCategory, processSubCategory, referenceProcesses}) => {
     try {
       const { data } = updateProcess({
         variables: {
@@ -57,6 +59,7 @@ const ProcessContent = ({ contentData, flagData, pageRedirect }) => {
           processText,
           processCategory,
           processSubCategory,
+          referenceProcesses
         },
       });
     } catch (error) {
@@ -80,6 +83,20 @@ const ProcessContent = ({ contentData, flagData, pageRedirect }) => {
     return flagData.map((flag) => (
         <FlagBanner key={flag._id} flagData={flag} w="100%" />
     ));
+  };
+
+  const renderReferences = (referenceData) => {
+    console.log(referenceData)
+    return referenceData.map((data) => (
+      <Button 
+      size="sm" 
+      variant="form"
+      key={data._id} 
+      onClick={() => navigate(`/app/processes/${data._id}`)}
+      >
+        {data.processTitle}
+      </Button>
+    ))
   };
 
   return (
@@ -128,7 +145,22 @@ const ProcessContent = ({ contentData, flagData, pageRedirect }) => {
         )}
       </Group>
       <Box>{flagData && renderFlags(flagData)}</Box>
-      <div dangerouslySetInnerHTML={{ __html: contentData.processText }}></div>
+      <Grid>
+        <Grid.Col span={9}>
+          <div
+            dangerouslySetInnerHTML={{ __html: contentData.processText }}
+          ></div>
+        </Grid.Col>
+        <Grid.Col span={3}>
+          {referenceProcessData && referenceProcessData.length > 0 && (
+            <Stack>
+              <Title order={5}>Useful Processes:</Title>
+              <Stack gap={2}>{renderReferences(referenceProcessData)}</Stack>
+            </Stack>
+          )}
+        </Grid.Col>
+      </Grid>
+
       <Flex justify="flex-end" align="center" direction="row" gap={8}>
         <Text mt={0} c="red.8">
           Something Missing?
