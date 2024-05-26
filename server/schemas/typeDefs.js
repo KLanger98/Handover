@@ -42,7 +42,7 @@ const typeDefs = `
         dateCompleted: String
         priority: String
         completionNotes: String
-        relatedProcesses: [ID]
+        relatedProcesses: [Process]
     }
 
     type Flag {
@@ -84,7 +84,9 @@ const typeDefs = `
         getProcesses: [Process]
         getProcess(processId: String!): Process
         findProcessesGroupedByCategory: [CategoryGroup]
+
         findReferrals: [Referral]
+        findReferralWithProcesses(referralId: String!): Referral
         
         findFlags: [Flag]
 
