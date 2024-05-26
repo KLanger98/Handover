@@ -21,6 +21,10 @@ const flagSchema = new Schema(
     postedBy: {
         type:Schema.Types.ObjectId,
         references: "user"
+    },
+    company: {
+      type: Schema.Types.ObjectId,
+      ref: 'company'
     }
 
   }

@@ -2,7 +2,6 @@ import { Button, Title, Space, Flex, Group, Avatar } from '@mantine/core';
 import {Link} from 'react-router-dom'
 import { useAuth } from '../../utils/AppContext';
 import { useNavigate } from 'react-router-dom';
-import { IconHeartHandshake } from '@tabler/icons-react';
 import { QUERY_ME } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
@@ -21,11 +20,12 @@ const Header = () => {
     logout();
     navigate('/login')
   }
+  if(loading){
+    return <h1>Loading...</h1>
+  }
   return (
     <>
       <Flex justify="space-between" align="center" pl={50}>
-        
-
         <Group mr={50}>
           {!loggedIn && (
             <>
@@ -58,17 +58,18 @@ const Header = () => {
               <Button variant="header" justify="left" onClick={handleSubmit}>
                 <Title order={4}>Logout</Title>
               </Button>
-              <Link to="user">
                 <Avatar
                   variant="filled"
                   radius="xl"
                   size="md"
-                  color="indigo"
+                  color="columbia-blue.6"
                   src={userImage}
                   alt="Your Avatar"
+                  onClick={()=> navigate("/user")}
+                  styles={{cursor: "grab"}}
                 >
+                  {userData.initials}
                 </Avatar>
-              </Link>
             </>
           )}
         </Group>

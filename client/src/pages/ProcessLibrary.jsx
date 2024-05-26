@@ -8,9 +8,12 @@ import { QUERY_PROCESSES_GROUPED} from "../utils/queries"
 import AccordionItem from "../components/ProcessAccordion/AccordionItem"
 import { ADD_PROCESS } from "../utils/mutation"
 import "../components/ProcessAccordion/Accordion.scss"
+import {useAuth} from "../utils/AppContext"
 
 
 const ProcessLibrary = () => {
+    //User admin variable 
+    const { adminUser } = useAuth();
     //Modal open/close hook
     const [opened, { open, close }] = useDisclosure(false);
 
@@ -32,8 +35,6 @@ const ProcessLibrary = () => {
     //Query processes group by category
     const {loading, data} = useQuery(QUERY_PROCESSES_GROUPED);
     const processData = data?.findProcessesGroupedByCategory || {}
-
-    console.log(processData)
     
     //Handle add Process
     const [addProcess, { error }] = useMutation(ADD_PROCESS, {
@@ -41,7 +42,7 @@ const ProcessLibrary = () => {
     });
 
     const handleAddProcess = async ({processTitle, processText, processCategory, processSubCategory, referenceProcesses}) => {
-      console.log(processTitle, referenceProcesses)
+      
       const { data, error } = await addProcess({
         variables: {processTitle, processText, processCategory, processSubCategory, referenceProcesses}
       })
@@ -81,7 +82,12 @@ const ProcessLibrary = () => {
           </Stack>
         </Group>
         <Group w="40%" direction="row" wrap="nowrap" mr={40}>
-          <TextInput placeholder="Search for a Process" size="md" w={800} onChange={handleSearchChange}/>
+          <TextInput
+            placeholder="Search for a Process"
+            size="md"
+            w={800}
+            onChange={handleSearchChange}
+          />
           <ActionIcon size="input-md" variant="default" bg="columbia-blue.6">
             <IconSearch color="white" />
           </ActionIcon>
@@ -108,6 +114,7 @@ const ProcessLibrary = () => {
         >
           Add Process
         </Button>
+        {adminUser === true && (
           <Button
             variant="delete"
             size="lg"
@@ -117,6 +124,7 @@ const ProcessLibrary = () => {
           >
             View Flagged Processes
           </Button>
+        )}
       </Group>
 
       {renderAccordian(processData)}

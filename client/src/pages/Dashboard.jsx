@@ -1,4 +1,4 @@
-import { Stack, Title, Text, Grid } from '@mantine/core'
+import { Stack, Title, Text, Grid, Image } from '@mantine/core'
 import { useEffect } from 'react'
 import { Activity, Referrals } from '../components'
 import { useMutation, useQuery } from "@apollo/client";
@@ -36,37 +36,45 @@ const Dashboard = () => {
 
   return (
     <Stack p={10}>
-        <Title order={2} c='columbia-blue.9' pl={3}>
-            Dashboard
-        </Title>
+      <Title order={2} c="columbia-blue.9" pl={3}>
+        Dashboard
+      </Title>
 
-        {/* Main Notes */}
-        <Grid p="sm" width="50%" justify='left'>
-            <Grid.Col p={0} span={9}>
-                <Text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </Text>
-            </Grid.Col>
-            <Grid.Col span={3} align="right">
-                LOGO HERE
-            </Grid.Col>
-        </Grid>
+      {/* Main Notes */}
+      <Grid p="sm" width="50%" justify="left">
+        <Grid.Col p={0} span={9}>
+          <Text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </Text>
+        </Grid.Col>
+        <Grid.Col span={3} align="right">
+          <Image w={100} h="auto" src="" />
+        </Grid.Col>
+      </Grid>
 
-        {/* Referrals */}
-        
-        {/*
+      {/* Referrals */}
+
+      {/*
             
         */}
 
-        <Referrals title="Referrals" incomplete={incomplete} inprogress={inprogress}/>
+      <Referrals
+        title="Referrals"
+        incomplete={incomplete}
+        inprogress={inprogress}
+      />
 
-        <Activity title="Daily Activities" items={daily} type='tasks'/>
-        
-        {/* <Activity title="Processes" /> */}
+      <Activity title="Daily Activities" items={daily} type="tasks" />
 
-
+      {/* <Activity title="Processes" /> */}
     </Stack>
-  )
+  );
 }
 
 export default Dashboard

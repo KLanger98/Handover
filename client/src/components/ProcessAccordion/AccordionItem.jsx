@@ -1,8 +1,11 @@
 import { Group, Accordion, Badge } from "@mantine/core";
 import AccordionLabel from "./AccordionLabel";
 import ProcessContent from "../ProcessContent"
+import {useAuth} from "../../utils/AppContext"
 
 function AccordionItem({ dataArray, searchTerm, filterFlags }) {
+  //Admin status
+  const { adminUser } = useAuth();
   //Filter from dataArray processes that do not match the search terms based on title or content
   const filteredProcesses = dataArray.filter((process) => {
     const matchesSearchTerms =
@@ -31,12 +34,13 @@ function AccordionItem({ dataArray, searchTerm, filterFlags }) {
               description={contentData.processText}
               icon={contentData.processSubCategory}
             />
-
-            {contentData.populatedFlags.length > 0 && (
+            
+            {contentData.populatedFlags.length > 0 && adminUser === true && (
               <Badge color="red.4" mr={10}>
                 Flagged
               </Badge>
             )}
+            
           </Group>
         </Accordion.Control>
         <Accordion.Panel>

@@ -34,7 +34,11 @@ const processSchema = new Schema(
     flags: [{
       type: Schema.Types.ObjectId,
       ref: 'flag'
-    }]
+    }],
+    company: {
+      type: Schema.Types.ObjectId,
+      ref: 'company'
+    }
 
   }
 );
