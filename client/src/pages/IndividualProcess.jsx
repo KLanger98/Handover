@@ -19,7 +19,7 @@ const IndividualProcess = () => {
   return (
     <Card>
       <Title order={2}>{process.processTitle}</Title>
-      <ProcessContent contentData={process} flagData={process.flags} pageRedirect={false}/>
+      <ProcessContent contentData={process} flagData={process.flags} pageRedirect={false} referenceProcessData={process.referenceProcesses}/>
     </Card>
   );
 };

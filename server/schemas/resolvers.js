@@ -75,10 +75,9 @@ const resolvers = {
         },
 
         getProcess: async (parent, {processId}, context) => {
-
             if(context.user){
                 try {
-                    return Process.findOne({_id: processId}).populate('flags');
+                    return Process.findOne({_id: processId}).populate('flags').populate('referenceProcesses');
                 } catch(error){
                     throw new Error(error);
                 }
@@ -140,6 +139,19 @@ const resolvers = {
         //User mutation methods
         addUser: async (parent, { email, password, firstName, lastName }) => {
             return User.create({ email, password, firstName, lastName });
+        },
+
+        createCompanyAndUser: async (parent, {email, password, firstName, lastName, companyName}) => {
+            const user = await User.create({email, password, firstName, lastName});
+
+            const userId = user._id
+            const company = await Company.create({companyName, companyModerators: [userId]});
+            const companyId = company._id
+
+            user.company = companyId;
+            await user.save();
+
+            return user
         },
 
         login: async (parent, {email, password}) => {
@@ -331,10 +343,7 @@ const resolvers = {
         // addProfession: async (parent, {}) => {
             
         // },
-        // //Company Mutation methods
-        // addCompany: async (parent, {}) => {
-            
-        // },
+        //Company Mutation methods
     }
 }
 

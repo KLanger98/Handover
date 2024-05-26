@@ -7,7 +7,7 @@ const typeDefs = `
         lastName: String!
         fullName: String
         userProfession: [ID]
-        company: [ID]
+        company: ID
         imageUrl: String
     }
 
@@ -30,7 +30,7 @@ const typeDefs = `
         formattedDate: String
         flags: [Flag]
         populatedFlags: [Flag]
-        referenceProcesses: [ID]
+        referenceProcesses: [Process]
         populatedReferenceProcesses: [Process]
     }
     type Referral {
@@ -66,9 +66,9 @@ const typeDefs = `
     type Company {
         _id: ID!
         companyName: String!
-        companyAddress: String!
+        companyAddress: String
         companyProcesses: [ID]
-        companyModerators: [ID]
+        companyModerators: [ID]!
         companyUsers: [ID]
     }
 
@@ -101,6 +101,7 @@ const typeDefs = `
         login(email: String!, password: String!): Auth
         removeUser: User
         updateUser(imageUrl: String): User
+        createCompanyAndUser(email: String!, password: String!, firstName: String!, lastName: String!, companyName: String!): User
 
         addProcess(processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!, referenceProcesses: [ID]): Process
         deleteProcess(processId: ID!): Process
@@ -112,6 +113,7 @@ const typeDefs = `
         addReferral(title: String!, desc: String!, priority: String, relatedProcesses: [ID]): Referral
         completeReferral(referralId: ID!, completionNotes: String): Referral
         inprogressReferral(referralId: ID!, completionNotes: String): Referral
+
     }
 
     

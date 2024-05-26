@@ -31,12 +31,12 @@ const userSchema = new Schema(
                 ref: 'profession'
             }
         ],
-    company: [
+    company: 
       {
         type: Schema.Types.ObjectId,
         ref: 'company'
       }
-    ]
+    
     
   }
 );
