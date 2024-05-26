@@ -49,6 +49,7 @@ const ReferralCompPage = () => {
           variables: {
             referralId: referral._id,
             completionNotes: comment,
+
           },
         });
     
@@ -116,24 +117,25 @@ const ReferralCompPage = () => {
             
 
             <Space h={20} />
-            <form onSubmit={form.onSubmit(submitForm)}>
-              <Stack>
-                <Title order={4}>Completion Notes</Title>
-                <Textarea
-                  placeholder="Anything worth mentioning about the completion of this?"
-                  minRows={2}
-                  maxRows={4}
-                  key={form.key("comment")}
-                  
-                  {...form.getInputProps('comment')}
-                />
+            { referral.status !== 'completed' && (
+              <form onSubmit={form.onSubmit(submitForm)}>
+                <Stack>
+                  <Title order={4}>Completion Notes</Title>
+                  <Textarea
+                    placeholder="Anything worth mentioning about the completion of this?"
+                    minRows={2}
+                    maxRows={4}
+                    key={form.key("comment")}
+                    
+                    {...form.getInputProps('comment')}
+                  />
 
-                <Button type="submit" bg="green" name='complete'>Complete</Button>
-                <Button type="submit" bg="blue-grey" name='inprogress'>In-Progress</Button>
-               
-              </Stack>
-
-            </form>
+                  <Button type="submit" bg="green" name='complete'>Complete</Button>
+                  <Button type="submit" bg="blue-grey" name='inprogress'>In-Progress</Button>
+                  </Stack>
+              </form>
+            )}
+             
           </>
         )}
       </Stack>
