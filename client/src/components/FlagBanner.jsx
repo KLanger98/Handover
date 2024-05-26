@@ -20,7 +20,6 @@ const FlagBanner = ({flagData}) => {
         console.error(error);
       }
     };
-    console.log(flagData)
 
     return (
       <>

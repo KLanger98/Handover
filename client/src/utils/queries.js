@@ -33,6 +33,10 @@ export const QUERY_PROCESSES_GROUPED = gql`
                 processSubCategory
                 processText
                 processTitle
+                populatedReferenceProcesses{
+                    _id
+                    processTitle
+                }
             }
         }
     }

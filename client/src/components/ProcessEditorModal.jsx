@@ -1,10 +1,10 @@
 import ProcessEditor from "./ProcessEditor";
-import {  Stack, TextInput, Input, Checkbox, Button, NativeSelect, Radio, Group } from "@mantine/core";
+import {  Stack, TextInput, Input, Checkbox, Button, NativeSelect, Radio, Group, TagsInput } from "@mantine/core";
 import { useListState, randomId } from "@mantine/hooks";
 import {useForm } from '@mantine/form'
 import { ADD_PROCESS } from "../utils/mutation";
-import {useMutation} from "@apollo/client"
-import { QUERY_PROCESSES_GROUPED } from "../utils/queries";
+import {useMutation, useQuery} from "@apollo/client"
+import { QUERY_PROCESSES_GROUPED, QUERY_PROCESSES_SIMPLE } from "../utils/queries";
 import {IconListDetails, IconMapSearch, IconPencil, IconArrowsRandom} from "@tabler/icons-react"
 
 const initialcheckboxes = [
@@ -23,6 +23,7 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
       processText: "",
       processCategory: "",
       processSubCategory: "",
+      referenceProcesses: []
     },
 
     // functions will be used to validate values at corresponding key
@@ -47,17 +48,26 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
     form.setFieldValue("processSubCategory", contentData.processSubCategory);
     console.log(form.getValues())
   }
-
+    //Query all processes for referencing
+    const { data } = useQuery(QUERY_PROCESSES_SIMPLE);
+    const processes = data?.getProcesses || [];
   
 
   const handleSubmit = async (formValues) => {
+    console.log(formValues)
+    const processIDs = formValues.referenceProcesses.length > 0 ? processes.filter(process => formValues.referenceProcesses.includes(process.processTitle))
+            .map(process => process._id)
+            : 
+            null;
     try {
       let variables = {
         processTitle: formValues.processTitle,
         processText: formValues.processText,
         processCategory: formValues.processCategory,
-        processSubCategory: formValues.processSubCategory
+        processSubCategory: formValues.processSubCategory,
+        referenceProcesses: processIDs
       };
+
       //If this modal is being used to edit an existing process, hand in ID
       if(contentData){
         variables.processId = contentData._id
@@ -72,24 +82,6 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
   };
 
 
-  const [checkboxes, handlers] = useListState(initialcheckboxes);
-
-  const allChecked = checkboxes.every((checkbox) => checkbox.checked);
-  const indeterminate = checkboxes.some((checkbox) => checkbox.checked) && !allChecked;
-
-  const items = checkboxes.map((checkbox, index) => (
-    <Checkbox
-      mt="xs"
-      ml={33}
-      label={checkbox.label}
-      key={checkbox.key}
-      checked={checkbox.checked}
-      color="columbia-blue.7"
-      onChange={(event) =>
-        handlers.setItemProp(index, "checked", event.currentTarget.checked)
-      }
-    />
-  ));
 
   return (
     <Stack>
@@ -159,7 +151,7 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
                 checked
                 color="columbia-blue.4"
               />
-              <IconArrowsRandom/>
+              <IconArrowsRandom />
             </Group>
           </Group>
         </Radio.Group>
@@ -177,27 +169,17 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
             // }}
           />
         </Input.Wrapper>
-        <Input.Wrapper
-          my={10}
-          label="Select Profession"
-          description="Select which individual or group group of professions this process applies to"
-        >
-          <Checkbox
-            checked={allChecked}
-            indeterminate={indeterminate}
-            label="Allied Health"
-            color="columbia-blue.7"
-            onChange={() =>
-              handlers.setState((current) =>
-                current.map((checkbox) => ({
-                  ...checkbox,
-                  checked: !allChecked,
-                }))
-              )
-            }
-          />
-          {items}
-        </Input.Wrapper>
+        <TagsInput
+          label="Select Related Processes"
+          placeholder="Select related processes"
+          key={form.key("referenceProcesses")}
+          {...form.getInputProps("referenceProcesses")}
+          data={processes.map((process) => ({
+            value: `${process._id}`,
+            label: `${process.processTitle}`,
+          }))}
+        ></TagsInput>
+
         <Button type="submit" variant="form" fullWidth mt={40}>
           Submit Process
         </Button>
