@@ -11,6 +11,8 @@ export const QUERY_ME = gql`
             fullName
             imageUrl
             lastName
+            moderator
+            initials
         }
     }
 `
@@ -150,10 +152,24 @@ export const QUERY_REFERRAL_INC_PROCESSES = gql`
             getCompany {
                 _id
                 companyAddress
-                companyModerators
+                companyModerators{
+                    _id
+                    firstName
+                    lastName
+                    initials
+                    imageUrl
+                    fullName
+                }
                 companyName
                 companyProcesses
-                companyUsers
+                companyUsers{
+                    _id
+                    firstName
+                    lastName
+                    initials
+                    imageUrl
+                    fullName
+                }
             }
         }
     `

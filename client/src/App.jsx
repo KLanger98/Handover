@@ -3,7 +3,7 @@ import { Header } from './containers';
 import { useDisclosure } from '@mantine/hooks';
 import {theme} from './theme.jsx';
 import '@mantine/core/styles.css';
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import './App.css'
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink, ApolloLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
@@ -37,7 +37,7 @@ const client = new ApolloClient({
 function App() {
   const [opened, { toggle }] = useDisclosure();
   const [navbarWidth, setNavbarWidth] = useState(0);
-
+  const location = useLocation();
 
   //Check if we are within the application, use this to determine navbar state
   useEffect(() => {
@@ -45,8 +45,10 @@ function App() {
     
     if (currentUrl.slice(0,5) === "/app/" || currentUrl === "/app"){
       setNavbarWidth(300)
+    } else{
+      setNavbarWidth(0)
     }
-  }, []);
+  }, [location]);
 
   
 

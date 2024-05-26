@@ -55,15 +55,14 @@ const UserProfile = () => {
     return <h1>Loading...</h1>
   }
   return (
-    <>
-      <Card w="80%" bg="white" shadow="md" radius="md" p={40}>
+    <Container w="100%" mt={40} align="center">
+      <Card w="80%" bg="white" shadow="md" radius="md" p={40} >
         <Title order={2}>User Profile:</Title>
         <Divider color="light-brown.2" size="lg"></Divider>
-        <Stack align="center" w="100%">
+        <Stack w="100%">
           <form
             style={{ width: "100%" }}
             onSubmit={form.onSubmit((values) => handleSubmit(values))}
-            align="center"
           >
             <Group justify="space-evenly" mt={20}>
               <Stack>
@@ -96,7 +95,7 @@ const UserProfile = () => {
           </form>
         </Stack>
       </Card>
-    </>
+    </Container>
   );
 };
 

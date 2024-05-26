@@ -18,16 +18,20 @@ const resolvers = {
 
         me: async (parent, args, context) => {
             if(context.user) {
-                return User.findOne({_id: context.user._id})
+                return User.findOne({_id: context.user._id});
             }
             throw AuthenticationError;
         },
 
         //Process related queries
-        findProcessesGroupedByCategory: async (parent, {}) => {
-     
+        findProcessesGroupedByCategory: async (parent, args, context) => {
             try{
                 const result = await Process.aggregate([
+                {
+                    $match: {
+                        company: context.user.company
+                    }
+                },
                 {
                     $lookup: {
                     from: 'flags', // The name of the collection to join
@@ -52,7 +56,7 @@ const resolvers = {
                     }
                 }
             ]);
-
+            
             return result;
             } catch (err) {
                 throw new Error(err);
@@ -86,8 +90,8 @@ const resolvers = {
             throw AuthenticationError
         },
 
-        findFlags: async (parent, {}) => {
-            return Flag.find()
+        findFlags: async (parent, args, context) => {
+            return Flag.find({company: context.user.company})
         },
 
         //Referral related queries
@@ -131,8 +135,8 @@ const resolvers = {
         //Profession related queries
 
         //Company related queries
-        getCompany: async (parent, {companyId}, context) => {
-            return Company.findOne({_id: companyId})
+        getCompany: async (parent, args, context) => {
+            return Company.findOne({_id: context.user.company}).populate('companyModerators').populate('companyUsers')
         }
     },
     Mutation: {
@@ -142,7 +146,7 @@ const resolvers = {
         },
 
         createCompanyAndUser: async (parent, {email, password, firstName, lastName, companyName}) => {
-            const user = await User.create({email, password, firstName, lastName});
+            const user = await User.create({email, password, firstName, lastName, moderator: true});
 
             const userId = user._id
             const company = await Company.create({companyName, companyModerators: [userId]});
@@ -190,10 +194,10 @@ const resolvers = {
 
         //Process mutation methods
         addProcess: async (parent, {processTitle, processText, processCategory, processSubCategory, referenceProcesses}, context) => {
-            console.log(referenceProcesses)
+            let company = context.user.company
             let lastUpdated = new Date();
             let formattedDate = lastUpdated.toDateString();
-            return Process.create({processTitle, processText, processCategory, lastUpdated, formattedDate, processSubCategory, referenceProcesses})
+            return Process.create({processTitle, processText, processCategory, lastUpdated, formattedDate, processSubCategory, referenceProcesses, company})
         },
         deleteProcess: async (parent, {processId}) => {
             const result = await Process.findOneAndDelete({ _id: processId });
@@ -220,9 +224,10 @@ const resolvers = {
         //Flag mutations
         addFlag: async (parent, {flagText, referenceProcess}, context) => {
                 //Create a Flag with process reference
+                const company = context.user.company
                 let currentDate = new Date();
                 let formattedDate = currentDate.toDateString();
-                let result = await Flag.create({flagText, postedBy: context.user._id , referenceProcess, formattedDate})
+                let result = await Flag.create({flagText, postedBy: context.user._id , referenceProcess, formattedDate, company})
 
                 //Add flag ID to process 
                 if(referenceProcess){

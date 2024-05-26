@@ -9,6 +9,8 @@ const typeDefs = `
         userProfession: [ID]
         company: ID
         imageUrl: String
+        initials: String
+        moderator: Boolean
     }
 
     type CategoryGroup {
@@ -32,6 +34,7 @@ const typeDefs = `
         populatedFlags: [Flag]
         referenceProcesses: [Process]
         populatedReferenceProcesses: [Process]
+        company: ID
     }
     type Referral {
         _id: ID!
@@ -54,6 +57,7 @@ const typeDefs = `
         postedBy: ID
         dateCreated: String
         formattedDate: String
+        company: ID
     }
 
     type Task {
@@ -68,8 +72,8 @@ const typeDefs = `
         companyName: String!
         companyAddress: String
         companyProcesses: [ID]
-        companyModerators: [ID]!
-        companyUsers: [ID]
+        companyModerators: [User]
+        companyUsers: [User]
     }
 
     type Profession {

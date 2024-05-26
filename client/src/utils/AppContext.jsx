@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [loggedIn, setIsLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true); // Add a loading state
+  const [adminUser, setAdminUser] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('id_token');
@@ -21,6 +22,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('id_token', token);
     setIsLoggedIn(true);
     setUserProfile(profile); // Set user profile upon login
+    admin(profile)
   };
 
   const logout = () => {
@@ -29,10 +31,18 @@ export const AuthProvider = ({ children }) => {
     setUserProfile(null); // Clear user profile upon logout
   };
 
+  const admin = (moderator) => {
+    if(moderator === true){
+      setAdminUser(true);
+    } else{
+      setAdminUser(false);
+    }
+    console.log(adminUser)
+  }
 
 
   return (
-    <AuthContext.Provider value={{ loggedIn, login, logout, userProfile, loading }}>
+    <AuthContext.Provider value={{ loggedIn, login, logout, admin, userProfile, loading, adminUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -22,6 +22,10 @@ const userSchema = new Schema(
       required: true,
       minlength: 5
     },
+    moderator: {
+      type: Boolean,
+      required: true
+    },
     imageUrl: {
       type: String,
     },
@@ -35,9 +39,7 @@ const userSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: 'company'
-      }
-    
-    
+      }    
   }
 );
 
@@ -58,6 +60,13 @@ userSchema.methods.isCorrectPassword = async function (password) {
 userSchema.virtual('fullName').get(function () {
   return `${this.firstName} ${this.lastName}`;
 });
+
+userSchema.virtual('initials').get(function () {
+  return `${this.firstName.charAt(0)}${this.lastName.charAt(0)}`
+})
+
+userSchema.set('toJSON', { virtuals: true });
+userSchema.set('toObject', { virtuals: true });
 
 const User = model('user', userSchema);
 

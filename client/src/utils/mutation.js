@@ -12,6 +12,7 @@ mutation Login($email: String!, $password: String!) {
         lastName
         userProfession
         company
+        moderator
       }
     }
   }

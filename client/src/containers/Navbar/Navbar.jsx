@@ -17,11 +17,6 @@ const Navbar = () => {
       </Link>
       <Divider></Divider>
 
-      <Link>
-        <Button variant="normal" justify="left">
-          <Title order={4}>Handover</Title>
-        </Button>
-      </Link>
       <Group gap={0}>
         <Link to="processes">
           <Button
