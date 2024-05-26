@@ -60,6 +60,7 @@ const resolvers = {
         },
 
         getProcesses: async (parent, {}, context) => {
+        
             if(!context.user){
                 throw AuthenticationError;
             }
@@ -74,6 +75,7 @@ const resolvers = {
         },
 
         getProcess: async (parent, {processId}, context) => {
+
             if(context.user){
                 try {
                     return Process.findOne({_id: processId}).populate('flags');
@@ -101,6 +103,20 @@ const resolvers = {
                 
       
                 return referrals;
+            }
+            catch (err) {
+                throw new Error(err);
+            }
+        },
+
+        findReferralWithProcesses: async (parent, { referralId }, context) => {
+
+            // if(!context.user) throw AuthenticationError;
+
+            try {
+                const referral = await Referral.findById({ _id: referralId }).populate('relatedProcesses');
+          
+                return referral;
             }
             catch (err) {
                 throw new Error(err);
@@ -205,6 +221,7 @@ const resolvers = {
                 }
                 return result;
         },
+        
         removeFlag: async (parent, {flagId}, context) => {
                 let result = await Flag.findOneAndDelete({_id: flagId})
 

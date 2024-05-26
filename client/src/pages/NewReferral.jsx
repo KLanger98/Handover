@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { Title, Stack, Divider, Textarea, Button, TextInput, SegmentedControl, TagsInput } from '@mantine/core'
 import { useMutation, useQuery } from '@apollo/client'
 import { ADD_REFERRAL } from '../utils/mutation'
-import { QUERY_PROCESSES_SIMPLE } from '../utils/queries'
+import { QUERY_PROCESSES_SIMPLE, QUERY_REFERRALS } from '../utils/queries'
 import { useForm } from '@mantine/form'
 import { Priority } from '../components'
 
@@ -12,8 +12,8 @@ const NewReferral = () => {
     const { data } = useQuery(QUERY_PROCESSES_SIMPLE);
     const processes = data?.getProcesses || [];
 
-    const [addReferral, { error }] = useMutation(ADD_REFERRAL, {
-        refetchQueries: [{ query: QUERY_PROCESSES_SIMPLE }]
+    const [addReferral] = useMutation(ADD_REFERRAL, {
+        refetchQueries: [{ query: QUERY_REFERRALS }] //Add the category
     });
     
     const navigate = useNavigate();

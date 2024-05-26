@@ -98,9 +98,35 @@ query FindReferrals {
     dateCompleted
     priority
     completionNotes
-    relatedProcesses
+    relatedProcesses {
+        _id
+    }
     }
 }
+`
+
+export const QUERY_REFERRAL_INC_PROCESSES = gql`
+    query GetProcesses($referralId: String!) {
+        findReferralWithProcesses(referralId: $referralId) {
+        _id
+        title
+        desc
+        status
+        company
+        assignedBy {
+            fullName
+            imageUrl
+        }
+        dateCreated
+        dateCompleted
+        priority
+        completionNotes
+        relatedProcesses {
+            processTitle
+            _id
+        }
+        }
+    }
 `
 
   export const QUERY_FLAGS = gql`

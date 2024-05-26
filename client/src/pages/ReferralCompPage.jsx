@@ -1,28 +1,33 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { Title, Stack, Grid, Divider, Text, Textarea, Button, Space } from '@mantine/core'
+import { Title, Stack, Grid, Divider, Text, Textarea, Button, Space, Pill } from '@mantine/core'
 import { useQuery, useMutation } from '@apollo/client'
-import { QUERY_REFERRALS } from '../utils/queries'
+import { QUERY_REFERRAL_INC_PROCESSES, QUERY_REFERRALS } from '../utils/queries'
 import { COMPLETE_REFERRAL, INPROGRESS_REFERRAL } from '../utils/mutation'
 import { useForm } from '@mantine/form'
-import { Priority, UserStamp } from '../components'
+import { Priority, UserStamp, ProcessPillGroup } from '../components'
+
 
 
 const ReferralCompPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data, loading } = useQuery(QUERY_REFERRALS);
-  const referrals = data?.findReferrals || [];
-  const referral = referrals.find(referral => referral._id === id)
+  const { data, loading } = useQuery(QUERY_REFERRAL_INC_PROCESSES, {
+    variables: { referralId: id },
+  });
+
+  const referral = data?.findReferralWithProcesses || {};
+
 
   const form = useForm({
     mode: "uncontrolled",
-    initialValues: { completionNotes: referral.completionNotes ? referral.completionNotes : '', },
+    initialValues: { comment: referral.completionNotes || '' },
     // validate: {
     //   email: (value) => (/^\S+@\S+$/.test(value) ? null : "Enter a valid email"),
     //   password: (value) => value.length === 0? "Please enter a password." : null,
     // },
   });
+
 
 
   const [completeReferral] = useMutation(COMPLETE_REFERRAL, {
@@ -32,6 +37,8 @@ const ReferralCompPage = () => {
     refetchQueries: [QUERY_REFERRALS],
   });
 
+
+  
   const submitForm = async () => {
     const { comment } = form.getValues();
     const submitButton = event.submitter.name;
@@ -99,7 +106,14 @@ const ReferralCompPage = () => {
             </div>
             <Text c='brown.9' size='16px' pt={10}>Details:</Text>
             <Text c='brown.4' size='14px' pt={5}>{referral.desc}</Text>
-      
+
+            { referral.relatedProcesses && (
+              <>
+                <Text c='brown.9' size='16px' pt={10}>Related Processes:</Text>
+                <ProcessPillGroup processes={referral.relatedProcesses} />
+              </>
+            )}
+            
 
             <Space h={20} />
             <form onSubmit={form.onSubmit(submitForm)}>
