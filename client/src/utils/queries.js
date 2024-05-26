@@ -69,6 +69,10 @@ export const QUERY_SINGLE_PROCESS = gql`
             processSubCategory
             processText
             processTitle
+            referenceProcesses{
+                _id
+                processTitle
+            }
         }
     }
 `

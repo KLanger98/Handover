@@ -1,6 +1,6 @@
 const { Schema, model, mongoose } = require('mongoose');
 
-const companySchema = new mongoose.Schema(
+const companySchema = new Schema(
   {
     companyName: {
       type: String,
@@ -8,7 +8,6 @@ const companySchema = new mongoose.Schema(
     },
     companyAddress: {
         type: String,
-        required: true
     },
     companyProcesses: [{
         type: Schema.Types.ObjectId,
@@ -18,7 +17,8 @@ const companySchema = new mongoose.Schema(
     companyModerators: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        required: true
       }
     ],
     companyUsers: [

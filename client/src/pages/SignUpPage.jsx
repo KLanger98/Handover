@@ -3,26 +3,27 @@ import { Link } from "react-router-dom"
 import { IconAt, IconHeartHandshake } from "@tabler/icons-react";
 import { useForm } from '@mantine/form'
 import { useMutation } from '@apollo/client'
-import { CREATE_USER } from '../utils/mutation'
+import { CREATE_USER_AND_COMPANY } from '../utils/mutation'
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AppContext";
 
 
 const SignUpPage = () => {
 
-  const [createUser, { error }] = useMutation(CREATE_USER);
+  const [createUserAndCompany, { error }] = useMutation(CREATE_USER_AND_COMPANY);
   const navigate = useNavigate();
   const { login, loggedIn } = useAuth();
 
   /* Validation */
   const form = useForm({
     mode: "uncontrolled",
-    initialValues: { firstName: "", lastName: "", email: "", password: "", confirmPassword: ""},
+    initialValues: { firstName: "", lastName: "", email: "", password: "", confirmPassword: "", companyName: ""},
 
     // functions will be used to validate values at corresponding key
     validate: {
       firstName: (value) => value.length < 2 ? "Name must have at least 2 letters" : null,
       lastName: (value) => value.length < 1 ? "Name must have at least 2 letters" : null,
+      companyName: (value) => value.length < 2 ? "Company Name must have at least 2 letters" : null,
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       password: (value) => value.length < 2? "Password must be at least 2 characters long" : null,
       confirmPassword: (value, values) => value !== values.password? "Password's must match" : null
@@ -41,13 +42,11 @@ const SignUpPage = () => {
     }
 
     try {
-      const {firstName, lastName, email, password} = form.getValues();
+      const {firstName, lastName, email, password, companyName} = form.getValues();
     
-      const { data } = await createUser({
-        variables: { firstName, lastName, email, password  }
+      const { data } = await createUserAndCompany({
+        variables: { firstName, lastName, email, password, companyName}
       });
-
-     
       
       navigate("/login?newUser=true")
       
@@ -117,6 +116,12 @@ const SignUpPage = () => {
                     // {...register("email")}
                     label="Your email"
                     placeholder="seymour@gmail.com"
+                  />
+                  <TextInput
+                  label="Your Company Name"
+                  key={form.key("companyName")}
+                  placeholder='Your Company Name'
+                  {...form.getInputProps("companyName")}
                   />
                   <PasswordInput
                     label="Password"

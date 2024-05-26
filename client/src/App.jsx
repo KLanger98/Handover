@@ -43,7 +43,7 @@ function App() {
   useEffect(() => {
     const currentUrl = window.location.pathname;
     
-    if (currentUrl.slice(0,5) === "/app/"){
+    if (currentUrl.slice(0,5) === "/app/" || currentUrl === "/app"){
       setNavbarWidth(300)
     }
   }, []);
