@@ -13,10 +13,19 @@
         align-content: center;
         align-items: center;
     }
+
+    .delete-confirmation {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
     
 }
 .activity-item.hover {
 
     background-color: rgb(241, 242, 243);    
 }
+
 

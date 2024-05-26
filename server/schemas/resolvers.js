@@ -295,6 +295,16 @@ const resolvers = {
             }
         },
 
+        deleteReferral: async (parent, { referralId }, context) => {
+            if(!context.user) throw AuthenticationError;
+            
+            try {
+                return await Referral.findOneAndDelete({ _id: referralId });
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+
         completeReferral: async (parent, { referralId, completionNotes }, context) => {
 
             if(!context.user){
