@@ -9,7 +9,7 @@ export const QUERY_ME = gql`
       firstName
       lastName
       fullName
-      userProfession
+      profession
       company
       imageUrl
       initials
@@ -160,6 +160,7 @@ export const QUERY_REFERRAL_INC_PROCESSES = gql`
                     _id
                     firstName
                     lastName
+                    profession
                     initials
                     imageUrl
                     fullName
@@ -169,6 +170,7 @@ export const QUERY_REFERRAL_INC_PROCESSES = gql`
                 companyUsers{
                     _id
                     firstName
+                    profession
                     lastName
                     initials
                     imageUrl

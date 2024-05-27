@@ -29,16 +29,14 @@ const userSchema = new Schema(
     imageUrl: {
       type: String,
     },
-    userProfession: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'profession'
-            }
-        ],
+    profession:{
+      type: String,
+    },
     company: 
       {
         type: Schema.Types.ObjectId,
-        ref: 'company'
+        ref: 'company',
+        required: true
       }    
   }
 );

@@ -33,6 +33,12 @@ const companySchema = new Schema(
         ref: 'user'
       }
     ],
+    companyContacts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+      }
+    ],
     companyTasks: []
 
   }
