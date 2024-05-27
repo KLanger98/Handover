@@ -74,6 +74,8 @@ const typeDefs = `
         companyProcesses: [ID]
         companyModerators: [User]
         companyUsers: [User]
+        companyImage: String
+        companyDescription: String
     }
 
     type Profession {
@@ -120,6 +122,7 @@ const typeDefs = `
         completeReferral(referralId: ID!, completionNotes: String): Referral
         inprogressReferral(referralId: ID!, completionNotes: String): Referral
 
+        updateCompany(companyDescription: String, companyImage: String, companyAddress: String): Company
     }
 
     
@@ -136,4 +139,4 @@ module.exports = typeDefs;
 
 //         addProfession(): Profession
 
-//         addCompany(): Company
+//         addCompany(): Company 

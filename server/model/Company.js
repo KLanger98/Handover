@@ -9,6 +9,12 @@ const companySchema = new Schema(
     companyAddress: {
         type: String,
     },
+    companyDescription: {
+      type: String
+    },
+    companyImage: {
+      type: String,
+    },
     companyProcesses: [{
         type: Schema.Types.ObjectId,
         ref: 'process'
