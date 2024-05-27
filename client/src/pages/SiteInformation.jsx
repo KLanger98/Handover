@@ -6,10 +6,10 @@ const SiteInformation = () => {
 
     const {data, loading} = useQuery(QUERY_SINGLE_COMPANY)
     const companyData = data?.getCompany || {}
-    console.log(companyData)
+
 
     const renderModerators = (moderators) => {
-      console.log(moderators)
+
       return moderators.map((moderator) => (
         <Group key={moderator.fullName}>
           <Avatar

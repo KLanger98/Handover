@@ -43,12 +43,6 @@ module.exports = {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       const profile = await getUserDetailsById(data._id);
       user = { ...data, ...profile._doc }
-      //  if(user) {
-      //   console.log("User found");
-      //   req.user = { ...data, ...user._doc};
-      // } else {
-      //   console.log("No user found but token exists?");
-      // }
 
      
       return {user};
@@ -57,9 +51,9 @@ module.exports = {
       return {}
     }
   },
-  signToken: function ({ username, email, _id }) {
-    const payload = { username, email, _id };
-
+  signToken: function (user) {
+    
+    const payload = user;
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };
