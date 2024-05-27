@@ -22,8 +22,7 @@ const ReferralsPage = () => {
             completed.push(referral)
         }
     });
-    console.log("comp")
-    console.log(completed)
+
 
   return (
     <>
