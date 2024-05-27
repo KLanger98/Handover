@@ -10,7 +10,7 @@ mutation Login($email: String!, $password: String!) {
         email
         firstName
         lastName
-        userProfession
+        profession
         company
         moderator
       }
@@ -21,14 +21,14 @@ mutation Login($email: String!, $password: String!) {
 
 
 export const CREATE_USER = gql`
-mutation Mutation($email: String!, $password: String!, $firstName: String!, $lastName: String!) {
-    addUser(email: $email, password: $password, firstName: $firstName, lastName: $lastName) {
+mutation Mutation($email: String!, $password: String!, $firstName: String!, $lastName: String!, $profession: String!) {
+    addUser(email: $email, password: $password, firstName: $firstName, lastName: $lastName, profession: $profession) {
       _id
       email
       password
       firstName
       lastName
-      userProfession
+      profession
       company
     }
   }

@@ -141,8 +141,18 @@ const resolvers = {
     },
     Mutation: {
         //User mutation methods
-        addUser: async (parent, { email, password, firstName, lastName }) => {
-            return User.create({ email, password, firstName, lastName });
+        addUser: async (parent, { email, password, firstName, lastName, profession }, context) => {
+            console.log(email, password, firstName, lastName, profession)
+            const user = await User.create({ email, password, firstName, lastName, moderator: false, company: context.user.company, profession });
+            
+            console.log(user._id)
+
+            const updateCompany = await Company.findOneAndUpdate(
+                {_id: context.user.company},
+                {$addToSet: {companyUsers: user._id}}
+            )
+
+            return user;
         },
 
         createCompanyAndUser: async (parent, {email, password, firstName, lastName, companyName}) => {

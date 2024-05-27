@@ -1,17 +1,21 @@
 import { useQuery, useMutation } from "@apollo/client";
-import {Title, Card, Stack, Text, Image, Avatar, Group, TextInput, Button} from "@mantine/core"
+import {Title, Card, Stack, Text, Image, Avatar, Group, TextInput, Button, Modal} from "@mantine/core"
 import { QUERY_SINGLE_COMPANY } from "../utils/queries";
 import { useState } from "react";
 import { useForm } from "@mantine/form";
+import { useDisclosure } from "@mantine/hooks";
 import { UPDATE_COMPANY } from "../utils/mutation";
+import {useAuth} from "../utils/AppContext"
+import AddUser from "../components/AddUser"
 
 const SiteInformation = () => {
   //State to manage edit state 
-  const isEditing = true;
+  const { userProfile } = useAuth();
+
+  const [opened, { open, close }] = useDisclosure(false);
 
   const {data, loading} = useQuery(QUERY_SINGLE_COMPANY)
   const companyData = data?.getCompany || {}
-
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -29,19 +33,20 @@ const SiteInformation = () => {
     }
     );
 
-    const renderAvatars = (moderators) => {
-      return moderators.map((moderator) => (
-        <Group key={moderator.fullName}>
+    const renderAvatars = (users) => {
+      return users.map((user) => (
+        <Group key={user.fullName} m={5}>
           <Avatar
-            src={moderator.imageUrl}
+            src={user.imageUrl}
             variant="filled"
             radius="xl"
             size="md"
             color="columbia-blue.6"
           >
-            {moderator.initials}
+            {user.initials}
           </Avatar>
-          <Text>{moderator.fullName}</Text>
+          <Text>{user.fullName}</Text>
+          <Text>{user.profession}</Text>
         </Group>
       ));
     }
@@ -68,7 +73,7 @@ const SiteInformation = () => {
           <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
             <Title order={2}>{companyData.companyName} Information</Title>
             <Title order={4}>Site Description</Title>
-            {isEditing ? (
+            {userProfile.moderator ? (
               <TextInput
                 key={form.key("companyDescription")}
                 {...form.getInputProps("companyDescription")}
@@ -77,7 +82,7 @@ const SiteInformation = () => {
               <Text>{companyData.companyDescription}</Text>
             )}
             <Title order={4}>Site Address</Title>
-            {isEditing ? (
+            {userProfile.moderator ? (
               <TextInput
                 key={form.key("companyAddress")}
                 {...form.getInputProps("companyAddress")}
@@ -89,7 +94,7 @@ const SiteInformation = () => {
             <Text></Text>
 
             <Title order={4}>Site Map</Title>
-            {isEditing ? (
+            {userProfile.moderator ? (
               <TextInput
                 key={form.key("companyImage")}
                 {...form.getInputProps("companyImage")}
@@ -104,7 +109,10 @@ const SiteInformation = () => {
             <Button variant="form" type="submit" m={5}>
               Save
             </Button>
-            <Button variant="form" type="submit" m={5}>
+            <Modal opened={opened} onClose={close} title="Add A User">
+              <AddUser closeModal={close} />
+            </Modal>
+            <Button variant="form" type="submit" m={5} onClick={open}>
               Add User
             </Button>
           </form>
