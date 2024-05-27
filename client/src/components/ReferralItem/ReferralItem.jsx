@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Grid, Menu, Text, Button } from '@mantine/core';
-import { TickBox, Priority, UserStamp } from '..'
+import { Grid, Menu, Text } from '@mantine/core';
+import {  Priority, UserStamp } from '..'
 import { IconTrash } from '@tabler/icons-react';
 import './ReferralItem.scss';
 import PropTypes from 'prop-types';

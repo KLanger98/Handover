@@ -87,7 +87,8 @@ const typeDefs = `
     type Query {
         user(user: ID!): User
         users: [User]!
-        me: User
+        getUser: User
+
 
         getProcesses: [Process]
         getProcess(processId: String!): Process

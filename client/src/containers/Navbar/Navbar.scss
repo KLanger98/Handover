@@ -1,0 +1,22 @@
+#navArea {
+
+    .processButton {
+        overflow: 'visible';
+        
+        span:nth-child(2) {
+            width:100%;
+        }
+    }
+    a button {
+        height: 40px!important;
+
+        .flagContainer {
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+    }
+}

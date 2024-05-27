@@ -8,7 +8,7 @@ const ReferralsPage = () => {
 
     const { data, loading } = useQuery(QUERY_REFERRALS)
     const referrals = data?.findReferrals || []
-    console.log(referrals)
+
     let incomplete = [];
     let inprogress = [];
     let completed = [];
@@ -22,8 +22,7 @@ const ReferralsPage = () => {
             completed.push(referral)
         }
     });
-    console.log("comp")
-    console.log(completed)
+
 
   return (
     <>

@@ -23,13 +23,13 @@ const LoginPage = () => {
   const [loginMutation] = useMutation(LOGIN_USER, {
     refetchQueries: [QUERY_ME]
   });
-  const { login, admin } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   // This is a bad method of passing data, but it works for now
   const [searchParams] = useSearchParams();
 
   const newUser = searchParams.get("newUser") || false;
-  console.log(newUser);
+
  /* Validation */
  const form = useForm({
   mode: "uncontrolled",
@@ -56,11 +56,10 @@ const submitForm = async () => {
     const { data } = await loginMutation({
       variables: { email, password  }
     });
-
-    login(data.login.token);
-    admin(data.login.user.moderator);
+ 
+    login(data.login.token, data.login.user);
     
-    navigate("/app")
+    navigate("/app/dashboard")
   } catch (error) { /// NEED TO DEFINE AUTHETNICATIONERROR AT SOME POINT
     console.log(error);
   }

@@ -16,11 +16,11 @@ const resolvers = {
             return User.findOne({ _id: userId });
         },
 
-        me: async (parent, args, context) => {
-            if(context.user) {
-                return User.findOne({_id: context.user._id});
-            }
-            throw AuthenticationError;
+        getUser: async (parent, {},  context) => {
+            if(!context.user) throw AuthenticationError;
+            
+            const { password, ...userWithoutPassword }   = context.user;
+            return userWithoutPassword;
         },
 
         //Process related queries
@@ -159,6 +159,9 @@ const resolvers = {
         },
 
         login: async (parent, {email, password}) => {
+    
+            email = typeof email === 'string' ? email.trim().toLowerCase() : '';
+                
             const user = await User.findOne({ email });
            
             if (!user) {
@@ -174,6 +177,7 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
+
 
         removeUser: async (parent, args, context) => {
             if (context.user) {

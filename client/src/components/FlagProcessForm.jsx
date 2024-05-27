@@ -23,17 +23,17 @@ const FlagProcessForm = ({closeModal, contentData}) => {
         value.length < 2 ? "Content is required within flag text" : null,
     },
   });
-  console.log(contentData)
+
   //Handle submission of form
   const handleSubmit = async (formValues) => {
-    console.log(formValues)
+    
 
     try {
       let variables = {
         flagText: formValues.flagText,
         referenceProcess: contentData._id
       };
-      console.log(variables)
+      
       const {data} = addFlag({
         variables: variables
       })

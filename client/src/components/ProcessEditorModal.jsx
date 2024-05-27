@@ -46,7 +46,7 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
     editorContent = contentData.processText
     form.setFieldValue("processCategory", contentData.processCategory);
     form.setFieldValue("processSubCategory", contentData.processSubCategory);
-    console.log(form.getValues())
+
   }
     //Query all processes for referencing
     const { data } = useQuery(QUERY_PROCESSES_SIMPLE);
@@ -54,7 +54,7 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
   
 
   const handleSubmit = async (formValues) => {
-    console.log(formValues)
+
     const processIDs = formValues.referenceProcesses.length > 0 ? processes.filter(process => formValues.referenceProcesses.includes(process.processTitle))
             .map(process => process._id)
             : 

@@ -10,12 +10,6 @@ import PropTypes from 'prop-types';
 const Referrals = ({ title='', incomplete=[], inprogress=[], completed=[]}) => {
   const navigate = useNavigate();
 
-  // console.log("Incomplete", incomplete.length)
-
-  // console.log("In-Progress", inprogress.length)
-
-  // console.log("Completed", completed.length)
-  
 
   return (
     <Container> 
