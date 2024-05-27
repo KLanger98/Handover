@@ -2,7 +2,7 @@ import { Button, Title, Flex, Group, Avatar } from '@mantine/core';
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../utils/AppContext';
 import { useNavigate } from 'react-router-dom';
-
+import './Header.scss'
 
 const Header = () => {
   const navigate = useNavigate();
@@ -18,15 +18,10 @@ const Header = () => {
 
   return (
     <>
-      <Flex justify="space-between" align="center" pl={50}>
+      <Flex className='desktop-only' justify="space-between" align="center" pl={50}>
         <Group mr={50}>
           {!loggedIn && (
             <>
-              <Link to="/">
-                <Button variant="header" justify="left">
-                  <Title order={4}>About</Title>
-                </Button>
-              </Link>
               <Link to="login">
                 <Button variant="headerLogin" justify="left">
                   <Title order={4}>Login</Title>
@@ -58,7 +53,7 @@ const Header = () => {
                   color="columbia-blue.6"
                   src={userProfile.imageUrl}
                   alt="Your Avatar"
-                  onClick={()=> navigate("/user")}
+                  onClick={()=> navigate("app/user")}
                   styles={{cursor: "grab"}}
                 >
                   {userProfile.initials}

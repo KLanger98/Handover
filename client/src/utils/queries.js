@@ -100,6 +100,7 @@ query FindReferrals {
     company
     assignedBy {
         _id
+        initials
         fullName
     }
     dateCreated
@@ -123,6 +124,7 @@ export const QUERY_REFERRAL_INC_PROCESSES = gql`
         company
         assignedBy {
             fullName
+            initials
             imageUrl
         }
         dateCreated

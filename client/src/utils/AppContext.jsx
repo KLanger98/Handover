@@ -5,11 +5,11 @@ const AuthContext = createContext();
 
 import { jwtDecode } from 'jwt-decode';
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children, ...props}, ) => {
   const [loggedIn, setIsLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true); // Add a loading state
-
+  const { toggle } = props;
 
   useEffect(() => {
 
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ loggedIn, login, logout, userProfile, loading }}>
+    <AuthContext.Provider value={{ loggedIn, login, logout, userProfile, loading, toggle }}>
       {children}
     </AuthContext.Provider>
   );

@@ -21,20 +21,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
     children: [
       {
-        index: true,
-        element: <AboutPage/>
-      },
-      {
-        path: 'signup',
-        element: <SignUpPage/>
-      },
-      {
         path: 'login',
         element: <LoginPage/>
       },
       {
-        path: 'user',
-        element: <UserProfile/>
+        path: 'signup',
+        element: <SignUpPage/>
       },
       {
         path: 'app',
@@ -74,7 +66,11 @@ const router = createBrowserRouter([
           {   
             path: "referrals/new",
             element: <NewReferral/>
-          }
+          },
+          {
+            path: 'user',
+            element: <UserProfile/>
+          },
 
         ]
       }
