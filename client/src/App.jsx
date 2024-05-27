@@ -3,7 +3,7 @@ import { Header } from './containers';
 import { useDisclosure } from '@mantine/hooks';
 import {theme} from './theme.jsx';
 import '@mantine/core/styles.css';
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink, ApolloLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
@@ -38,6 +38,7 @@ function App() {
   const [opened, { toggle }] = useDisclosure();
   const [navbarWidth, setNavbarWidth] = useState(0);
   const location = useLocation();
+  const navigate = useNavigate();
 
   //Check if we are within the application, use this to determine navbar state
   useEffect(() => {
@@ -46,6 +47,9 @@ function App() {
     if (currentUrl.slice(0,5) === "/app/" || currentUrl === "/app"){
       setNavbarWidth(300)
     } else{
+      if(currentUrl === "/") {
+        navigate('/login')
+      }
       setNavbarWidth(0)
     }
   }, [location]);
@@ -55,7 +59,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <MantineProvider theme={theme}>
-        <AuthProvider>
+        <AuthProvider toggle={toggle} >
           <AppShell
             header={{ height: 60 }}
             navbar={{
@@ -90,7 +94,7 @@ function App() {
               </Group>
             </AppShell.Header>
 
-            <AppShell.Main bg="light-brown.0">
+            <AppShell.Main bg="light-brown.0" >
               <Outlet />
             </AppShell.Main>
           </AppShell>

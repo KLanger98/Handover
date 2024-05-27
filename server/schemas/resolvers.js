@@ -1,8 +1,6 @@
 //Import required models here
 const { signToken, AuthenticationError } = require("../utils/auth");
 const { User, Process, Referral, Flag, Company} = require("../model");
-const { compare } = require("bcrypt");
-
 
 
 const resolvers = {
@@ -71,7 +69,7 @@ const resolvers = {
 
             try {
                 //TASK: ADD COMPANY SPECIFIC FILTER
-                const processes = await Process.find();
+                const processes = await Process.find( { company: context.user.company });
                 return processes;
             } catch(error){
                 throw new Error(error);
@@ -81,7 +79,7 @@ const resolvers = {
         getProcess: async (parent, {processId}, context) => {
             if(context.user){
                 try {
-                    return Process.findOne({_id: processId}).populate('flags').populate('referenceProcesses');
+                    return Process.findOne({_id: processId, company: context.user.company}).populate('flags').populate('referenceProcesses');
                 } catch(error){
                     throw new Error(error);
                 }
@@ -102,7 +100,7 @@ const resolvers = {
                 //q: how can i specify only specifici fields i want from assignedBy?
                 //a:
             
-                const referrals = await Referral.find({}).populate('assignedBy', {password: 0});
+                const referrals = await Referral.find({ company: context.user.company }).populate('assignedBy', {password: 0});
                 
       
                 return referrals;
@@ -117,7 +115,7 @@ const resolvers = {
             // if(!context.user) throw AuthenticationError;
 
             try {
-                const referral = await Referral.findById({ _id: referralId }).populate('relatedProcesses');
+                const referral = await Referral.findById({ _id: referralId, company: context.user.company }).populate('relatedProcesses');
           
                 return referral;
             }
@@ -180,12 +178,18 @@ const resolvers = {
 
 
         removeUser: async (parent, args, context) => {
-            if (context.user) {
-                return User.findOneAndDelete({ _id: context.user._id });
-            }
+            if (context.user) throw AuthenticationError;
+
+            //remove user from the company
+
+            return User.findOneAndDelete({ _id: context.user._id, company: context.user.company });
+            
             throw AuthenticationError;
         },
         updateUser: async (parent, {imageUrl}, context) => {
+
+            //TASK: if company change deal with that here
+
             if (context.user) {
                 return User.findOneAndUpdate(
                     { _id: context.user._id },
@@ -203,8 +207,8 @@ const resolvers = {
             let formattedDate = lastUpdated.toDateString();
             return Process.create({processTitle, processText, processCategory, lastUpdated, formattedDate, processSubCategory, referenceProcesses, company})
         },
-        deleteProcess: async (parent, {processId}) => {
-            const result = await Process.findOneAndDelete({ _id: processId });
+        deleteProcess: async (parent, {processId}, context ) => {
+            const result = await Process.findOneAndDelete({ _id: processId, company: context.user.company });
             console.log(result)
             console.log(result.flags.length)
             //If there are flags referenced within this process, delete them
@@ -218,7 +222,7 @@ const resolvers = {
             let lastUpdated = new Date();
             let formattedDate = lastUpdated.toDateString();
             return Process.findOneAndUpdate(
-                {_id: processId},
+                {_id: processId, company: context.user.company},
                 {
                     processTitle, processText, processCategory, lastUpdated, formattedDate
                 },
@@ -228,15 +232,15 @@ const resolvers = {
         //Flag mutations
         addFlag: async (parent, {flagText, referenceProcess}, context) => {
                 //Create a Flag with process reference
-                const company = context.user.company
+          
                 let currentDate = new Date();
                 let formattedDate = currentDate.toDateString();
-                let result = await Flag.create({flagText, postedBy: context.user._id , referenceProcess, formattedDate, company})
+                let result = await Flag.create({flagText, postedBy: context.user._id , referenceProcess, formattedDate, company: context.user.company})
 
                 //Add flag ID to process 
                 if(referenceProcess){
                     let process = await Process.findOneAndUpdate(
-                        {_id: referenceProcess},
+                        {_id: referenceProcess, company: context.user.company},
                         {$addToSet: {flags: result._id}},
                         {new: true})
                 }
@@ -244,7 +248,7 @@ const resolvers = {
         },
         
         removeFlag: async (parent, {flagId}, context) => {
-                let result = await Flag.findOneAndDelete({_id: flagId})
+                let result = await Flag.findOneAndDelete({_id: flagId, company: context.user.company})
 
                 //If this flag references a process, delete the reference from process
                 if(result.referenceProcess){
@@ -256,6 +260,7 @@ const resolvers = {
 
                 return result;
         },
+
         // removeProcess: async (parent, {}) => {
 
         // },
@@ -273,14 +278,11 @@ const resolvers = {
         //     completionNotes: String
         //     relatedProcesses: [ID]
         // }
+
         addReferral: async (parent, { title, desc, priority, relatedProcesses }, context) => {
-            if(!context.user){
-                throw AuthenticationError;
+            if(!context.user) throw AuthenticationError;
 
 
-            }
-            console.log(`Title: ${title}, Desc: ${desc}, Priority: ${priority}, Related Processes: ${relatedProcesses}`)
-            console.log(relatedProcesses)
             // console.log("User", context.user)
             try {
                 const processes = await Process.find({
@@ -293,8 +295,8 @@ const resolvers = {
                     desc, 
                     priority, 
                     relatedProcesses: processes, 
-                    assignedBy: context.user._id
-                    //will need to implement current Company too                    
+                    assignedBy: context.user._id,
+                    company: context.user.company,             
                 });
 
                 return newReferral;
@@ -308,7 +310,7 @@ const resolvers = {
             if(!context.user) throw AuthenticationError;
             
             try {
-                return await Referral.findOneAndDelete({ _id: referralId });
+                return await Referral.findOneAndDelete({ _id: referralId, company: context.user.company });
             } catch (err) {
                 throw new Error(err);
             }
@@ -322,7 +324,7 @@ const resolvers = {
 
             try {
 
-                return await Referral.findOneAndUpdate( { _id: referralId }, 
+                return await Referral.findOneAndUpdate( { _id: referralId, company: context.user.company }, 
                     { status: 'completed', completionNotes, dateCompleted: new Date()}, 
                     {new: true});
 
@@ -333,13 +335,12 @@ const resolvers = {
 
         inprogressReferral: async (parent, { referralId, completionNotes }, context) => {
 
-            if(!context.user){
-                throw AuthenticationError;
-            }
+            if(!context.user) throw AuthenticationError;
+
 
             try {
 
-                return await Referral.findOneAndUpdate( { _id: referralId }, 
+                return await Referral.findOneAndUpdate( { _id: referralId, company: context.user.company }, 
                     { status: 'inprogress', completionNotes }, 
                     {new: true});
 

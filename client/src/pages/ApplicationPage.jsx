@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { AppShell} from "@mantine/core";
 import { Navbar } from '../containers'
 import {Outlet, useNavigate} from 'react-router-dom'
-const ApplicationPage = () => {
+const ApplicationPage = ( ) => {
   const navigate = useNavigate();
   useEffect(() => {
 

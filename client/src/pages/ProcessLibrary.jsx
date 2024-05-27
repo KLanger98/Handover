@@ -4,7 +4,7 @@ import {useDisclosure} from "@mantine/hooks"
 import {IconLibraryPlus, IconSearch, IconFlagCog} from '@tabler/icons-react'
 import { useQuery, useMutation } from "@apollo/client"
 import {useState} from "react"
-import { QUERY_PROCESSES_GROUPED} from "../utils/queries"
+import { QUERY_PROCESSES_GROUPED, QUERY_PROCESSES, QUERY_PROCESSES_SIMPLE} from "../utils/queries"
 import AccordionItem from "../components/ProcessAccordion/AccordionItem"
 import { ADD_PROCESS } from "../utils/mutation"
 import "../components/ProcessAccordion/Accordion.scss"
@@ -38,7 +38,7 @@ const ProcessLibrary = () => {
     
     //Handle add Process
     const [addProcess, { error }] = useMutation(ADD_PROCESS, {
-      refetchQueries: [QUERY_PROCESSES_GROUPED],
+      refetchQueries: [QUERY_PROCESSES_GROUPED, QUERY_PROCESSES, QUERY_PROCESSES_SIMPLE],
     });
 
     const handleAddProcess = async ({processTitle, processText, processCategory, processSubCategory, referenceProcesses}) => {
@@ -95,7 +95,7 @@ const ProcessLibrary = () => {
       </Group>
 
       <Modal opened={opened} onClose={close} centered size="70%">
-        {/* Modal content */ console.log(userProfile)}
+        {/* Modal content */}
         <Title>Add Process</Title>
         <ProcessEditorModal
           closeModal={close}
