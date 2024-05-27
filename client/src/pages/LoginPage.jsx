@@ -29,7 +29,7 @@ const LoginPage = () => {
   const [searchParams] = useSearchParams();
 
   const newUser = searchParams.get("newUser") || false;
-  console.log(newUser);
+
  /* Validation */
  const form = useForm({
   mode: "uncontrolled",
