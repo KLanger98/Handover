@@ -181,3 +181,15 @@ export const INPROGRESS_REFERRAL = gql`
     }
   }
 `
+
+//Company mutations
+export const UPDATE_COMPANY = gql`
+mutation Mutation($companyDescription: String, $companyImage: String, $companyAddress: String) {
+  updateCompany(companyDescription: $companyDescription, companyImage: $companyImage, companyAddress: $companyAddress) {
+    _id
+    companyAddress
+    companyName
+    companyImage
+  }
+}
+`

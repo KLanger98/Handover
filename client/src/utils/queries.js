@@ -152,6 +152,8 @@ export const QUERY_REFERRAL_INC_PROCESSES = gql`
             getCompany {
                 _id
                 companyAddress
+                companyImage
+                companyDescription
                 companyModerators{
                     _id
                     firstName
@@ -170,6 +172,7 @@ export const QUERY_REFERRAL_INC_PROCESSES = gql`
                     imageUrl
                     fullName
                 }
+                
             }
         }
     `

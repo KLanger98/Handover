@@ -359,6 +359,17 @@ const resolvers = {
             
         // },
         //Company Mutation methods
+
+        updateCompany: async (parent, {companyDescription, companyAddress, companyImage}, context ) => {
+            
+            return Company.findOneAndUpdate(
+                {_id: context.user.company},
+                {
+                    companyDescription, companyAddress, companyImage
+                },
+                {new: true}
+            )
+        }
     }
 }
 
