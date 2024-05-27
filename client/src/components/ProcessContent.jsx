@@ -86,7 +86,7 @@ const ProcessContent = ({ contentData, flagData, pageRedirect, referenceProcessD
   };
 
   const renderReferences = (referenceData) => {
-    console.log(referenceData)
+
     return referenceData.map((data) => (
       <Button 
       size="sm" 

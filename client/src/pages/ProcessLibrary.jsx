@@ -13,7 +13,7 @@ import {useAuth} from "../utils/AppContext"
 
 const ProcessLibrary = () => {
     //User admin variable 
-    const { adminUser } = useAuth();
+    const { userProfile } = useAuth();
     //Modal open/close hook
     const [opened, { open, close }] = useDisclosure(false);
 
@@ -95,7 +95,7 @@ const ProcessLibrary = () => {
       </Group>
 
       <Modal opened={opened} onClose={close} centered size="70%">
-        {/* Modal content */}
+        {/* Modal content */ console.log(userProfile)}
         <Title>Add Process</Title>
         <ProcessEditorModal
           closeModal={close}
@@ -114,7 +114,7 @@ const ProcessLibrary = () => {
         >
           Add Process
         </Button>
-        {adminUser === true && (
+        {userProfile.moderator === true && (
           <Button
             variant="delete"
             size="lg"

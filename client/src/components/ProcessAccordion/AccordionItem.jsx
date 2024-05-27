@@ -5,7 +5,7 @@ import {useAuth} from "../../utils/AppContext"
 
 function AccordionItem({ dataArray, searchTerm, filterFlags }) {
   //Admin status
-  const { adminUser } = useAuth();
+  const { userProfile } = useAuth();
   //Filter from dataArray processes that do not match the search terms based on title or content
   const filteredProcesses = dataArray.filter((process) => {
     const matchesSearchTerms =
@@ -35,7 +35,7 @@ function AccordionItem({ dataArray, searchTerm, filterFlags }) {
               icon={contentData.processSubCategory}
             />
             
-            {contentData.populatedFlags.length > 0 && adminUser === true && (
+            {contentData.populatedFlags.length > 0 && userProfile.moderator && (
               <Badge color="red.4" mr={10}>
                 Flagged
               </Badge>

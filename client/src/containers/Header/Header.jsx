@@ -1,18 +1,13 @@
-import { Button, Title, Space, Flex, Group, Avatar } from '@mantine/core';
-import {Link} from 'react-router-dom'
+import { Button, Title, Flex, Group, Avatar } from '@mantine/core';
+import { Link } from 'react-router-dom'
 import { useAuth } from '../../utils/AppContext';
 import { useNavigate } from 'react-router-dom';
-import { QUERY_ME } from '../../utils/queries';
-import { useQuery } from '@apollo/client';
+
 
 const Header = () => {
   const navigate = useNavigate();
-  const { loggedIn, logout } = useAuth();
+  const { loggedIn, logout, userProfile } = useAuth();
 
-  //Query current user to display imageUrl
-  const {loading, data} = useQuery(QUERY_ME);
-  const userData = data?.me || {}
-  const userImage = userData.imageUrl;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,9 +15,7 @@ const Header = () => {
     logout();
     navigate('/login')
   }
-  if(loading){
-    return <h1>Loading...</h1>
-  }
+
   return (
     <>
       <Flex justify="space-between" align="center" pl={50}>
@@ -63,12 +56,12 @@ const Header = () => {
                   radius="xl"
                   size="md"
                   color="columbia-blue.6"
-                  src={userImage}
+                  src={userProfile.imageUrl}
                   alt="Your Avatar"
                   onClick={()=> navigate("/user")}
                   styles={{cursor: "grab"}}
                 >
-                  {userData.initials}
+                  {userProfile.initials}
                 </Avatar>
             </>
           )}
