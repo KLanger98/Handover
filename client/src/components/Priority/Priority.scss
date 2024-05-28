@@ -8,6 +8,11 @@
     align-items: center;
     justify-content: center;
 
+    @media screen and (max-width: 768px) {
+        padding-left: 10px;
+        
+    }
+
     .ballBox{
         width: 17px;
         height: 17px;

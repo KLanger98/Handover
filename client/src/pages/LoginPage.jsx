@@ -7,7 +7,8 @@ import {
   Card,
   Button,
   Grid,
-  Group
+  Group,
+  Space
 } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { IconAt } from "@tabler/icons-react";
@@ -72,7 +73,7 @@ const submitForm = async () => {
       <Card w="100%" bg="white" shadow="md" radius="md" p={0}>
         <Grid w="100%">
           <Grid.Col
-            span={6}
+            span={{ lg: 6, md: 6, sm: 12 }}
             bg="brown.4"
             style={{
               display: "flex",
@@ -81,7 +82,8 @@ const submitForm = async () => {
             }}
           >
             <Stack>
-              <Title order={6} style={{color: "white"}}>Welcome.</Title>
+              <Space h={30} />
+              <Title order={6} style={{color: "white"}} className="large-only">Welcome.</Title>
               <Group align="center" justify="center" gap={0} mb={60}>
                 <Title size={30} style={{ color: "white" }}>
                   Hand
@@ -93,7 +95,7 @@ const submitForm = async () => {
               </Group>
             </Stack>
           </Grid.Col>
-          <Grid.Col span={6} p={40}>
+          <Grid.Col span={{ lg: 6, md: 6, sm: 12 }} p={40}>
             <Container>
               <form onSubmit={form.onSubmit(submitForm)}>
                 <Stack align="center">

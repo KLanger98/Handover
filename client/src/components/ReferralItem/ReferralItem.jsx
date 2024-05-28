@@ -8,8 +8,10 @@ import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 import { DELETE_REFERRAL } from '../../utils/mutation';
 import { QUERY_REFERRALS } from '../../utils/queries';
+import {motion } from 'framer-motion';
 
-const ReferralItem = ( { item={}, type='task' } ) => {
+
+const ReferralItem = ( { item={} } ) => {
   const [ mainHover, setMainHover ] = useState(false);
   const [ trashHover, setTrashHover ] = useState(false);
   const navigate = useNavigate();
@@ -29,30 +31,37 @@ const ReferralItem = ( { item={}, type='task' } ) => {
   }
 
   return (
-    <div
+    <motion.div
       onMouseEnter={() => setMainHover(true)} 
       onMouseLeave={() => setMainHover(false)}
       className={'activity-item' + (mainHover ? ' hover' : '')}
+      key={item._id}
+      layout
+      initial={{ opacity: 0, height: 0 }} 
+      animate={{ opacity: 1, height: 45}}
+      exit={{ opacity: 0, height: 0 }}
       >
+       
       <Grid p={0} offset={0}>
-          <Grid.Col span={1} py={2} onClick={() => goToReferral()}>
+          <Grid.Col span={{ base: 2, lg: 1, md: 1, sm: 2}} py={2} onClick={() => goToReferral()}>
             <div style={{ display: 'flex', justifyContent:'center' }}>
-             
-             
+
               <Priority priority={item.priority} />
+
             </div>
           </Grid.Col>
 
           {/* Item Title */}
-          <Grid.Col span={3} p={2} onClick={() => goToReferral()}>
+          <Grid.Col span={{ base: 3, lg: 3, md: 3, sm: 2}} p={2} onClick={() => goToReferral()}>
              
               <Text size='sm' c={ !mainHover ? 'var(--mantine-color-blue-9' : 'var(--mantine-color-brown-6)'}>
                   {item.title}
               </Text>
+              
           </Grid.Col>
 
           {/* Item Description */}
-          <Grid.Col span={ type == 'tasks' ? 7 : 5} p={3} onClick={() => goToReferral()}>
+          <Grid.Col span={{ base: 5, lg: 5, md: 5, sm: 6 }} p={3} onClick={() => goToReferral()}>
           <Text size='sm' c='var(--mantine-color-brown-9'>
                   {item.desc}
               </Text>
@@ -60,13 +69,13 @@ const ReferralItem = ( { item={}, type='task' } ) => {
           </Grid.Col>
           
           {/* User Details (if referral)*/}
-          <Grid.Col span={2} p={2}>
+          <Grid.Col span={{ base: 2, lg: 2, md: 2, sm: 1 }} p={2} className='large-only'>
               <UserStamp user={item.assignedBy} />
           </Grid.Col>
           
 
 
-          <Grid.Col span={1} p={2} style={{ display: 'flex'}}>
+          <Grid.Col span={1} p={2} style={{ display: 'flex'}} className='large-only'>
             {
               /* Space Filler */
               !mainHover && <div style={{ height:'25px' }} onClick={() => goToReferral()} />
@@ -100,13 +109,12 @@ const ReferralItem = ( { item={}, type='task' } ) => {
            
           </Grid.Col>
       </Grid>
-    </div>
+    </motion.div>
   )
 }
 
 ReferralItem.propTypes = {
   item: PropTypes.object,
-  type: PropTypes.string
 };
 
 export default ReferralItem

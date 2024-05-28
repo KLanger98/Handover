@@ -5,11 +5,15 @@ import { IconCirclePlus } from '@tabler/icons-react'
 import './Referrals.scss'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
-
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect }  from 'react';
 
 const Referrals = ({ title='', incomplete=[], inprogress=[], completed=[]}) => {
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  // console.log('Referrals', incomplete, inprogress, completed)
+  // }, [incomplete, inprogress, completed])
 
   return (
     <Container> 
@@ -31,29 +35,31 @@ const Referrals = ({ title='', incomplete=[], inprogress=[], completed=[]}) => {
         <Divider />
 
         <Stack gap={0}>
+          <AnimatePresence initial={false}>
           {
-            incomplete.map((item, index) =>  <ReferralItem key={index}  item={item} />) 
+            incomplete.map((item) =>  <ReferralItem  key={`incomplete-${item._id}`} item={item} />) 
           } 
-          <Space h={10} />
+          <Space h={10} key='space-1' />
           { inprogress.length > 0 && (
-            <>
-              <Title order={6} p={10} pl={25} c='columbia-blue.6'>In-progress</Title>
+             <>
+              <Title initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x:'100%'}} order={6} p={10} pl={25} c='columbia-blue.6'>In-progress</Title>
               <Divider />
               {
-                inprogress.map((item, index) =>  <ReferralItem key={index}  item={item} />) 
+                inprogress.map((item) =>  <ReferralItem   key={`inprogress-${item._id}`} item={item} />) 
               } 
             </> 
           )} 
-          <Space h={10} />
+          <Space h={10} key='space-2' />
           { completed.length > 0 && (
             <>
             <Title order={6} p={10} pl={25} c='red.6'>Completed</Title>
               <Divider />
               {
-                completed.map((item, index) =>  <ReferralItem key={index} item={item} />) 
+                completed.map((item) =>  <ReferralItem key={`completed-${item._id}`} item={item} />) 
               } 
             </> 
           )}
+          </AnimatePresence>
            <Space h={20} />
         </Stack>
       </Stack>
