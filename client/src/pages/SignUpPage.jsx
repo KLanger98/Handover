@@ -1,4 +1,4 @@
-import {Stack, Title, TextInput, Group, PasswordInput, Container, Card, Button, Grid} from '@mantine/core'
+import {Stack, Space, Title, TextInput, Group, PasswordInput, Container, Card, Button, Grid} from '@mantine/core'
 import { Link } from "react-router-dom"
 import { IconAt, IconHeartHandshake } from "@tabler/icons-react";
 import { useForm } from '@mantine/form'
@@ -61,7 +61,7 @@ const SignUpPage = () => {
       <Card w="100%" bg="white" shadow="md" radius="md" p={0}>
         <Grid>
           <Grid.Col
-            span={6}
+            span={{ lg: 6, md: 6, sm: 12 }}
             bg="brown.4"
             style={{
               display: "flex",
@@ -69,14 +69,15 @@ const SignUpPage = () => {
               justifyContent: "center",
             }}
           >
-            <Stack mb="20%">
-              <Title order={6} style={{ color: "white" }}>
+            <Stack >
+              <Space h={30} />
+              <Title order={6} style={{ color: "white" }} className='large-only'>
                 Less Dawdle.
               </Title>
-              <Title order={6} style={{ color: "white" }}>
+              <Title order={6} style={{ color: "white" }} className='large-only'>
                 More Doing.
               </Title>
-              <Group align="center" justify="center" gap={0} mb={60}>
+              <Group align="center" justify="center" gap={0} >
                 <Title size={30} style={{ color: "white" }}>
                   Hand
                 </Title>
@@ -85,9 +86,10 @@ const SignUpPage = () => {
                   ver
                 </Title>
               </Group>
+              <Space h={30} />
             </Stack>
           </Grid.Col>
-          <Grid.Col span={6} p={20}>
+          <Grid.Col span={{ lg: 6, md: 6, sm: 12 }} p={20}>
             <form onSubmit={form.onSubmit(submitForm)}>
               <Stack align="center">
                 <Title order={3}>Create an Account</Title>

@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
+    "framer-motion": "^11.2.6",
     "git": "^0.1.5"
   }
 }
