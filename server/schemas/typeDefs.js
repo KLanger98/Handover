@@ -11,6 +11,7 @@ const typeDefs = `
         imageUrl: String
         initials: String
         moderator: Boolean
+        contactNumber: String
     }
 
     type CategoryGroup {
@@ -104,7 +105,7 @@ const typeDefs = `
     }
 
     type Mutation{
-        addUser(email: String!, password: String!, firstName: String!, lastName: String!, profession: String): User
+        addUser(email: String!, password: String!, firstName: String!, lastName: String!, profession: String, contactNumber: String): User
         login(email: String!, password: String!): Auth
         removeUser: User
         updateUser(imageUrl: String): User

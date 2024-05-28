@@ -166,6 +166,7 @@ export const QUERY_REFERRAL_INC_PROCESSES = gql`
                     initials
                     imageUrl
                     fullName
+                    contactNumber
                 }
                 companyName
                 companyProcesses
@@ -177,6 +178,7 @@ export const QUERY_REFERRAL_INC_PROCESSES = gql`
                     initials
                     imageUrl
                     fullName
+                    contactNumber
                 }
                 
             }

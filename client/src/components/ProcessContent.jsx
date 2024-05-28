@@ -21,8 +21,10 @@ import { useMutation } from "@apollo/client";
 import { DELETE_PROCESS, UPDATE_PROCESS } from "../utils/mutation";
 import { QUERY_PROCESSES_GROUPED } from "../utils/queries";
 import FlagBanner from "./FlagBanner";
+import {useAuth} from "../utils/AppContext"
 
 const ProcessContent = ({ contentData, flagData, pageRedirect, referenceProcessData }) => {
+  const { userProfile } = useAuth();
   const navigate = useNavigate();
   //Handle Edit Modal Open/Close
   const [editOpened, { open, close }] = useDisclosure(false);
@@ -109,23 +111,29 @@ const ProcessContent = ({ contentData, flagData, pageRedirect, referenceProcessD
           handleProcess={handleUpdateProcess}
         />
       </Modal>
+
       <Group>
-        <Button
-          variant="edit"
-          size="md"
-          onClick={() => handleOpenEditorModal(contentData)}
-          rightSection={<IconPencil stroke={1.0} />}
-        >
-          Edit Process
-        </Button>
-        <Button
-          variant="delete"
-          size="md"
-          onClick={() => handleProcessDelete(contentData._id)}
-          rightSection={<IconTrash stroke={1.0} />}
-        >
-          Delete Process
-        </Button>
+        {userProfile.moderator && (
+          <Group>
+            <Button
+              variant="edit"
+              size="md"
+              onClick={() => handleOpenEditorModal(contentData)}
+              rightSection={<IconPencil stroke={1.0} />}
+            >
+              Edit Process
+            </Button>
+            <Button
+              variant="delete"
+              size="md"
+              onClick={() => handleProcessDelete(contentData._id)}
+              rightSection={<IconTrash stroke={1.0} />}
+            >
+              Delete Process
+            </Button>
+          </Group>
+        )}
+
         {pageRedirect ? (
           <Button
             variant="form"

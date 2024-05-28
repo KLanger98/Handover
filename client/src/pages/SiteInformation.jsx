@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "@apollo/client";
 import {Title, Card, Stack, Text, Image, Avatar, Group, TextInput, Button, Modal} from "@mantine/core"
 import { QUERY_SINGLE_COMPANY } from "../utils/queries";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { UPDATE_COMPANY } from "../utils/mutation";
@@ -18,15 +18,27 @@ const SiteInformation = () => {
   const companyData = data?.getCompany || {}
 
   const form = useForm({
-    mode: 'uncontrolled',
+    mode: "uncontrolled",
     initialValues: {
-      companyDescription: companyData.companyDescription || "",
-      companyAddress: companyData.companyAddress || "",
-      companyImage: companyData.companyImage || "",
-      companyModerators: companyData.companyModerators || [],
-      companyUsers: companyData.companyUsers || []
+      companyDescription: "",
+      companyAddress: "",
+      companyImage: "",
+      companyModerators: [],
+      companyUsers: [],
+    },
+  });
+
+  useEffect(() => {
+    if (companyData) {
+      form.setValues({
+        companyDescription: companyData.companyDescription || "",
+        companyAddress: companyData.companyAddress || "",
+        companyImage: companyData.companyImage || "",
+        companyModerators: companyData.companyModerators || [],
+        companyUsers: companyData.companyUsers || [],
+      });
     }
-  })
+  }, [companyData]);
 
     const [updateCompany, {error}] = useMutation(UPDATE_COMPANY, {
       refetchQueries: [QUERY_SINGLE_COMPANY]
@@ -47,6 +59,7 @@ const SiteInformation = () => {
           </Avatar>
           <Text>{user.fullName}</Text>
           <Text>{user.profession}</Text>
+          <Text>{user.contactNumber}</Text>
         </Group>
       ));
     }
@@ -90,8 +103,6 @@ const SiteInformation = () => {
             ) : (
               <Text>{companyData.companyAddress}</Text>
             )}
-            <Title order={4}>Site Contacts</Title>
-            <Text></Text>
 
             <Title order={4}>Site Map</Title>
             {userProfile.moderator ? (
@@ -102,19 +113,23 @@ const SiteInformation = () => {
             ) : (
               <Image w={400} src={companyData.companyImage} />
             )}
-            <Title order={4}>Moderators</Title>
+            <Title order={4}>Admin Staff</Title>
             {renderAvatars(companyData.companyModerators)}
-            <Title order={4}>Users</Title>
+            <Title order={4}>Company Contacts</Title>
             {renderAvatars(companyData.companyUsers)}
-            <Button variant="form" type="submit" m={5}>
-              Save
-            </Button>
-            <Modal opened={opened} onClose={close} title="Add A User">
-              <AddUser closeModal={close} />
-            </Modal>
-            <Button variant="form" type="submit" m={5} onClick={open}>
-              Add User
-            </Button>
+            {userProfile.moderator && (
+              <Group>
+                <Button variant="form" type="submit" m={5}>
+                  Save
+                </Button>
+                <Modal opened={opened} onClose={close} title="Add A User">
+                  <AddUser closeModal={close} />
+                </Modal>
+                <Button variant="form" type="submit" m={5} onClick={open}>
+                  Add User
+                </Button>
+              </Group>
+            )}
           </form>
         </Stack>
       </Card>
