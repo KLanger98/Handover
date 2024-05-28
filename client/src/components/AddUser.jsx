@@ -17,16 +17,17 @@ const AddUser = ({closeModal}) => {
             lastName: "",
             email: "",
             password: "",
-            profession: ""
+            profession: "",
+            contactNumber: ""
         }
     })
 
     const handleSubmit = () => {
         try{
-            const {firstName, lastName, email, password, profession} = form.getValues()
-            console.log(firstName, lastName, email, password, profession);
+            const {firstName, lastName, email, password, profession, contactNumber} = form.getValues()
+            
             const {data} = addUser({
-                variables: {firstName, lastName, email, password, profession}
+                variables: {firstName, lastName, email, password, profession, contactNumber}
             })
 
             closeModal();
@@ -66,6 +67,12 @@ const AddUser = ({closeModal}) => {
             {...form.getInputProps("profession")}
             label="User Profession"
             description="What role will this user have"
+          />
+          <TextInput
+            key={form.key("contactNumber")}
+            {...form.getInputProps("contactNumber")}
+            label="User Contact"
+            description="What is the users contact number on site"
           />
           <Button m={10} variant="form" type="submit">
             Create User

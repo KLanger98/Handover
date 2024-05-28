@@ -139,9 +139,9 @@ const resolvers = {
     },
     Mutation: {
         //User mutation methods
-        addUser: async (parent, { email, password, firstName, lastName, profession }, context) => {
+        addUser: async (parent, { email, password, firstName, lastName, profession, contactNumber }, context) => {
             console.log(email, password, firstName, lastName, profession)
-            const user = await User.create({ email, password, firstName, lastName, moderator: false, company: context.user.company, profession });
+            const user = await User.create({ email, password, firstName, lastName, moderator: false, company: context.user.company, profession, contactNumber });
             
             console.log(user._id)
 

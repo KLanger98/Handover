@@ -103,7 +103,7 @@ const ProcessLibrary = () => {
           handleProcess={handleAddProcess}
         />
       </Modal>
-
+      {userProfile.moderator === true && (
       <Group>
         <Button
           variant="form"
@@ -114,7 +114,7 @@ const ProcessLibrary = () => {
         >
           Add Process
         </Button>
-        {userProfile.moderator === true && (
+        
           <Button
             variant="delete"
             size="lg"
@@ -124,8 +124,8 @@ const ProcessLibrary = () => {
           >
             View Flagged Processes
           </Button>
-        )}
       </Group>
+      )}
 
       {renderAccordian(processData)}
     </>
