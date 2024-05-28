@@ -1,8 +1,9 @@
-import { Image, Title, Stack, Group, Container,  Input, Button, Card, Divider } from "@mantine/core";
+import { Image, Title, Stack, Group, Container,  Input, Button, Card, Divider, Avatar } from "@mantine/core";
 import {useForm } from "@mantine/form"
 import { UPDATE_USER } from "../utils/mutation";
 import { QUERY_ME } from "../utils/queries";
 import {useMutation, useQuery} from "@apollo/client"
+import {useAuth} from "../utils/AppContext"
 
 
 
@@ -35,6 +36,8 @@ const UserProfile = () => {
     }
   )
 
+  console.log(userData)
+
   //Handle save of user details
   const handleSubmit = async (formValues) => {
     try{
@@ -66,17 +69,31 @@ const UserProfile = () => {
           >
             <Group justify="space-evenly" mt={20}>
               <Stack>
-                <Container border="2px solid black">
-                  <Image
-                    style={{
+                <Container style={{
+                      border: "2px solid black",
                       borderRadius: "50%",
                       height: "200px",
                       width: "200px",
-                      maxWidth: "200px",
-                      objectiFit: "cover",
-                    }}
+                      background: "indigo",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      overflow: "hidden"
+                    }}>
+                  {userData.imageUrl ? 
+                  (<Image
                     src={userData.imageUrl}
-                  ></Image>
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "cover"
+                    }}
+                  ></Image>):(
+                  <Title c="white" style={{fontSize: "3rem"}}>
+                    {userData.initials}
+                  </Title>
+                  )}
+                  
                 </Container>
               </Stack>
               <Stack align="flex-start">

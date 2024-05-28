@@ -1,8 +1,8 @@
 import { Stack, Title, Text, Grid, Image } from '@mantine/core'
 import { useEffect } from 'react'
 import { Activity, Referrals } from '../components'
-import { useMutation, useQuery } from "@apollo/client";
-import { QUERY_REFERRALS } from "../utils/queries";
+import { useQuery } from "@apollo/client";
+import { QUERY_REFERRALS, QUERY_SINGLE_COMPANY } from "../utils/queries";
 
 import { images }  from '../../assets/';
 
@@ -31,6 +31,8 @@ const Dashboard = () => {
         }
     ]
 
+  const {data: companyData, loading: companyLoading} = useQuery(QUERY_SINGLE_COMPANY);
+  const dashData = companyData?.getCompany || {}
 
 
 
@@ -44,17 +46,11 @@ const Dashboard = () => {
       <Grid p="sm" width="50%" justify="left">
         <Grid.Col p={0} span={9}>
           <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            {dashData.dashboardText}
           </Text>
         </Grid.Col>
         <Grid.Col span={3} align="right">
-          <Image w={100} h="auto" src="" />
+          <Image w={100} h="auto" src={dashData.companyImage} />
         </Grid.Col>
       </Grid>
 

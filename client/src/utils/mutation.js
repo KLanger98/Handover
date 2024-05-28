@@ -57,6 +57,14 @@ export const UPDATE_USER = gql`
   }
 `
 
+export const REMOVE_COMPANY_USER = gql`
+  mutation Mutation($userId: ID) {
+    removeUserAccount(userId: $userId) {
+      _id
+    }
+  }
+`
+
 
 //Process related mutations
 export const ADD_PROCESS = gql`
@@ -186,12 +194,14 @@ export const INPROGRESS_REFERRAL = gql`
 
 //Company mutations
 export const UPDATE_COMPANY = gql`
-mutation Mutation($companyDescription: String, $companyImage: String, $companyAddress: String) {
-  updateCompany(companyDescription: $companyDescription, companyImage: $companyImage, companyAddress: $companyAddress) {
+mutation Mutation($companyDescription: String, $companyImage: String, $companyAddress: String, $companyMap: String, $dashboardText: String) {
+  updateCompany(companyDescription: $companyDescription, companyImage: $companyImage, companyAddress: $companyAddress, companyMap: $companyMap, dashboardText: $dashboardText) {
     _id
     companyAddress
-    companyName
+    companyDescription
     companyImage
+    companyMap
   }
 }
+
 `

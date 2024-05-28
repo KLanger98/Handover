@@ -3,10 +3,15 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../utils/AppContext';
 import { useNavigate } from 'react-router-dom';
 import './Header.scss'
+import { useQuery } from "@apollo/client"
+import { QUERY_ME } from '../../utils/queries';
 
 const Header = () => {
   const navigate = useNavigate();
   const { loggedIn, logout, userProfile } = useAuth();
+
+  const { data, loading} = useQuery(QUERY_ME)
+  const userData = data?.me || {}
 
 
   const handleSubmit = (e) => {
@@ -51,7 +56,7 @@ const Header = () => {
                   radius="xl"
                   size="md"
                   color="columbia-blue.6"
-                  src={userProfile.imageUrl}
+                  src={userData.imageUrl}
                   alt="Your Avatar"
                   onClick={()=> navigate("app/user")}
                   styles={{cursor: "grab"}}

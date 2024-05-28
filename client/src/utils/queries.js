@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 
 export const QUERY_ME = gql`
   query Query {
-    getUser {
+    me {
       _id
       email
       firstName
@@ -16,7 +16,6 @@ export const QUERY_ME = gql`
       moderator
     }
   }
-
 `
 
 export const QUERY_PROCESSES_GROUPED = gql`
@@ -180,7 +179,8 @@ export const QUERY_REFERRAL_INC_PROCESSES = gql`
                     fullName
                     contactNumber
                 }
-                
+                dashboardText
+                companyMap
             }
         }
     `
