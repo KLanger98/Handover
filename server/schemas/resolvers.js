@@ -20,6 +20,11 @@ const resolvers = {
             const { password, ...userWithoutPassword }   = context.user;
             return userWithoutPassword;
         },
+        me: async (parent, args, context) => {
+            if(context.user){
+                return User.findOne({_id: context.user._id})
+            }
+        },
 
         //Process related queries
         findProcessesGroupedByCategory: async (parent, args, context) => {
@@ -193,8 +198,22 @@ const resolvers = {
             //remove user from the company
 
             return User.findOneAndDelete({ _id: context.user._id, company: context.user.company });
-            
-            throw AuthenticationError;
+        },
+        removeUserAccount: async (parent, {userId}, context) => {
+            //Determine is user commencing delete is authenticated
+            if(!context.user) {
+                throw AuthenticationError
+            }
+            const user = await User.findOneAndDelete({_id: userId, company: context.user.company})
+            //Remove the user from the company
+            const company = await Company.findOneAndUpdate(
+                {_id: context.user.company},
+                {$pull: {companyUsers: userId}},
+            )
+            console.log(company)
+
+            //Delete the user profile
+            return company
         },
         updateUser: async (parent, {imageUrl}, context) => {
 
@@ -375,12 +394,12 @@ const resolvers = {
         // },
         //Company Mutation methods
 
-        updateCompany: async (parent, {companyDescription, companyAddress, companyImage}, context ) => {
-            
+        updateCompany: async (parent, {companyDescription, companyAddress, companyImage, dashboardText, companyMap}, context ) => {
+            console.log('hi')
             return Company.findOneAndUpdate(
                 {_id: context.user.company},
                 {
-                    companyDescription, companyAddress, companyImage
+                    companyDescription, companyAddress, companyImage, dashboardText, companyMap
                 },
                 {new: true}
             )

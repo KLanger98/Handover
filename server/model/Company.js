@@ -15,6 +15,12 @@ const companySchema = new Schema(
     companyImage: {
       type: String,
     },
+    companyMap: {
+      type: String
+    },
+    dashboardText: {
+      type: String
+    },
     companyProcesses: [{
         type: Schema.Types.ObjectId,
         ref: 'process'
@@ -28,12 +34,6 @@ const companySchema = new Schema(
       }
     ],
     companyUsers: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
-      }
-    ],
-    companyContacts: [
       {
         type: Schema.Types.ObjectId,
         ref: 'user'

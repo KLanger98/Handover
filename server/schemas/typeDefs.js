@@ -77,6 +77,8 @@ const typeDefs = `
         companyUsers: [User]
         companyImage: String
         companyDescription: String
+        companyMap: String
+        dashboardText: String
     }
 
     type Profession {
@@ -89,6 +91,7 @@ const typeDefs = `
         user(user: ID!): User
         users: [User]!
         getUser: User
+        me: User
 
 
         getProcesses: [Process]
@@ -108,6 +111,7 @@ const typeDefs = `
         addUser(email: String!, password: String!, firstName: String!, lastName: String!, profession: String, contactNumber: String): User
         login(email: String!, password: String!): Auth
         removeUser: User
+        removeUserAccount(userId: ID): User
         updateUser(imageUrl: String): User
         createCompanyAndUser(email: String!, password: String!, firstName: String!, lastName: String!, companyName: String!): User
 
@@ -123,7 +127,7 @@ const typeDefs = `
         completeReferral(referralId: ID!, completionNotes: String): Referral
         inprogressReferral(referralId: ID!, completionNotes: String): Referral
 
-        updateCompany(companyDescription: String, companyImage: String, companyAddress: String): Company
+        updateCompany(companyDescription: String, companyImage: String, companyAddress: String, companyMap: String, dashboardText: String): Company
     }
 
     
