@@ -19,7 +19,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { DELETE_PROCESS, UPDATE_PROCESS } from "../utils/mutation";
-import { QUERY_PROCESSES_GROUPED } from "../utils/queries";
+import { QUERY_PROCESSES_GROUPED, QUERY_SINGLE_PROCESS } from "../utils/queries";
 import FlagBanner from "./FlagBanner";
 import {useAuth} from "../utils/AppContext"
 
@@ -50,8 +50,9 @@ const ProcessContent = ({ contentData, flagData, pageRedirect, referenceProcessD
 
   //Handle Modal Update
   const [updateProcess, { error: updateError }] = useMutation(UPDATE_PROCESS, {
-    refetchQueries: [QUERY_PROCESSES_GROUPED],
+    refetchQueries: [QUERY_PROCESSES_GROUPED, QUERY_SINGLE_PROCESS],
   });
+  
   const handleUpdateProcess = async ({processId, processTitle, processText, processCategory, processSubCategory, referenceProcesses}) => {
     try {
       const { data } = updateProcess({

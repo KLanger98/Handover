@@ -53,16 +53,42 @@ const ProcessLibrary = () => {
     }
 
     const renderAccordian = (dataArray) => {
-      return dataArray.map((category) => (
-        <Stack key={category._id}>
-          <Title mt={10} order={3}>
-            {category._id}
-          </Title>
-          <Divider size="lg" color="light-brown.8"/>
-          <Accordion variant="separated" className="root" >
-            <AccordionItem filterFlags={filterFlags} searchTerm={searchTerm}  dataArray={category.processes} />
-          </Accordion>
-        </Stack>
+      const items = dataArray.map((category) => {
+        let filteredArr = category.processes.filter((process) => {
+          const matchesSearchTerms =
+            process.processTitle
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase()) ||
+            process.processText
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase());
+          let matchesFilter = true;
+          if (filterFlags == true && process.populatedFlags.length < 1) {
+            matchesFilter = false;
+          }
+          return matchesSearchTerms && matchesFilter;
+        });
+
+        return {...category, filteredArr}
+      })
+      
+
+      return items.map((category) => (
+        <>
+          {category.filteredArr.length > 0 ? (
+            <Stack key={category._id}>
+              <Title mt={10} order={3}>
+                {category._id}
+              </Title>
+              <Divider size="lg" color="light-brown.8" />
+              <Accordion variant="separated" className="root">
+                <AccordionItem
+                  dataArray={category.filteredArr}
+                />
+              </Accordion>
+            </Stack>
+          ) : null}
+        </>
       ));
     }
 

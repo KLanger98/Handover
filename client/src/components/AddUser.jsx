@@ -1,4 +1,4 @@
-import {TextInput, Button, Input, NativeSelect} from "@mantine/core"
+import {TextInput, Button, Input, NativeSelect, PasswordInput} from "@mantine/core"
 import { useForm } from "@mantine/form";
 import { CREATE_USER } from "../utils/mutation";
 import { useMutation } from "@apollo/client";
@@ -56,9 +56,10 @@ const AddUser = ({closeModal}) => {
             label="Email"
             description="Your users Email"
           />
-          <TextInput
+          <PasswordInput
             key={form.key("password")}
             {...form.getInputProps("password")}
+            placeholder="********"
             label="Password"
             description="Temporary User Password"
           />

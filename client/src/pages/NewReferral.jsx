@@ -123,7 +123,6 @@ const NewReferral = () => {
                 placeholder='Select related processes'
                 key={form.key("processes")}
                 {...form.getInputProps('processes')}
-
                 data={processes.map((process) => ({value: `${process._id}`, label: `${process.processTitle}`}))}
 
                 />

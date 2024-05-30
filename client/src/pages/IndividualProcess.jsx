@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client";
 import ProcessContent from "../components/ProcessContent"
 
 const IndividualProcess = () => {
-  const navigate = useNavigate();
+  
   const { id } = useParams();
 
   const { data, loading } = useQuery(QUERY_SINGLE_PROCESS, {
@@ -18,7 +18,7 @@ const IndividualProcess = () => {
   }
   return (
     <Card>
-      <Title order={2}>{process.processTitle}</Title>
+      <Title order={2} m={8}>{process.processTitle}</Title>
       <ProcessContent contentData={process} flagData={process.flags} pageRedirect={false} referenceProcessData={process.referenceProcesses}/>
     </Card>
   );

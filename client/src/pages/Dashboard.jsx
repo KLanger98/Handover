@@ -37,21 +37,38 @@ const Dashboard = () => {
   const signIns = signInData?.getSignIns || []
 
 
+
   return (
     <Stack p={10}>
-      <Title order={2} c="columbia-blue.9" pl={3}>
-        Dashboard
-      </Title>
-
       {/* Main Notes */}
-      <Grid p="sm" width="50%" justify="left">
+      <Grid p="sm" width="50%" align="center">
         <Grid.Col p={0} span={9}>
-          <Text>
-            {dashData.dashboardText}
-          </Text>
+          <Stack>
+            <Title order={2} c="columbia-blue.9" pl={3}>
+              Dashboard
+            </Title>
+            <Text>{dashData.dashboardText}</Text>
+          </Stack>
         </Grid.Col>
-        <Grid.Col span={3} align="right">
-          <Image w={100} h="auto" src={dashData.companyImage} />
+        <Grid.Col span={3} align="center">
+          <Container
+            w={200}
+            h={200}
+            bg="light-brown.8"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "50%",
+            }}
+          >
+            <Image
+              w={100}
+              h="auto"
+              src={dashData.companyImage}
+              style={{ border: "2px solid black" }}
+            />
+          </Container>
         </Grid.Col>
       </Grid>
 
