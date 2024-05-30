@@ -1,17 +1,17 @@
 //Import required models here
 const { signToken, AuthenticationError } = require("../utils/auth");
-const { User, Process, Referral, Flag, Company} = require("../model");
+const { User, Process, Referral, Flag, Company, SignIn} = require("../model");
 
 
 const resolvers = {
     Query: {
         //User related queries
         users: async () => {
-            return User.find();
+            return await User.find();
         },
 
         user: async (parent, { userId }) => {
-            return User.findOne({ _id: userId });
+            return await User.findOne({ _id: userId });
         },
 
         getUser: async (parent, {},  context) => {
@@ -22,8 +22,26 @@ const resolvers = {
         },
         me: async (parent, args, context) => {
             if(context.user){
-                return User.findOne({_id: context.user._id})
+                return await User.findOne({_id: context.user._id})
             }
+        },
+
+        getSignIns: async (parent, {}, context) => {
+            if(!context.user && context.user.moderator) throw AuthenticationError;
+     
+            try {
+                const { recentSignIns } = await Company.findOne({_id: context.user.company}).populate({
+                    path: 'recentSignIns',
+                    populate: { path: 'user' }
+                })
+
+                
+
+                return recentSignIns;
+            } catch (err) {
+                throw new Error(err);
+            }
+
         },
 
         //Process related queries
@@ -189,6 +207,14 @@ const resolvers = {
             }
       
             const token = signToken(user);
+
+            //Create a SignIn record
+            const signIn = await SignIn.create({user: user._id, date: new Date()});
+
+            await Company.findOneAndUpdate(
+                {_id: user.company},
+                {$addToSet: {recentSignIns: signIn._id}}
+            )
             return { token, user };
         },
 

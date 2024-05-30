@@ -22,7 +22,7 @@ import { QUERY_ME } from "../utils/queries";
 
 const LoginPage = () => {
   const [loginMutation] = useMutation(LOGIN_USER, {
-    refetchQueries: [QUERY_ME]
+    refetchQueries: ['QUERY_ME', 'SIGNINS']
   });
   const { login } = useAuth();
   const navigate = useNavigate();

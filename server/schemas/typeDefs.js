@@ -79,6 +79,7 @@ const typeDefs = `
         companyDescription: String
         companyMap: String
         dashboardText: String
+        recentSignIns: [SignIn]
     }
 
     type Profession {
@@ -87,11 +88,20 @@ const typeDefs = `
         company: ID!
     }
 
+    type SignIn {
+        _id: ID!
+        user: User
+        date: String
+        formattedDate: String
+    }
+
     type Query {
         user(user: ID!): User
         users: [User]!
         getUser: User
         me: User
+
+        getSignIns: [SignIn]
 
 
         getProcesses: [Process]

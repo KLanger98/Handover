@@ -1,8 +1,7 @@
-import { Stack, Title, Text, Grid, Image, Container } from '@mantine/core'
-import { useEffect } from 'react'
-import { Activity, Referrals } from '../components'
+import { Stack, Title, Text, Grid, Image } from '@mantine/core'
+import { Activity, Referrals, SignIns } from '../components'
 import { useQuery } from "@apollo/client";
-import { QUERY_REFERRALS, QUERY_SINGLE_COMPANY } from "../utils/queries";
+import { QUERY_REFERRALS, QUERY_SINGLE_COMPANY, SIGNINS } from "../utils/queries";
 
 import { images }  from '../../assets/';
 
@@ -33,8 +32,11 @@ const Dashboard = () => {
 
   const {data: companyData, loading: companyLoading} = useQuery(QUERY_SINGLE_COMPANY);
   const dashData = companyData?.getCompany || {}
+  
+  const {data: signInData, loading: signInLoading} = useQuery(SIGNINS);
+  const signIns = signInData?.getSignIns || []
 
-    console.log(companyData)
+
 
   return (
     <Stack p={10}>
@@ -72,19 +74,17 @@ const Dashboard = () => {
 
       {/* Referrals */}
 
-      {/*
-            
-        */}
-
       <Referrals
         title="Referrals"
         incomplete={incomplete}
         inprogress={inprogress}
       />
 
+      {/* Daily Activities */}
       <Activity title="Daily Activities" items={daily} type="tasks" />
 
-      {/* <Activity title="Processes" /> */}
+      {/* Sign-ins */}
+      <SignIns title="Sign-ins" signIns={signIns} />
     </Stack>
   );
 }

@@ -5,8 +5,7 @@ import { IconCirclePlus } from '@tabler/icons-react'
 import './Referrals.scss'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect }  from 'react';
+import { AnimatePresence } from 'framer-motion';
 
 const Referrals = ({ title='', incomplete=[], inprogress=[], completed=[]}) => {
   const navigate = useNavigate();
