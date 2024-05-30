@@ -57,8 +57,13 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
           return content.processTitle;
         }
       );
-
       setTagsData(referenceProcessArray)
+    }
+    if(contentData.populatedReferenceProcesses){
+      referenceProcessArray = contentData.populatedReferenceProcesses.map((content) => {
+        return content.processTitle;
+      });
+      setTagsData(referenceProcessArray);
     }
   }
   }, [contentData])

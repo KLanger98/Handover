@@ -163,10 +163,7 @@ const resolvers = {
     Mutation: {
         //User mutation methods
         addUser: async (parent, { email, password, firstName, lastName, profession, contactNumber }, context) => {
-            console.log(email, password, firstName, lastName, profession)
             const user = await User.create({ email, password, firstName, lastName, moderator: false, company: context.user.company, profession, contactNumber });
-            
-            console.log(user._id)
 
             const updateCompany = await Company.findOneAndUpdate(
                 {_id: context.user.company},
@@ -237,7 +234,6 @@ const resolvers = {
                 {_id: context.user.company},
                 {$pull: {companyUsers: userId}},
             )
-            console.log(company)
 
             //Delete the user profile
             return company
@@ -265,8 +261,6 @@ const resolvers = {
         },
         deleteProcess: async (parent, {processId}, context ) => {
             const result = await Process.findOneAndDelete({ _id: processId, company: context.user.company });
-            console.log(result)
-            console.log(result.flags.length)
             //If there are flags referenced within this process, delete them
                 for(const flagId of result.flags){
                     const flag = await Flag.findOneAndDelete({_id: flagId});
@@ -343,8 +337,6 @@ const resolvers = {
         addReferral: async (parent, { title, desc, priority, relatedProcesses }, context) => {
             if(!context.user) throw AuthenticationError;
 
-
-            // console.log("User", context.user)
             try {
                 const processes = await Process.find({
                     _id: { $in: relatedProcesses }
@@ -362,8 +354,7 @@ const resolvers = {
 
                 return newReferral;
             } catch (err) {
-                console.log(err)
-                throw new Error(err);
+                console.error(err)
             }
         },
 
@@ -427,7 +418,6 @@ const resolvers = {
         //Company Mutation methods
 
         updateCompany: async (parent, {companyDescription, companyAddress, companyImage, dashboardText, companyMap}, context ) => {
-            console.log('hi')
             return Company.findOneAndUpdate(
                 {_id: context.user.company},
                 {
