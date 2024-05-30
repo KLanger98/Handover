@@ -43,7 +43,7 @@ const SignUpPage = () => {
 
     try {
       const {firstName, lastName, email, password, companyName} = await form.getValues();
-      
+
       const { data } = await createUserAndCompany({
         variables: { firstName, lastName, email, password, companyName}
       });
@@ -97,14 +97,14 @@ const SignUpPage = () => {
                   <Group>
                     <TextInput
                       label="First Name"
-                      placeholder="Seymour"
+                      placeholder="John"
                       key={form.key("firstName")}
                       {...form.getInputProps("firstName")}
                       // {...register("firstName")}
                     />
                     <TextInput
                       label="Last Name"
-                      placeholder="Butts"
+                      placeholder="Smith"
                       key={form.key("lastName")}
                       // {...register("lastName")}
                       {...form.getInputProps("lastName")}
@@ -117,7 +117,7 @@ const SignUpPage = () => {
                     {...form.getInputProps("email")}
                     // {...register("email")}
                     label="Your email"
-                    placeholder="seymour@gmail.com"
+                    placeholder="youremail@gmail.com"
                   />
                   <TextInput
                   label="Your Company Name"

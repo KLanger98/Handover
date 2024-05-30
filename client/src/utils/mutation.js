@@ -85,14 +85,14 @@ export const DELETE_PROCESS = gql`
 }
 `
 export const UPDATE_PROCESS = gql`
-  mutation Mutation($processId: ID!, $processTitle: String!, $processText: String!, $processCategory: String!) {
-    updateProcess(processId: $processId, processTitle: $processTitle, processText: $processText, processCategory: $processCategory) {
+  mutation Mutation($processId: ID!, $processTitle: String!, $processText: String!, $processCategory: String!, $processSubCategory: String!, $referenceProcesses: [ID]) {
+    updateProcess(processId: $processId, processTitle: $processTitle, processText: $processText, processCategory: $processCategory, processSubCategory: $processSubCategory, referenceProcesses: $referenceProcesses) {
       _id
-      processCategory
+      company
       processText
       processTitle
     }
-  }
+}
 `
 //FLAGS
 export const ADD_FLAG = gql`

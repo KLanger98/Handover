@@ -248,16 +248,21 @@ const resolvers = {
 
             return result;
         },
-        updateProcess: async (parent, {processId, processTitle, processText, processCategory}) => {
+        updateProcess: async (parent, {processId, processTitle, processText, processCategory, referenceProcesses}) => {
             let lastUpdated = new Date();
             let formattedDate = lastUpdated.toDateString();
-            return Process.findOneAndUpdate(
-                {_id: processId, company: context.user.company},
+            try{
+                return Process.findOneAndUpdate(
+                {_id: processId},
                 {
-                    processTitle, processText, processCategory, lastUpdated, formattedDate
+                    processTitle, processText, processCategory, lastUpdated, formattedDate, referenceProcesses
                 },
                 {new: true}
             )
+            } catch(error){
+                console.error(error);
+            }
+            
         },
         //Flag mutations
         addFlag: async (parent, {flagText, referenceProcess}, context) => {

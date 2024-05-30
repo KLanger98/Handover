@@ -117,7 +117,7 @@ const typeDefs = `
 
         addProcess(processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!, referenceProcesses: [ID]): Process
         deleteProcess(processId: ID!): Process
-        updateProcess(processId: ID!, processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!): Process
+        updateProcess(processId: ID!, processTitle: String!, processText: String!, processCategory: String!, processSubCategory: String!, referenceProcesses: [ID]): Process
 
         addFlag(flagText: String!, referenceProcess: ID): Flag
         removeFlag(flagId: ID!): Flag

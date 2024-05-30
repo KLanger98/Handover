@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@apollo/client";
-import {Title, Card, Stack, Text, Image, Avatar, Group, TextInput, Button, Modal, Divider} from "@mantine/core"
+import {Title, Card, Stack, Text, Image, Avatar, Group, TextInput, Button, Modal, Divider, Textarea} from "@mantine/core"
 import { QUERY_SINGLE_COMPANY } from "../utils/queries";
 import { useState, useEffect } from "react";
 import { useForm } from "@mantine/form";
@@ -131,9 +131,10 @@ const SiteInformation = () => {
             <Title order={4}>Site Description</Title>
             <Divider size="md" color="light-brown.4" m={4} />
             {userProfile.moderator ? (
-              <TextInput
+              <Textarea
                 key={form.key("companyDescription")}
                 {...form.getInputProps("companyDescription")}
+                resize="vertical"
               />
             ) : (
               <Text>{companyData.companyDescription}</Text>

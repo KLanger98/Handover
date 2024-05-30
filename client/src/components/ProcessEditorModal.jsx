@@ -6,6 +6,7 @@ import { ADD_PROCESS } from "../utils/mutation";
 import {useMutation, useQuery} from "@apollo/client"
 import { QUERY_PROCESSES_GROUPED, QUERY_PROCESSES_SIMPLE } from "../utils/queries";
 import {IconListDetails, IconMapSearch, IconPencil, IconArrowsRandom} from "@tabler/icons-react"
+import { useEffect, useState } from "react";
 
 const initialcheckboxes = [
   { label: "Physiotherapy", checked: false, key: randomId() },
@@ -38,31 +39,43 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
         value === "Select a Sub Category" ? "Must Select at least one option" : null,
     },
   });
-  let editorContent = " ";
   //If data already exists, set field state
-  if(contentData){
+  const [tagsData, setTagsData] = useState([])
+  const [editorContent, setEditorContent] = useState(" ")
+
+  useEffect(() => {
+    if(contentData){
     form.setFieldValue('processTitle', contentData.processTitle)
     form.setFieldValue("processText", contentData.processText);
-    editorContent = contentData.processText
     form.setFieldValue("processCategory", contentData.processCategory);
     form.setFieldValue("processSubCategory", contentData.processSubCategory);
-    form.setFieldValue("referenceProcesses", contentData.referenceProcesses)
+    setEditorContent(contentData.processText)
+    let referenceProcessArray;
+    if(contentData.referenceProcesses){
+      referenceProcessArray = contentData.referenceProcesses.map(
+        (content) => {
+          return content.processTitle;
+        }
+      );
 
+      setTagsData(referenceProcessArray)
+    }
   }
+  }, [contentData])
+
+  
     //Query all processes for referencing
     const { data } = useQuery(QUERY_PROCESSES_SIMPLE);
     const processes = data?.getProcesses || [];
     
-  const renderTaggedProcesses = async (processes) => {
-    console.log('hi')
-  }
 
   const handleSubmit = async (formValues) => {
 
-    const processIDs = formValues.referenceProcesses.length > 0 ? processes.filter(process => formValues.referenceProcesses.includes(process.processTitle))
+    const processIDs = tagsData.length > 0 ? processes.filter(process => tagsData.includes(process.processTitle))
             .map(process => process._id)
             : 
             null;
+
     try {
       let variables = {
         processTitle: formValues.processTitle,
@@ -85,8 +98,6 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
     }
   };
 
-
-
   return (
     <Stack>
       <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
@@ -107,6 +118,7 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
           withAsterisk
         >
           <NativeSelect
+          key={form.key('processCategory')}
             {...form.getInputProps("processCategory")}
             data={[
               "Select Category",
@@ -167,6 +179,7 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
         >
           <ProcessEditor
             initialValue={editorContent}
+            key={form.key("processText")}
             {...form.getInputProps("processText")}
             // onChange={(event) => {
             //   form.setFieldValue("processText", event);
@@ -176,8 +189,10 @@ const ProcessEditorModal = ({contentData, closeModal, handleProcess}) => {
         <TagsInput
           label="Select Related Processes"
           placeholder="Select related processes"
-          key={form.key("referenceProcesses")}
-          {...form.getInputProps("referenceProcesses")}
+          value={tagsData}
+          onChange={(value) => setTagsData(value)}
+          // key={form.key("referenceProcesses")}
+          // {...form.getInputProps("referenceProcesses")}
           data={processes.map((process) => ({
             value: `${process._id}`,
             label: `${process.processTitle}`,

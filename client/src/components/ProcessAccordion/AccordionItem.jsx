@@ -3,22 +3,11 @@ import AccordionLabel from "./AccordionLabel";
 import ProcessContent from "../ProcessContent"
 import {useAuth} from "../../utils/AppContext"
 
-function AccordionItem({ dataArray, searchTerm, filterFlags }) {
+function AccordionItem({ dataArray}) {
   //Admin status
   const { userProfile } = useAuth();
-  //Filter from dataArray processes that do not match the search terms based on title or content
-  const filteredProcesses = dataArray.filter((process) => {
-    const matchesSearchTerms =
-      process.processTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      process.processText.toLowerCase().includes(searchTerm.toLowerCase());
-    let matchesFilter = true;
-    if (filterFlags == true && process.populatedFlags.length < 1) {
-      matchesFilter = false;
-    }
-    return matchesSearchTerms && matchesFilter;
-  });
 
-  return filteredProcesses.map((contentData) => (
+  return dataArray.map((contentData) => (
     <Group key={contentData._id} m={4}>
       <Accordion.Item
         className="item"
