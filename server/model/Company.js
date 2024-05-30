@@ -39,7 +39,11 @@ const companySchema = new Schema(
         ref: 'user'
       }
     ],
-    companyTasks: []
+    companyTasks: [],
+    recentSignIns: [{
+      type: Schema.Types.ObjectId,
+      ref: 'signin'
+    }]
 
   }
 );

@@ -1,0 +1,23 @@
+
+
+.divider{
+    width:97%;
+    margin-left: calc(01.5%);
+}
+
+.addReferral {
+    display: block;
+    text-align: right;
+    padding: 15px;
+    padding-right: 20px;
+
+
+    svg {
+        margin-top: 10px;
+        cursor: pointer;
+        color: var(--mantine-color-green-5);
+    }
+    svg:hover {
+        color: var(--mantine-color-brown-6);
+    }
+}

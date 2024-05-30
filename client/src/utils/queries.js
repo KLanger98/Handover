@@ -18,6 +18,20 @@ export const QUERY_ME = gql`
   }
 `
 
+export const SIGNINS = gql`
+    query Query {
+        getSignIns{
+        _id
+        date
+        user {
+            _id
+            fullName
+            imageUrl
+        }
+        }
+    }
+`
+
 export const QUERY_PROCESSES_GROUPED = gql`
     query Query {
         findProcessesGroupedByCategory {
