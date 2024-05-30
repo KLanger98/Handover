@@ -38,7 +38,6 @@ export const CREATE_USER_AND_COMPANY = gql`
   mutation Mutation($email: String!, $password: String!, $firstName: String!, $lastName: String!, $companyName: String!) {
     createCompanyAndUser(email: $email, password: $password, firstName: $firstName, lastName: $lastName, companyName: $companyName) {
       _id
-      company
       email
       firstName
       fullName

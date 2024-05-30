@@ -42,8 +42,8 @@ const SignUpPage = () => {
     }
 
     try {
-      const {firstName, lastName, email, password, companyName} = form.getValues();
-    
+      const {firstName, lastName, email, password, companyName} = await form.getValues();
+      
       const { data } = await createUserAndCompany({
         variables: { firstName, lastName, email, password, companyName}
       });

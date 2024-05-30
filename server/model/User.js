@@ -36,7 +36,6 @@ const userSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: 'company',
-        required: true
       }   ,
     contactNumber: {
       type: String

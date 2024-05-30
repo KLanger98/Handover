@@ -166,9 +166,10 @@ const resolvers = {
             const companyId = company._id
 
             user.company = companyId;
+
             await user.save();
 
-            return user
+            return user;
         },
 
         login: async (parent, {email, password}) => {
