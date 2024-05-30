@@ -1,4 +1,4 @@
-import { Stack, Title, Text, Grid, Image } from '@mantine/core'
+import { Stack, Title, Text, Grid, Image, Container } from '@mantine/core'
 import { Activity, Referrals, SignIns } from '../components'
 import { useQuery } from "@apollo/client";
 import { QUERY_REFERRALS, QUERY_SINGLE_COMPANY, SIGNINS } from "../utils/queries";

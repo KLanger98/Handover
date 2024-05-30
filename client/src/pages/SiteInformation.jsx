@@ -162,7 +162,7 @@ const SiteInformation = () => {
                 <Title order={4}>Site Map</Title>
                 {userProfile.moderator ? (
                   <TextInput
-                    w={300}
+                    w={500}
                     key={form.key("companyMap")}
                     {...form.getInputProps("companyMap")}
                   />
@@ -176,7 +176,7 @@ const SiteInformation = () => {
                     <Title order={4}>Company Image</Title>
                     {userProfile.moderator ? (
                       <TextInput
-                        w={300}
+                        w={500}
                         key={form.key("companyImage")}
                         {...form.getInputProps("companyImage")}
                       />
@@ -187,7 +187,8 @@ const SiteInformation = () => {
                 <Title order={4}>Dashboard Description</Title>
 
                 <Divider size="md" color="light-brown.4" m={4} />
-                <TextInput
+                <Textarea
+                resize="vertical"
                   key={form.key("dashboardText")}
                   {...form.getInputProps("dashboardText")}
                 />
