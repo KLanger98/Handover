@@ -110,7 +110,7 @@ const submitForm = async () => {
                       leftSectionPointerEvents="none"
                       leftSection={<IconAt size={14} />}
                       label="Your email"
-                      placeholder="seymour@gmail.com"
+                      placeholder="something@gmail.com"
                       key={form.key("email")}
                       {...form.getInputProps("email")}
                     />
