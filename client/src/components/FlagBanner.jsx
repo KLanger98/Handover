@@ -27,12 +27,12 @@ const FlagBanner = ({flagData}) => {
           bg="red.2"
           fluid
           mt={8}
-          p={5}
+          p={10}
           style={{ borderRadius: "10px" }}
         >
           <Group justify="space-between">
             <Group>
-              <IconFlag  size={25} />
+              <IconFlag  size={25} color="white" />
               <Text size="md">{flagData.flagText}</Text>
               <Text size="sm"fw={400}> - {flagData.formattedDate}</Text>
             </Group>

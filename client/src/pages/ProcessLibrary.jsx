@@ -97,17 +97,17 @@ const ProcessLibrary = () => {
   }
 
   return (
-    <>
-      <Group justify="space-between">
-        <Group>
-          <Stack>
-            <Title order={2}>Process Library</Title>
-            <Text>
-              Here you can find all relevant processes for your position!
-            </Text>
-          </Stack>
-        </Group>
-        <Group w="40%" direction="row" wrap="nowrap" mr={40}>
+    <Stack>
+      <Group>
+        <Stack>
+          <Title order={2}>Process Library</Title>
+          <Text>
+            Here you can find all relevant processes for your position!
+          </Text>
+        </Stack>
+      </Group>
+      <Stack>
+        <Group w="80%" direction="row" wrap="nowrap" m={10}>
           <TextInput
             placeholder="Search for a Process"
             size="md"
@@ -118,7 +118,44 @@ const ProcessLibrary = () => {
             <IconSearch color="white" />
           </ActionIcon>
         </Group>
-      </Group>
+        {userProfile.moderator === true && (
+          <Group>
+            <Button
+              variant="form"
+              size="lg"
+              ml={10}
+              w={300}
+              leftSection={<IconLibraryPlus size={25} />}
+              onClick={open}
+            >
+              Add Process
+            </Button>
+            {!filterFlags ? (
+              <Button
+                variant="delete"
+                ml={10}
+                w={300}
+                size="lg"
+                leftSection={<IconFlagCog size={25} />}
+                onClick={handleFlagFilterChange}
+              >
+                View Flagged Processes
+              </Button>
+            ) : (
+              <Button
+                variant="edit"
+                ml={10}
+                w={300}
+                size="lg"
+                leftSection={<IconFlagCog size={25} />}
+                onClick={handleFlagFilterChange}
+              >
+                Show All Processes
+              </Button>
+            )}
+          </Group>
+        )}
+      </Stack>
 
       <Modal opened={opened} onClose={close} centered size="70%">
         {/* Modal content */}
@@ -129,32 +166,9 @@ const ProcessLibrary = () => {
           handleProcess={handleAddProcess}
         />
       </Modal>
-      {userProfile.moderator === true && (
-      <Group>
-        <Button
-          variant="form"
-          size="lg"
-          m={10}
-          leftSection={<IconLibraryPlus size={25} />}
-          onClick={open}
-        >
-          Add Process
-        </Button>
-        
-          <Button
-            variant="delete"
-            size="lg"
-            m={10}
-            leftSection={<IconFlagCog size={25} />}
-            onClick={handleFlagFilterChange}
-          >
-            View Flagged Processes
-          </Button>
-      </Group>
-      )}
 
       {renderAccordian(processData)}
-    </>
+    </Stack>
   );
 };
 

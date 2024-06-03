@@ -192,7 +192,7 @@ const SiteInformation = () => {
                   key={form.key("dashboardText")}
                   {...form.getInputProps("dashboardText")}
                 />
-                <Group>
+                <Group m={10}>
                   <Button variant="form" type="submit" m={5}>
                     Save
                   </Button>
