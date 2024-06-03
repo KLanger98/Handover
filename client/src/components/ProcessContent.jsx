@@ -157,12 +157,12 @@ const ProcessContent = ({ contentData, flagData, pageRedirect, referenceProcessD
       </Group>
       <Box>{flagData && renderFlags(flagData)}</Box>
       <Grid>
-        <Grid.Col span={9}>
+        <Grid.Col span={{ base: 12, md: 12, lg: 9 }}>
           <div
             dangerouslySetInnerHTML={{ __html: contentData.processText }}
           ></div>
         </Grid.Col>
-        <Grid.Col span={3}>
+        <Grid.Col span={{ base: 12, md: 12, lg: 3 }}>
           {referenceProcessData && referenceProcessData.length > 0 && (
             <Stack>
               <Title order={5}>Useful Processes:</Title>

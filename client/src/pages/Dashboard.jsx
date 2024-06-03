@@ -42,7 +42,7 @@ const Dashboard = () => {
     <Stack p={10}>
       {/* Main Notes */}
       <Grid p="sm" width="50%" align="center">
-        <Grid.Col p={0} span={9}>
+        <Grid.Col p={0} span={{base: 12, md: 8}}>
           <Stack>
             <Title order={2} c="columbia-blue.9" pl={3}>
               Dashboard
@@ -50,8 +50,10 @@ const Dashboard = () => {
             <Text>{dashData.dashboardText}</Text>
           </Stack>
         </Grid.Col>
-        <Grid.Col span={3} align="center">
-          <Container
+        <Grid.Col span={{base: 12, md: 4}} align="center">
+          {dashData.companyImage && (
+            <Container
+            visibleFrom='md'
             w={200}
             h={200}
             bg="light-brown.8"
@@ -61,14 +63,15 @@ const Dashboard = () => {
               justifyContent: "center",
               borderRadius: "50%",
             }}
-          >
-            <Image
-              w={100}
-              h="auto"
-              src={dashData.companyImage}
-              style={{ border: "2px solid black" }}
-            />
-          </Container>
+            >
+              <Image
+                w={100}
+                h="auto"
+                src={dashData.companyImage}
+                style={{ border: "2px solid black" }}
+              />
+            </Container>
+          )}
         </Grid.Col>
       </Grid>
 
